@@ -15,14 +15,19 @@ export default class App extends React.Component {
 
   componentDidMount() {
     this.authListener();
+    
   }
 
   authListener() {
     fire.auth().onAuthStateChanged((user) => {
-      
       if (user) {
-        console.log('User:', user.displayName);
         this.setState({ user });
+          fire.storage().ref('defaultProfilePicture.png').getDownloadURL().then(url => {
+            user.updateProfile({
+              photoURL: url
+            })
+          })
+        
         // localStorage.setItem('user', user.uid);
       } else {
         this.setState({user: null});

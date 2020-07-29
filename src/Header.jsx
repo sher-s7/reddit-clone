@@ -1,9 +1,10 @@
 import React from 'react';
 
-import Logo from './assets/logo.png';   
 import Profile from './Profile';
 import Login from './Login';
 import Signup from './Signup';
+
+import Logo from './assets/robot-logo.png'
 
 export default class Header extends React.Component {
 
@@ -13,7 +14,8 @@ export default class Header extends React.Component {
     <header>
         <img src={Logo} alt="logo"/>
 
-        {this.props.user ? (<Profile authListener={this.props.authListener} user={this.props.user}/>) : (<div><Login/> <Signup/></div>)}
+        {this.props.user ? (<Profile user={this.props.user}/>) : 
+        (<div><Login/> <Signup/></div>)}
     </header>
   );
 }

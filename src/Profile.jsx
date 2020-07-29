@@ -9,14 +9,16 @@ export default class Profile extends React.Component {
         this.logout = this.logout.bind(this);
     }
 
+
+
     logout() {
         fire.auth().signOut();
-        this.props.authListener();
     }
 
     render() {
         return (
             <div>
+                <img src={this.props.user.photoURL} alt="profile picture"/>
                {this.props.user.displayName}'s profile
                 <button onClick={this.logout}>Logout</button>
             </div>
