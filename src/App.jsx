@@ -1,7 +1,14 @@
 import React from 'react';
 import fire from './config/Fire';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
-import Header from './Header'
+import Header from './Header';
+import Profile from './Profile';
 
 export default class App extends React.Component {
 
@@ -27,11 +34,8 @@ export default class App extends React.Component {
               photoURL: url
             })
           })
-        
-        // localStorage.setItem('user', user.uid);
       } else {
         this.setState({user: null});
-        // localStorage.removeItem('user');
       }
     });
   }
