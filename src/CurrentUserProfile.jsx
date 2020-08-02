@@ -1,7 +1,9 @@
 import React from 'react';
 import fire from './config/Fire';
 
-export default class CurrentUserProfile extends React.Component {
+import { withRouter } from 'react-router-dom';
+
+class CurrentUserProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -10,16 +12,29 @@ export default class CurrentUserProfile extends React.Component {
     }
 
     componentDidMount() {
+        // console.log('hello')
         fire.firestore().collection('users').where('username', '==', this.props.userId).get().then(userSnapshot => {
             if (userSnapshot.docs.length > 0) {
                 this.setState({ user: userSnapshot.docs[0] })
             }
         })
-        
+    }
+
+    componentDidUpdate(prevProps) {
+        console.log('CurrentUserProfile: componentDidUpdate loop test')
+        if (prevProps.userId !== this.props.userId) {
+            fire.firestore().collection('users').where('username', '==', this.props.userId).get().then(userSnapshot => {
+                if (userSnapshot.docs.length > 0) {
+                    if (this.state.user !== userSnapshot.docs[0]) {
+                        this.setState({ user: userSnapshot.docs[0] })
+                    }
+                }
+            })
+        }
     }
 
     render() {
-        
+
         return (
             this.state.user === null ?
                 <div>user not found</div>
@@ -32,5 +47,7 @@ export default class CurrentUserProfile extends React.Component {
         );
     }
 }
+
+export default withRouter(CurrentUserProfile);
 
 

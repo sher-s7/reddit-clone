@@ -18,19 +18,13 @@ export default class Header extends React.Component {
   render() {
     return (
       <header>
-
-        <Router>
-          <Link to='/'><img src={Logo} alt="logo" /></Link>
-          {this.props.user ?
-            <div>
-              <Link to={`/profile/${this.props.user.displayName}`}>Profile</Link>
-              <Link to='/' onClick={this.logout}>Logout</Link>
-            </div> :
-            (<div><button onClick={() => this.props.setModal('login')} id='loginButton'>LOGIN</button> <button onClick={() => this.props.setModal('signup')} id='signupButton'>SIGN UP</button></div>)}
-        </Router>
-
-
-
+        <Link to='/'><img src={Logo} alt="logo" /></Link>
+        {this.props.user ?
+          <div>
+            <Link to={`/profile/${this.props.user.displayName}`}>Profile</Link>
+            <Link to='/' onClick={this.logout}>Logout</Link>
+          </div> :
+          (<div><button onClick={() => this.props.setModal('login')} id='loginButton'>LOGIN</button> <button onClick={() => this.props.setModal('signup')} id='signupButton'>SIGN UP</button></div>)}
       </header>
     );
   }

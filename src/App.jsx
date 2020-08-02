@@ -30,9 +30,7 @@ export default class App extends React.Component {
   authListener() {
     fire.auth().onAuthStateChanged((user) => {
       if (user) {
-        fire.firestore().collection('users').where('uid', '==', user.uid).get().then(userSnapshot => {
-          this.setState({ currentUser: user });
-        })
+        this.setState({ currentUser: user });
       } else {
         this.setState({ currentUser: null });
       }
@@ -52,18 +50,16 @@ export default class App extends React.Component {
   render() {
     return (
       <Router>
-      <div className="App">
-        <Header authListener={this.authListener} user={this.state.currentUser} setModal={this.setModal} />
-        {this.state.modal}
         
+          <Header authListener={this.authListener} user={this.state.currentUser} setModal={this.setModal} />
+          {this.state.modal}
+
           <Switch>
-            <Route path='/profile/:userId' render={({match}) => (
-              <CurrentUserProfile userId={match.params.userId} />
-            )}/>
-            <Route exact path='/' component={Home}/>
+            <Route exact path='/' component={Home} />
+            <Route path='/profile/:userId' render={({ match }) => <CurrentUserProfile userId={match.params.userId} />} />
           </Switch>
-        
-      </div>
+
+       
       </Router>
     );
   }
