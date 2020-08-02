@@ -27,11 +27,13 @@ export default class Login extends React.Component {
             }
         }).then(() => {
             fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+            .then(this.props.setModal)
             .catch(error => {
                 console.error(error.message);
                 this.setState({ error: error.message })
             });
-        }).catch(error => {
+        })
+        .catch(error => {
             console.error(error.message);
             this.setState({ error: error.message })
         });
@@ -44,6 +46,7 @@ export default class Login extends React.Component {
     render() {
         return (
             <div id='loginModal'>
+                <button onClick={this.props.setModal}> ╳ </button>
                 <form onSubmit={this.login}>
                     <label htmlFor="username">
                         Username:

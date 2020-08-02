@@ -4,49 +4,69 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 
 import Header from './Header';
-import Profile from './Profile';
+import Home from './Home';
+import Login from './Login';
+import Signup from './Signup';
+import CurrentUserProfile from './CurrentUserProfile';
 
 export default class App extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      user:null,
+      currentUser: null,
+      modal: null,
     }
     this.authListener = this.authListener.bind(this);
   }
 
   componentDidMount() {
     this.authListener();
-    
   }
 
   authListener() {
     fire.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.setState({ user });
-          fire.storage().ref('defaultProfilePicture.png').getDownloadURL().then(url => {
-            user.updateProfile({
-              photoURL: url
-            })
-          })
+        fire.firestore().collection('users').where('uid', '==', user.uid).get().then(userSnapshot => {
+          this.setState({ currentUser: user });
+        })
       } else {
-        this.setState({user: null});
+        this.setState({ currentUser: null });
       }
     });
   }
-  
+
+  setModal = (modal) => {
+    if (modal === 'login') {
+      this.setState({ modal: <Login setModal={this.setModal} /> })
+    } else if (modal === 'signup') {
+      this.setState({ modal: <Signup setModal={this.setModal} /> })
+    } else {
+      this.setState({ modal: null })
+    }
+  }
+
   render() {
-  return (
-    <div className="App">
-      <Header authListener={this.authListener} user={this.state.user}/>
-    </div>
-  );
-}
+    return (
+      <Router>
+      <div className="App">
+        <Header authListener={this.authListener} user={this.state.currentUser} setModal={this.setModal} />
+        {this.state.modal}
+        
+          <Switch>
+            <Route path='/profile/:userId' render={({match}) => (
+              <CurrentUserProfile userId={match.params.userId} />
+            )}/>
+            <Route exact path='/' component={Home}/>
+          </Switch>
+        
+      </div>
+      </Router>
+    );
+  }
 }
 
 

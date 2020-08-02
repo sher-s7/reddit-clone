@@ -28,14 +28,17 @@ export default class Signup extends React.Component {
                             displayName: this.state.username,
                             photoURL: url
                         })
+                        fire.firestore().collection('users').doc(userData.user.uid).set({
+                            accountCreated: new Date(),
+                            email: this.state.email,
+                            points: 0,
+                            username: this.state.username,
+                            photoUrl: url
+                        });
                     })
-                    fire.firestore().collection('users').doc(userData.user.uid).set({
-                        accountCreated: new Date(),
-                        email: this.state.email,
-                        points: 0,
-                        username: this.state.username
-                    });
-                }).catch(error => {
+                    
+                }).then(this.props.setModal)
+                .catch(error => {
                     this.setState({ error: error.message })
                 });
             }
@@ -53,6 +56,7 @@ export default class Signup extends React.Component {
     render() {
         return (
             <div id='signUpModal'>
+                <button onClick={this.props.setModal}> ╳ </button>
                 <form onSubmit={this.signup}>
                     <label htmlFor="username">
                         Username:
