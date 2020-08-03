@@ -1,6 +1,7 @@
 import React from 'react';
 import Feed from './Feed';
 import fire from './config/Fire';
+import NewPost from './NewPost';
 
 export default class Home extends React.Component {
 
@@ -11,7 +12,7 @@ export default class Home extends React.Component {
     render() {
         return (
             <div>
-                Home
+                <NewPost setModal={this.props.setModal}/>
                 <Feed fetchPosts={this.fetchPosts} />
             </div>
         );

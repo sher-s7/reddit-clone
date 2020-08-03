@@ -50,16 +50,18 @@ export default class App extends React.Component {
   render() {
     return (
       <Router>
-        
-          <Header authListener={this.authListener} user={this.state.currentUser} setModal={this.setModal} />
-          {this.state.modal}
 
-          <Switch>
-            <Route exact path='/' component={Home} />
-            <Route path='/profile/:userId' render={({ match }) => <CurrentUserProfile userId={match.params.userId} />} />
-          </Switch>
+        <Header authListener={this.authListener} user={this.state.currentUser} setModal={this.setModal} />
+        {this.state.modal}
 
-       
+        <Switch>
+          <Route exact path='/'>
+            <Home setModal={this.setModal} />
+          </Route>
+          <Route path='/profile/:userId' render={({ match }) => <CurrentUserProfile userId={match.params.userId} />} />
+        </Switch>
+
+
       </Router>
     );
   }
