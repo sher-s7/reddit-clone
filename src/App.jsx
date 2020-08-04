@@ -11,6 +11,7 @@ import Home from './Home';
 import Login from './Login';
 import Signup from './Signup';
 import CurrentUserProfile from './CurrentUserProfile';
+import NewPostModal from './NewPostModal';
 
 export default class App extends React.Component {
 
@@ -19,12 +20,14 @@ export default class App extends React.Component {
     this.state = {
       currentUser: null,
       modal: null,
+      posts: null,
     }
     this.authListener = this.authListener.bind(this);
   }
 
   componentDidMount() {
     this.authListener();
+    this.fetchPosts();
   }
 
   authListener() {
@@ -42,9 +45,23 @@ export default class App extends React.Component {
       this.setState({ modal: <Login setModal={this.setModal} /> })
     } else if (modal === 'signup') {
       this.setState({ modal: <Signup setModal={this.setModal} /> })
+    } else if (modal === 'text' || modal === 'image' || modal === 'link') {
+      if (this.state.currentUser) {
+        this.setState({ modal: <NewPostModal updateView={this.fetchPosts} setModal={this.setModal} tab={modal} /> })
+      } else {
+        alert('Must be signed in')
+      }
     } else {
       this.setState({ modal: null })
     }
+  }
+
+  fetchPosts = () => {
+    fire.firestore().collection('posts').orderBy('dateCreated', 'desc').limit(25).get().then(postsData => {
+      this.setState({
+        posts: postsData.docs
+      });
+    });
   }
 
   render() {
@@ -53,10 +70,9 @@ export default class App extends React.Component {
 
         <Header authListener={this.authListener} user={this.state.currentUser} setModal={this.setModal} />
         {this.state.modal}
-
         <Switch>
           <Route exact path='/'>
-            <Home setModal={this.setModal} />
+            <Home posts={this.state.posts ? this.state.posts : null} setModal={this.setModal} />
           </Route>
           <Route path='/profile/:userId' render={({ match }) => <CurrentUserProfile userId={match.params.userId} />} />
         </Switch>
