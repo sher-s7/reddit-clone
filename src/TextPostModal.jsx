@@ -12,7 +12,7 @@ export default class TextPostModal extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         fire.firestore().collection('posts').add({
-
+            type: 'text',
             body: this.state.body,
             dateCreated: new Date(),
             points: 0,

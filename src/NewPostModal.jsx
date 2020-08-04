@@ -24,7 +24,6 @@ export default class NewPostModal extends React.Component {
     }
 
     dislpayModal = () => {
-        console.log(this.state.tab)
         if (this.state.tab === 'text') {
             return <TextPostModal updateView={this.props.updateView} setModal={this.props.setModal} selectedGroup={this.state.selectedGroup}/>;
         } else if (this.state.tab === 'image') {
@@ -40,7 +39,6 @@ export default class NewPostModal extends React.Component {
         return (
             <div className='newPostModal'>
                 <h3>Create a post</h3>
-                <span>Select value: {this.state.selectedGroup}</span>
                 <div>
                     <ul>
                         <li><button onClick={() => this.setState({ tab: 'text' })}>Text</button></li>
