@@ -6,6 +6,8 @@ import {
 
 import Logo from './assets/robot-logo.png'
 import fire from './config/Fire';
+import GroupsNav from './GroupsNav';
+import AllGroups from './AllGroups';
 
 export default class Header extends React.Component {
 
@@ -18,6 +20,8 @@ export default class Header extends React.Component {
     return (
       <header>
         <Link to='/'><img src={Logo} alt="logo" /></Link>
+        <Link to='/groups'>All groups</Link>
+        <GroupsNav/>
         {this.props.user ?
           <div>
             <Link to={`/profile/${this.props.user.displayName}`}>Profile</Link>

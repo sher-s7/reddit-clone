@@ -8,10 +8,12 @@ import {
 
 import Header from './Header';
 import Home from './Home';
+import Group from './Group';
 import Login from './Login';
 import Signup from './Signup';
 import CurrentUserProfile from './CurrentUserProfile';
 import NewPostModal from './NewPostModal';
+import AllGroups from './AllGroups';
 
 export default class App extends React.Component {
 
@@ -47,7 +49,7 @@ export default class App extends React.Component {
       this.setState({ modal: <Signup setModal={this.setModal} /> })
     } else if (modal === 'text' || modal === 'image' || modal === 'link') {
       if (this.state.currentUser) {
-        this.setState({ modal: <NewPostModal updateView={this.fetchPosts} setModal={this.setModal} tab={modal} /> })
+        this.setState({ modal: <NewPostModal updateView={this.updateView} setModal={this.setModal} tab={modal} /> })
       } else {
         alert('Must be signed in')
       }
@@ -57,11 +59,15 @@ export default class App extends React.Component {
   }
 
   fetchPosts = () => {
-    fire.firestore().collection('posts').orderBy('dateCreated', 'desc').limit(25).get().then(postsData => {
-      this.setState({
-        posts: postsData.docs
+      fire.firestore().collection('posts').orderBy('dateCreated', 'desc').limit(25).get().then(postsData => {
+        this.setState({
+          posts: postsData.docs
+        });
       });
-    });
+  }
+
+  updateView() {
+    window.location.reload(false);
   }
 
   render() {
@@ -75,6 +81,8 @@ export default class App extends React.Component {
             <Home posts={this.state.posts ? this.state.posts : null} setModal={this.setModal} />
           </Route>
           <Route path='/profile/:userId' render={({ match }) => <CurrentUserProfile userId={match.params.userId} />} />
+          <Route path='/group/:groupId' render={({ match }) => <Group group={match.params.groupId} setModal={this.setModal}/>} />
+          <Route path='/groups' component={AllGroups}/>
         </Switch>
 
 
