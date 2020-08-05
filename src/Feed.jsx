@@ -1,5 +1,6 @@
 import React from 'react';
 import LinkImage from './assets/link.png';
+import { Link } from 'react-router-dom';
 export default class Feed extends React.Component {
     constructor(props) {
         super(props);
@@ -15,6 +16,7 @@ export default class Feed extends React.Component {
                 <li key={post.id}>
                     <h1>{postData.title}</h1>
                     <h2>{postData.body}</h2>
+                    <Link to={`/post/${post.id}`}>Comments</Link>
                 </li>
             );
         } else if (postData.type === 'image') {
@@ -22,6 +24,7 @@ export default class Feed extends React.Component {
                 <li key={post.id}>
                     <h1>{postData.title}</h1>
                     <img width='250px' src={postData.image} alt='post img'></img>
+                    <Link to={`/post/${post.id}`}>Comments</Link>
                 </li>
             );
         } else if (postData.type === 'link') {
@@ -31,6 +34,7 @@ export default class Feed extends React.Component {
                         <img src={LinkImage} alt="link"/>
                         <h1>{postData.title}</h1>
                     </a>
+                    <Link to={`/post/${post.id}`}>Comments</Link>
                 </li>
             );
         }

@@ -14,6 +14,7 @@ import Signup from './Signup';
 import CurrentUserProfile from './CurrentUserProfile';
 import NewPostModal from './NewPostModal';
 import AllGroups from './AllGroups';
+import Post from './Post';
 
 export default class App extends React.Component {
 
@@ -83,6 +84,7 @@ export default class App extends React.Component {
           <Route path='/profile/:userId' render={({ match }) => <CurrentUserProfile userId={match.params.userId} />} />
           <Route path='/group/:groupId' render={({ match }) => <Group group={match.params.groupId} setModal={this.setModal}/>} />
           <Route path='/groups' component={AllGroups}/>
+          <Route path='/post/:postId' render={({match}) => <Post postId={match.params.postId}/> }/>
         </Switch>
 
 
