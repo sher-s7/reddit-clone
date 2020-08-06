@@ -48,7 +48,7 @@ export default class App extends React.Component {
     if (modal === 'login') {
       this.setState({ modal: <Login updateView={this.updateView} setModal={this.setModal} /> })
     } else if (modal === 'signup') {
-      this.setState({ modal: <Signup updateView={this.updateView} setModal={this.setModal} /> })
+      this.setState({ modal: <Signup authListener={this.authListener} setModal={this.setModal} /> })
     } else if (modal === 'text' || modal === 'image' || modal === 'link') {
       if (this.state.currentUser) {
         this.setState({ modal: <NewPostModal updateView={this.updateView} setModal={this.setModal} tab={modal} /> })

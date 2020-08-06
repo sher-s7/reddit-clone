@@ -30,7 +30,7 @@ export default class Post extends React.Component {
             return (
                 <div className='post'>
                     <h3>{post.title}</h3>
-                    <img src={post.image} alt='post img' />
+                    <img width='290px' src={post.image} alt='post img' />
                 </div>
             )
         } else if (post.type === 'link') {

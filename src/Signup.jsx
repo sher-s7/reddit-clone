@@ -27,26 +27,29 @@ export default class Signup extends React.Component {
                         userData.user.updateProfile({
                             displayName: this.state.username,
                             photoURL: url
-                        })
-                        fire.firestore().collection('users').doc(userData.user.uid).set({
-                            accountCreated: new Date(),
-                            email: this.state.email,
-                            points: 0,
-                            username: this.state.username,
-                            photoUrl: url
+                        }).then(() => {
+                            this.props.setModal()
+                            fire.firestore().collection('users').doc(userData.user.uid).set({
+                                accountCreated: new Date(),
+                                email: this.state.email,
+                                points: 0,
+                                username: this.state.username,
+                                photoUrl: url
+                            }).then(this.props.authListener)
                         });
                     })
-                    
-                }).then(this.props.updateView)
-                .catch(error => {
-                    this.setState({ error: error.message })
-                });
+
+                })
+                    .catch(error => {
+                        this.setState({ error: error.message })
+                    });
             }
 
         })
             .catch(error => {
                 this.setState({ error: error.message })
-            });
+            })
+
     }
 
     handleChange = (e) => {

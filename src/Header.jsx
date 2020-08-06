@@ -21,9 +21,9 @@ export default class Header extends React.Component {
         <Link to='/'><img src={Logo} alt="logo" /></Link>
         <Link to='/groups'>All groups</Link>
         <GroupsNav/>
-        {this.props.user ?
+        {fire.auth().currentUser ?
           <div>
-            <Link to={`/profile/${this.props.user.displayName}`}>Profile</Link>
+            <Link to={`/profile/${fire.auth().currentUser.displayName}`}>Profile</Link>
             <Link to='/' onClick={this.logout}>Logout</Link>
           </div> :
           (<div><button onClick={() => this.props.setModal('login')} id='loginButton'>LOGIN</button> <button onClick={() => this.props.setModal('signup')} id='signupButton'>SIGN UP</button></div>)}
