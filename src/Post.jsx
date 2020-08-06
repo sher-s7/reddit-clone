@@ -1,21 +1,20 @@
 import React from 'react';
 import fire from './config/Fire';
-import { Link } from 'react-router-dom';
 import NewComment from './NewComment';
+import CommentTemplate from './CommentTemplate';
 export default class Post extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            
         }
     }
 
     componentDidMount = () => {
         fire.firestore().collection('posts').doc(this.props.postId).get().then(docRef => {
-            this.setState({ post: docRef.data() })
+            this.setState({ post: docRef.data(), user: fire.auth().currentUser })
         });
-        fire.firestore().collection('comments').where('postId', '==', this.props.postId).get().then(commentsData => {
-            this.setState({ comments: commentsData.docs })
-        });
+        this.updateComments();
     }
 
     displayPost = () => {
@@ -43,6 +42,12 @@ export default class Post extends React.Component {
         }
     }
 
+    updateComments = () => {
+        fire.firestore().collection('comments').where('postId', '==', this.props.postId).orderBy('points', 'desc').get().then(commentsData => {
+            this.setState({ comments: commentsData.docs })
+        });
+    }
+
     render() {
         return (
             this.state.post && this.state.comments ? (
@@ -50,13 +55,9 @@ export default class Post extends React.Component {
                     {this.displayPost()}
                     <div className='comments'>
                         <span>Comments</span>
-                        <NewComment postId={this.props.postId}/>
+                        <NewComment updateComments={this.updateComments} postId={this.props.postId}/>
                         {this.state.comments.map(comment => (
-                            <div key={comment.id} className='comment'>
-                                <div className='commentPoints'>{comment.data().points}</div>
-                                <Link to={`/profile/${comment.data().creator}`}>{comment.data().creator}</Link>
-                                <p>{comment.data().text}</p>
-                            </div>
+                            <CommentTemplate user={this.state.user} key={comment.id} updateComments={this.updateComments} comment={comment}/>
                         ))}
                     </div>
                 </div>

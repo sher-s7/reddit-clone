@@ -7,7 +7,7 @@ export default class NewComment extends React.Component {
             comment: ''
         }
     }
-    
+
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
@@ -20,14 +20,17 @@ export default class NewComment extends React.Component {
             text: this.state.comment,
             dateCreated: new Date(),
             postId: this.props.postId
-        })
+        }).then(() => {
+            this.setState({ comment: '' });
+            this.props.updateComments();   
+        });
     }
 
     render() {
         return (
             <form onSubmit={this.handleSubmit} className='newCommentForm'>
-                <textarea value={this.state.textarea} name='comment' onChange={this.handleChange} id="commentTextArea"/>
-                <input type="submit" value="Submit comment"/>
+                <textarea value={this.state.comment} name='comment' onChange={this.handleChange} id="commentTextArea" />
+                <input type="submit" value="Submit comment" />
             </form>
         );
     }

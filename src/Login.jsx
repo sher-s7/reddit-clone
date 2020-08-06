@@ -27,7 +27,7 @@ export default class Login extends React.Component {
             }
         }).then(() => {
             fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then(this.props.setModal)
+            .then(this.props.updateView)
             .catch(error => {
                 console.error(error.message);
                 this.setState({ error: error.message })

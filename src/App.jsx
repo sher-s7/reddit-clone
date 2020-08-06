@@ -32,6 +32,7 @@ export default class App extends React.Component {
     this.authListener();
     this.fetchPosts();
   }
+  
 
   authListener() {
     fire.auth().onAuthStateChanged((user) => {
@@ -45,9 +46,9 @@ export default class App extends React.Component {
 
   setModal = (modal) => {
     if (modal === 'login') {
-      this.setState({ modal: <Login setModal={this.setModal} /> })
+      this.setState({ modal: <Login updateView={this.updateView} setModal={this.setModal} /> })
     } else if (modal === 'signup') {
-      this.setState({ modal: <Signup setModal={this.setModal} /> })
+      this.setState({ modal: <Signup updateView={this.updateView} setModal={this.setModal} /> })
     } else if (modal === 'text' || modal === 'image' || modal === 'link') {
       if (this.state.currentUser) {
         this.setState({ modal: <NewPostModal updateView={this.updateView} setModal={this.setModal} tab={modal} /> })
@@ -75,14 +76,14 @@ export default class App extends React.Component {
     return (
       <Router>
 
-        <Header authListener={this.authListener} user={this.state.currentUser} setModal={this.setModal} />
+        <Header updateView={this.updateView} authListener={this.authListener} user={this.state.currentUser} setModal={this.setModal} />
         {this.state.modal}
         <Switch>
           <Route exact path='/'>
-            <Home posts={this.state.posts ? this.state.posts : null} setModal={this.setModal} />
+            <Home updatePosts={this.fetchPosts} posts={this.state.posts ? this.state.posts : null} setModal={this.setModal} />
           </Route>
           <Route path='/profile/:userId' render={({ match }) => <CurrentUserProfile userId={match.params.userId} />} />
-          <Route path='/group/:groupId' render={({ match }) => <Group group={match.params.groupId} setModal={this.setModal}/>} />
+          <Route path='/group/:groupId' render={({ match }) => <Group updatePosts={this.fetchPosts} group={match.params.groupId} setModal={this.setModal}/>} />
           <Route path='/groups' component={AllGroups}/>
           <Route path='/post/:postId' render={({match}) => <Post postId={match.params.postId}/> }/>
         </Switch>

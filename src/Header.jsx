@@ -7,13 +7,12 @@ import {
 import Logo from './assets/robot-logo.png'
 import fire from './config/Fire';
 import GroupsNav from './GroupsNav';
-import AllGroups from './AllGroups';
 
 export default class Header extends React.Component {
 
 
   logout = () => {
-    fire.auth().signOut();
+    fire.auth().signOut().then(this.props.updateView);
   }
 
   render() {

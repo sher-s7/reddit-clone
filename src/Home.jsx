@@ -7,7 +7,7 @@ export default class Home extends React.Component {
         return (
             <div>
                 <NewPost setModal={this.props.setModal} />
-                {this.props.posts ? <Feed posts={this.props.posts} /> : <span id='loading'>Loading</span>}
+                {this.props.posts ? <Feed updatePosts={this.props.updatePosts} posts={this.props.posts} /> : <span id='loading'>Loading</span>}
             </div>
         );
     }

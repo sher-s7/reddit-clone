@@ -12,7 +12,6 @@ class CurrentUserProfile extends React.Component {
     }
 
     componentDidMount() {
-        // console.log('hello')
         fire.firestore().collection('users').where('username', '==', this.props.userId).get().then(userSnapshot => {
             if (userSnapshot.docs.length > 0) {
                 this.setState({ user: userSnapshot.docs[0] })

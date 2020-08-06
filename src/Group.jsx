@@ -25,7 +25,6 @@ export default class Home extends React.Component {
     }
 
     fetchPosts = () => {
-        console.log('helo')
         fire.firestore().collection('posts').where('group', '==', this.props.group).orderBy('dateCreated', 'desc').limit(25).get().then(postsData => {
           this.setState({
             posts: postsData.docs
@@ -36,7 +35,7 @@ export default class Home extends React.Component {
         return (
             <div>
                 <NewPost setModal={this.props.setModal} />
-                {this.state.posts ? <Feed posts={this.state.posts} /> : <span id='loading'>Loading</span>}
+                {this.state.posts ? <Feed updatePosts={this.props.updatePosts} posts={this.state.posts} /> : <span id='loading'>Loading</span>}
             </div>
         );
     }

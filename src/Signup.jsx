@@ -37,7 +37,7 @@ export default class Signup extends React.Component {
                         });
                     })
                     
-                }).then(this.props.setModal)
+                }).then(this.props.updateView)
                 .catch(error => {
                     this.setState({ error: error.message })
                 });
