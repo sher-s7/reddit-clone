@@ -18,6 +18,7 @@ export default class TextPostModal extends React.Component {
             points: 0,
             title: this.state.title,
             uid: fire.auth().currentUser.uid,
+            username: fire.auth().currentUser.displayName,
             group: this.props.selectedGroup,
         }).then(this.props.updateView).then(this.props.setModal)
     }

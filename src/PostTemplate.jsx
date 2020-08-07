@@ -2,6 +2,7 @@ import React from 'react';
 import DeletePostButton from './DeletePostButton';
 import { Link } from 'react-router-dom';
 import LinkImage from './assets/link.png';
+import fire from './config/Fire';
 export default class PostTemplate extends React.Component {
     constructor(props) {
         super(props);
@@ -13,35 +14,38 @@ export default class PostTemplate extends React.Component {
         const post = this.props.post;
         const postData = this.props.post.data();
         let currentUserPost = false;
-        if(this.props.user && this.props.user.uid === postData.uid) {
+        if (this.props.user && this.props.user.uid === postData.uid) {
             currentUserPost = true;
         }
         if (postData.type === 'text') {
             return (
                 <li key={post.id}>
+                    <span>Posted by <Link to={`/profile/${postData.username}`}>{postData.username}</Link></span>
                     <h1>{postData.title}</h1>
                     <h2>{postData.body}</h2>
-                    {currentUserPost ? <DeletePostButton updatePosts={this.props.updatePosts} docId={post.id}/> : null}
+                    {currentUserPost ? <DeletePostButton updatePosts={this.props.updatePosts} docId={post.id} /> : null}
                     <Link to={`/post/${post.id}`}>Comments</Link>
                 </li>
             );
         } else if (postData.type === 'image') {
             return (
                 <li key={post.id}>
+                    <span>Posted by <Link to={`/profile/${postData.username}`}>{postData.username}</Link></span>
                     <h1>{postData.title}</h1>
                     <img width='250px' src={postData.image} alt='post img'></img>
-                    {currentUserPost ? <DeletePostButton updatePosts={this.props.updatePosts} docId={post.id}/> : null}
+                    {currentUserPost ? <DeletePostButton updatePosts={this.props.updatePosts} type={'image'} docId={post.id} /> : null}
                     <Link to={`/post/${post.id}`}>Comments</Link>
                 </li>
             );
         } else if (postData.type === 'link') {
             return (
                 <li key={post.id}>
-                    <a target='_blank' href={"http://"+postData.link} rel="noopener noreferrer">
-                        <img src={LinkImage} alt="link"/>
+                    <span>Posted by <Link to={`/profile/${postData.username}`}>{postData.username}</Link></span>
+                    <a target='_blank' href={"http://" + postData.link} rel="noopener noreferrer">
+                        <img src={LinkImage} alt="link" />
                         <h1>{postData.title}</h1>
                     </a>
-                    {currentUserPost ? <DeletePostButton updatePosts={this.props.updatePosts} docId={post.id}/> : null}
+                    {currentUserPost ? <DeletePostButton updatePosts={this.props.updatePosts} docId={post.id} /> : null}
                     <Link to={`/post/${post.id}`}>Comments</Link>
                 </li>
             );
