@@ -1,18 +1,24 @@
 import React from 'react';
 import fire from './config/Fire';
-export default class DeletePostButton extends React.Component {
+import { withRouter } from 'react-router-dom';
+class DeletePostButton extends React.Component {
 
     handleClick = () => {
         let confirm = window.confirm("Are you sure you want to delete this post?");
         const uid = fire.auth().currentUser.uid;
         if (confirm) {
             fire.firestore().collection('posts').doc(this.props.docId).get().then(docRef => {
-                if(this.props.type==='image') {
+                if (this.props.type === 'image') {
                     fire.storage().ref(`users/${uid}/${this.props.docId}/${docRef.data().imageName}`).delete();
                 }
-                fire.firestore().collection('posts').doc(this.props.docId).delete().then(this.props.updatePosts)
+                fire.firestore().collection('posts').doc(this.props.docId).delete()
+            }).then(() => {
+                if (this.props.redirect) {
+                    this.props.history.push('/')
+                }else {
+                    this.props.updatePosts();
+                }
             }).catch(error => console.error(error));
-            
         }
     }
 
@@ -24,3 +30,5 @@ export default class DeletePostButton extends React.Component {
         );
     }
 }
+
+export default withRouter(DeletePostButton);

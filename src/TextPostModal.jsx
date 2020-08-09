@@ -1,6 +1,7 @@
 import React from 'react';
 import fire from './config/Fire';
-export default class TextPostModal extends React.Component {
+import { withRouter } from 'react-router-dom';
+class TextPostModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -20,13 +21,16 @@ export default class TextPostModal extends React.Component {
             uid: fire.auth().currentUser.uid,
             username: fire.auth().currentUser.displayName,
             group: this.props.selectedGroup,
-        }).then(this.props.updateView).then(this.props.setModal)
+        }).then((post) => {
+            this.props.setModal();
+            this.props.history.push(`/${this.props.selectedGroup}/post/${post.id}`);
+        })
     }
 
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
-    
+
     render() {
         return (
             <div id='textModal'>
@@ -43,3 +47,5 @@ export default class TextPostModal extends React.Component {
         );
     }
 }
+
+export default withRouter(TextPostModal)

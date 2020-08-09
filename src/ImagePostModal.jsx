@@ -1,6 +1,7 @@
 import React from 'react';
 import fire from './config/Fire';
-export default class ImagePostModal extends React.Component {
+import { withRouter } from 'react-router-dom';
+class ImagePostModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -31,7 +32,10 @@ export default class ImagePostModal extends React.Component {
                     snapshot.ref.getDownloadURL().then(url => {
                         docRef.update({
                             image: url
-                        }).then(this.props.updateView).then(this.props.setModal);
+                        }).then(() => {
+                            this.props.setModal();
+                            this.props.history.push(`/${this.props.selectedGroup}/post/${docRef.id}`);
+                        })
                     })
                 });
             })
@@ -58,3 +62,5 @@ export default class ImagePostModal extends React.Component {
         );
     }
 }
+
+export default withRouter(ImagePostModal)

@@ -85,7 +85,7 @@ export default class App extends React.Component {
           <Route path='/profile/:userId' render={({ match }) => <CurrentUserProfile userId={match.params.userId} />} />
           <Route path='/group/:groupId' render={({ match }) => <Group updatePosts={this.fetchPosts} group={match.params.groupId} setModal={this.setModal}/>} />
           <Route path='/groups' component={AllGroups}/>
-          <Route path='/post/:postId' render={({match}) => <Post postId={match.params.postId}/> }/>
+          <Route path='/:groupId/post/:postId' render={({match}) => <Post currentUser={this.state.currentUser} updatePosts={this.fetchPosts} postId={match.params.postId}/> }/>
         </Switch>
 
 

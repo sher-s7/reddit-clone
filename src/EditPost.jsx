@@ -23,7 +23,7 @@ export default class EditPost extends React.Component {
         }).then(() => {
             this.props.markAsEdited();
             this.props.editPost(false)
-        }).then(() => this.props.updatePosts());
+        }).then(this.props.updatePosts);
     }
 
     render() {

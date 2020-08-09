@@ -3,6 +3,9 @@ import Feed from './Feed';
 import NewPost from './NewPost';
 
 export default class Home extends React.Component {
+    componentDidMount() {
+        this.props.updatePosts();
+    }
     render() {
         return (
             <div>
