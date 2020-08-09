@@ -38,7 +38,7 @@ export default class PostTemplate extends React.Component {
                     {this.state.editPost ? <EditPost updatePosts={this.props.updatePosts} editPost={this.editPost} markAsEdited={this.markAsEdited} docId={post.id} /> : <h2>{postData.body}</h2>}
                     {currentUserPost ? <EditPostButton editPost={this.editPost} /> : null}
                     {currentUserPost ? <DeletePostButton updatePosts={this.props.updatePosts} docId={post.id} /> : null}
-                    <Link to={`/${postData.group}/post/${post.id}`}>Comments</Link>
+                    <Link to={`/${postData.group}/post/${post.id}`}>{postData.commentCount === 1 ? `${postData.commentCount} Comment` : `${postData.commentCount} Comments`}</Link>
                 </li>
             );
         } else if (postData.type === 'image') {
@@ -48,19 +48,19 @@ export default class PostTemplate extends React.Component {
                     <h1>{postData.title}</h1>
                     <img width='250px' src={postData.image} alt='post img'></img>
                     {currentUserPost ? <DeletePostButton updatePosts={this.props.updatePosts} type={'image'} docId={post.id} /> : null}
-                    <Link to={`/${postData.group}/post/${post.id}`}>Comments</Link>
+                    <Link to={`/${postData.group}/post/${post.id}`}>{postData.commentCount === 1 ? `${postData.commentCount} Comment` : `${postData.commentCount} Comments`}</Link>
                 </li>
             );
         } else if (postData.type === 'link') {
             return (
                 <li className='feedPost' key={post.id}>
                     <span>Posted by <Link to={`/profile/${postData.username}`}>{postData.username}</Link></span>
-                    <a target='_blank' href={"http://" + postData.link} rel="noopener noreferrer">
+                    <a target='_blank' href={postData.link} rel="noopener noreferrer">
                         <img src={LinkImage} alt="link" />
                         <h1>{postData.title}</h1>
                     </a>
                     {currentUserPost ? <DeletePostButton updatePosts={this.props.updatePosts} docId={post.id} /> : null}
-                    <Link to={`/${postData.group}/post/${post.id}`}>Comments</Link>
+                    <Link to={`/${postData.group}/post/${post.id}`}>{postData.commentCount === 1 ? `${postData.commentCount} Comment` : `${postData.commentCount} Comments`}</Link>
                 </li>
             );
         }

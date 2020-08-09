@@ -1,10 +1,11 @@
 import React from 'react';
 import fire from './config/Fire';
+import firebase from 'firebase/app'
 export default class NewComment extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            comment: ''
+            comment: '',
         }
     }
 
@@ -22,8 +23,10 @@ export default class NewComment extends React.Component {
             postId: this.props.postId
         }).then(() => {
             this.setState({ comment: '' });
-            this.props.updateComments();   
-        });
+            this.props.updateComments();
+        }).then(
+            fire.firestore().collection('posts').doc(this.props.postId).update({ commentCount: firebase.firestore.FieldValue.increment(1) })
+        );
     }
 
     render() {

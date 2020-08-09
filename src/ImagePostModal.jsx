@@ -26,7 +26,8 @@ class ImagePostModal extends React.Component {
                 uid: fire.auth().currentUser.uid,
                 username: fire.auth().currentUser.displayName,
                 group: this.props.selectedGroup,
-                imageName: this.fileInput.current.files[0].name
+                imageName: this.fileInput.current.files[0].name,
+                commentCount: 0
             }).then(docRef => {
                 fire.storage().ref(`users/${fire.auth().currentUser.uid}/${docRef.id}/${this.fileInput.current.files[0].name}`).put(this.fileInput.current.files[0]).then(snapshot => {
                     snapshot.ref.getDownloadURL().then(url => {

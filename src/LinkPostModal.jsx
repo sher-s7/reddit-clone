@@ -21,6 +21,7 @@ class LinkPostModal extends React.Component {
             uid: fire.auth().currentUser.uid,
             username: fire.auth().currentUser.displayName,
             group: this.props.selectedGroup,
+            commentCount: 0
         }).then((post) => {
             this.props.setModal();
             this.props.history.push(`/${this.props.selectedGroup}/post/${post.id}`);
