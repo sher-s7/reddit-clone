@@ -10,7 +10,6 @@ export default class PostTemplate extends React.Component {
         super(props);
         this.state = {
             editPost: false,
-            edited: false
         }
     }
 

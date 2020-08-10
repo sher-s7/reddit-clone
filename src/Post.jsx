@@ -1,5 +1,6 @@
 import React from 'react';
 import fire from './config/Fire';
+import firebase from 'firebase/app';
 import NewComment from './NewComment';
 import CommentTemplate from './CommentTemplate';
 import EditPost from './EditPost';
