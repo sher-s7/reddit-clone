@@ -32,7 +32,7 @@ export default class App extends React.Component {
     this.authListener();
     this.fetchPosts();
   }
-  
+
 
   authListener() {
     fire.auth().onAuthStateChanged((user) => {
@@ -61,11 +61,11 @@ export default class App extends React.Component {
   }
 
   fetchPosts = () => {
-      fire.firestore().collection('posts').orderBy('dateCreated', 'desc').limit(25).get().then(postsData => {
-        this.setState({
-          posts: postsData.docs
-        });
+    fire.firestore().collection('posts').orderBy('dateCreated', 'desc').limit(25).get().then(postsData => {
+      this.setState({
+        posts: postsData.docs
       });
+    });
   }
 
   updateView() {
@@ -83,9 +83,9 @@ export default class App extends React.Component {
             <Home updatePosts={this.fetchPosts} posts={this.state.posts ? this.state.posts : null} setModal={this.setModal} />
           </Route>
           <Route path='/profile/:userId' render={({ match }) => <CurrentUserProfile userId={match.params.userId} />} />
-          <Route path='/group/:groupId' render={({ match }) => <Group updatePosts={this.fetchPosts} group={match.params.groupId} setModal={this.setModal}/>} />
-          <Route path='/groups' component={AllGroups}/>
-          <Route path='/:groupId/post/:postId' render={({match}) => <Post currentUser={this.state.currentUser} updatePosts={this.fetchPosts} postId={match.params.postId}/> }/>
+          <Route path='/group/:groupId' render={({ match }) => <Group updatePosts={this.fetchPosts} group={match.params.groupId} setModal={this.setModal} />} />
+          <Route path='/groups' component={AllGroups} />
+          <Route path='/:groupId/post/:postId' render={({ match }) => <Post currentUser={this.state.currentUser} updatePosts={this.fetchPosts} postId={match.params.postId} />} />
         </Switch>
 
 

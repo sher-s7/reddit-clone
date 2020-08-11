@@ -5,6 +5,7 @@ import LinkImage from './assets/link.png';
 import fire from './config/Fire';
 import EditPostButton from './EditPostButton';
 import EditPost from './EditPost';
+import 'line-awesome/dist/line-awesome/css/line-awesome.min.css'
 export default class PostTemplate extends React.Component {
     constructor(props) {
         super(props);
@@ -30,37 +31,26 @@ export default class PostTemplate extends React.Component {
         }
         if (postData.type === 'text') {
             return (
-                <li className='feedPost' key={post.id}>
-                    <span>Posted by <Link to={`/profile/${postData.username}`}>{postData.username}</Link></span>
+                <div>
                     {postData.edited ? <span className='edited'>(edited)</span> : null}
-                    <h1>{postData.title}</h1>
                     {this.state.editPost ? <EditPost updatePosts={this.props.updatePosts} editPost={this.editPost} markAsEdited={this.markAsEdited} docId={post.id} /> : <h2>{postData.body}</h2>}
                     {currentUserPost ? <EditPostButton editPost={this.editPost} /> : null}
-                    {currentUserPost ? <DeletePostButton updatePosts={this.props.updatePosts} docId={post.id} /> : null}
-                    <Link to={`/${postData.group}/post/${post.id}`}>{postData.commentCount === 1 ? `${postData.commentCount} Comment` : `${postData.commentCount} Comments`}</Link>
-                </li>
+                </div>
             );
         } else if (postData.type === 'image') {
             return (
-                <li className='feedPost' key={post.id}>
-                    <span>Posted by <Link to={`/profile/${postData.username}`}>{postData.username}</Link></span>
-                    <h1>{postData.title}</h1>
+                <div>
                     <img width='250px' src={postData.image} alt='post img'></img>
-                    {currentUserPost ? <DeletePostButton updatePosts={this.props.updatePosts} type={'image'} docId={post.id} /> : null}
-                    <Link to={`/${postData.group}/post/${post.id}`}>{postData.commentCount === 1 ? `${postData.commentCount} Comment` : `${postData.commentCount} Comments`}</Link>
-                </li>
+                </div>
             );
         } else if (postData.type === 'link') {
             return (
-                <li className='feedPost' key={post.id}>
-                    <span>Posted by <Link to={`/profile/${postData.username}`}>{postData.username}</Link></span>
-                    <a target='_blank' href={postData.link} rel="noopener noreferrer">
+                <div>
+                    <a target='_blank' href={`http://${postData.link}`} rel="noopener noreferrer">
                         <img src={LinkImage} alt="link" />
-                        <h1>{postData.title}</h1>
+                        {postData.link}
                     </a>
-                    {currentUserPost ? <DeletePostButton updatePosts={this.props.updatePosts} docId={post.id} /> : null}
-                    <Link to={`/${postData.group}/post/${post.id}`}>{postData.commentCount === 1 ? `${postData.commentCount} Comment` : `${postData.commentCount} Comments`}</Link>
-                </li>
+                </div>
             );
         }
 
@@ -68,7 +58,19 @@ export default class PostTemplate extends React.Component {
 
     render() {
         return (
-            this.generatePost()
+            <div>
+                <span>Posted by <Link to={`/profile/${this.props.post.data().username}`}>{this.props.post.data().username}</Link></span>
+                <h1>{this.props.post.data().title}</h1>
+                <div className='points'>
+                    <button><i className="las la-chevron-up"></i></button>
+                    <span>{this.props.post.data().points}</span>
+                    <button><i className="las la-chevron-down"></i></button>
+                </div>
+                {this.generatePost()}
+                {this.props.user && this.props.user.uid === this.props.post.data().uid ? <DeletePostButton updatePosts={this.props.updatePosts} docId={this.props.post.id} /> : null}
+
+            </div>
+
         );
     }
 }
