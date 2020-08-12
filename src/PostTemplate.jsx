@@ -1,17 +1,20 @@
 import React from 'react';
 import DeletePostButton from './DeletePostButton';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import LinkImage from './assets/link.png';
 import fire from './config/Fire';
 import EditPostButton from './EditPostButton';
 import EditPost from './EditPost';
 import 'line-awesome/dist/line-awesome/css/line-awesome.min.css'
 import VoteButton from './VoteButton';
-export default class PostTemplate extends React.Component {
+import { formatDistanceToNow } from 'date-fns';
+
+class PostTemplate extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             editPost: false,
+            location: this.props.location,
         }
     }
 
@@ -60,7 +63,15 @@ export default class PostTemplate extends React.Component {
     render() {
         return (
             <div>
-                <span>Posted by <Link to={`/profile/${this.props.post.data().username}`}>{this.props.post.data().username}</Link></span>
+                {this.state.location.pathname === '/' || this.state.location.pathname.includes('/post/') ?
+                    <div className='groupName'>
+                        <Link to={`/group/${this.props.post.data().group}`}>{this.props.post.data().group}</Link>
+                        <span>·</span>
+                    </div>
+                    : null}
+                <div>Posted by <Link to={`/profile/${this.props.post.data().username}`}>{this.props.post.data().username}</Link>
+                    <span className='distanceInWords'>{formatDistanceToNow(this.props.post.data().dateCreated.toDate(),
+                        { addSuffix: true })}</span></div>
                 <h1>{this.props.post.data().title}</h1>
                 <VoteButton collection='posts' doc={this.props.post} />
                 {this.generatePost()}
@@ -71,3 +82,5 @@ export default class PostTemplate extends React.Component {
         );
     }
 }
+
+export default withRouter(PostTemplate);

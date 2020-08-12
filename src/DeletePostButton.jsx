@@ -18,7 +18,7 @@ class DeletePostButton extends React.Component {
                         doc.ref.delete();
                     })
                 })
-                console.log(this.props.redirect)
+                
                 if (this.props.redirect) {
                     this.props.history.push('/')
                 }else {

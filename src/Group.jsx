@@ -18,7 +18,7 @@ export default class Home extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log('Group: componentDidUpdate loop test')
+        
         if (prevProps.group !== this.props.group) {
             this.fetchPosts();
         }

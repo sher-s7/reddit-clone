@@ -5,6 +5,7 @@ import EditCommentButton from './EditCommentButton';
 import fire from './config/Fire';
 import EditComment from './EditComment';
 import VoteButton from './VoteButton';
+import { formatDistanceToNow } from 'date-fns';
 export default class CommentTemplate extends React.Component {
     constructor(props) {
         super(props);
@@ -31,6 +32,8 @@ export default class CommentTemplate extends React.Component {
             <div key={comment.id} className='comment'>
                 <VoteButton collection='comments' doc={this.props.comment}/>
                 <Link to={`/profile/${comment.data().creator}`}>{comment.data().creator}</Link>
+                <span className='distanceInWords'>{formatDistanceToNow(comment.data().dateCreated.toDate(),
+                        { addSuffix: true })}</span>
                 {this.state.editComment ? <EditComment updateComments={this.props.updateComments} editComment={this.editComment} markAsEdited={this.markAsEdited} docId={comment.id} /> : <p>{comment.data().text}</p>}
                 {currentUserComment ? <EditCommentButton editComment={this.editComment}/> : null}
                 {currentUserComment ? <DeleteCommentButton updateComments={this.props.updateComments} commentId={comment.id} /> : null}

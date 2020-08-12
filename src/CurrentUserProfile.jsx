@@ -20,7 +20,7 @@ class CurrentUserProfile extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log('CurrentUserProfile: componentDidUpdate loop test')
+        
         if (prevProps.userId !== this.props.userId) {
             fire.firestore().collection('users').where('username', '==', this.props.userId).get().then(userSnapshot => {
                 if (userSnapshot.docs.length > 0) {
