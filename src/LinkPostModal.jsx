@@ -12,26 +12,32 @@ class LinkPostModal extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        fire.firestore().collection('posts').add({
-            type: 'link',
-            link: this.state.link,
-            dateCreated: new Date(),
-            points: 0,
-            title: this.state.title,
-            uid: fire.auth().currentUser.uid,
-            username: fire.auth().currentUser.displayName,
-            group: this.props.selectedGroup,
-            commentCount: 0
-        }).then((post) => {
-            this.props.setModal();
-            this.props.history.push(`/${this.props.selectedGroup}/post/${post.id}`);
-        })
+        const currentUser = fire.auth().currentUser;
+        if (!currentUser) {
+            alert('Must be logged in to post.')
+        } else {
+            fire.firestore().collection('posts').add({
+                type: 'link',
+                link: this.state.link,
+                dateCreated: new Date(),
+                points: 0,
+                title: this.state.title,
+                uid: currentUser.uid,
+                username: currentUser.displayName,
+                group: this.props.selectedGroup,
+                commentCount: 0,
+                votes: {}
+            }).then((post) => {
+                this.props.setModal();
+                this.props.history.push(`/${this.props.selectedGroup}/post/${post.id}`);
+            })
+        }
     }
 
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
-    
+
     render() {
         return (
             <div id='linkModal'>
@@ -40,7 +46,7 @@ class LinkPostModal extends React.Component {
                         <input value={this.state.title} onChange={this.handleChange} type="text" name="title" id="titleInput" placeholder='Title' required />
                     </label>
                     <label htmlFor="link">
-                        <input value={this.state.link} type='text' onChange={this.handleChange} name="link" id="linkInput" placeholder='Url' required/>
+                        <input value={this.state.link} type='text' onChange={this.handleChange} name="link" id="linkInput" placeholder='Url' required />
                     </label>
                     <input type="submit" value="Submit" />
                 </form>

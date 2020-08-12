@@ -6,6 +6,7 @@ import fire from './config/Fire';
 import EditPostButton from './EditPostButton';
 import EditPost from './EditPost';
 import 'line-awesome/dist/line-awesome/css/line-awesome.min.css'
+import VoteButton from './VoteButton';
 export default class PostTemplate extends React.Component {
     constructor(props) {
         super(props);
@@ -61,11 +62,7 @@ export default class PostTemplate extends React.Component {
             <div>
                 <span>Posted by <Link to={`/profile/${this.props.post.data().username}`}>{this.props.post.data().username}</Link></span>
                 <h1>{this.props.post.data().title}</h1>
-                <div className='points'>
-                    <button><i className="las la-chevron-up"></i></button>
-                    <span>{this.props.post.data().points}</span>
-                    <button><i className="las la-chevron-down"></i></button>
-                </div>
+                <VoteButton updatePosts={this.props.updatePosts} post={this.props.post} />
                 {this.generatePost()}
                 {this.props.user && this.props.user.uid === this.props.post.data().uid ? <DeletePostButton updatePosts={this.props.updatePosts} docId={this.props.post.id} /> : null}
 

@@ -5,11 +5,11 @@ class DeletePostButton extends React.Component {
 
     handleClick = () => {
         let confirm = window.confirm("Are you sure you want to delete this post?");
-        const uid = fire.auth().currentUser.uid;
-        if (confirm) {
+        const currentUser = fire.auth().currentUser;
+        if (confirm && currentUser) {
             fire.firestore().collection('posts').doc(this.props.docId).get().then(docRef => {
                 if (this.props.type === 'image') {
-                    fire.storage().ref(`users/${uid}/${this.props.docId}/${docRef.data().imageName}`).delete();
+                    fire.storage().ref(`users/${currentUser.uid}/${this.props.docId}/${docRef.data().imageName}`).delete();
                 }
                 fire.firestore().collection('posts').doc(this.props.docId).delete()
             }).then(() => {

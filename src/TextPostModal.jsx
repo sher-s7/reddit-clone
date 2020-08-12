@@ -12,20 +12,26 @@ class TextPostModal extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        fire.firestore().collection('posts').add({
-            type: 'text',
-            body: this.state.body,
-            dateCreated: new Date(),
-            points: 0,
-            title: this.state.title,
-            uid: fire.auth().currentUser.uid,
-            username: fire.auth().currentUser.displayName,
-            group: this.props.selectedGroup,
-            commentCount: 0
-        }).then((post) => {
-            this.props.setModal();
-            this.props.history.push(`/${this.props.selectedGroup}/post/${post.id}`);
-        })
+        const currentUser = fire.auth().currentUser;
+        if (!currentUser) {
+            alert('Must be logged in to post.')
+        } else {
+            fire.firestore().collection('posts').add({
+                type: 'text',
+                body: this.state.body,
+                dateCreated: new Date(),
+                points: 0,
+                title: this.state.title,
+                uid: currentUser.uid,
+                username: currentUser.displayName,
+                group: this.props.selectedGroup,
+                commentCount: 0,
+                votes: {}
+            }).then((post) => {
+                this.props.setModal();
+                this.props.history.push(`/${this.props.selectedGroup}/post/${post.id}`);
+            })
+        }
     }
 
     handleChange = (e) => {

@@ -15,18 +15,23 @@ export default class NewComment extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        fire.firestore().collection('comments').add({
-            points: 0,
-            creator: fire.auth().currentUser.displayName,
-            text: this.state.comment,
-            dateCreated: new Date(),
-            postId: this.props.postId
-        }).then(() => {
-            this.setState({ comment: '' });
-            this.props.updateComments();
-        }).then(
-            fire.firestore().collection('posts').doc(this.props.postId).update({ commentCount: firebase.firestore.FieldValue.increment(1) })
-        );
+        const currentUser = fire.auth().currentUser;
+        if (!currentUser) {
+            alert('Must be logged in to post.')
+        } else {
+            fire.firestore().collection('comments').add({
+                points: 0,
+                creator: currentUser.displayName,
+                text: this.state.comment,
+                dateCreated: new Date(),
+                postId: this.props.postId
+            }).then(() => {
+                this.setState({ comment: '' });
+                this.props.updateComments();
+            }).then(
+                fire.firestore().collection('posts').doc(this.props.postId).update({ commentCount: firebase.firestore.FieldValue.increment(1) })
+            );
+        }
     }
 
     render() {

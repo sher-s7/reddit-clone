@@ -13,23 +13,27 @@ class ImagePostModal extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+        const currentUser = fire.auth().currentUser;
         const size = this.fileInput.current.files[0].size / Math.pow(1024, 2);
-        if (size > 20) {
+        if (!currentUser) {
+            alert('Must be logged in to post');
+        } else if (size > 20) {
             alert('File must be less than 20MB');
         } else {
-            
+
             fire.firestore().collection('posts').add({
                 type: 'image',
                 dateCreated: new Date(),
                 points: 0,
                 title: this.state.title,
-                uid: fire.auth().currentUser.uid,
-                username: fire.auth().currentUser.displayName,
+                uid: currentUser.uid,
+                username: currentUser.displayName,
                 group: this.props.selectedGroup,
                 imageName: this.fileInput.current.files[0].name,
-                commentCount: 0
+                commentCount: 0,
+                votes: {}
             }).then(docRef => {
-                fire.storage().ref(`users/${fire.auth().currentUser.uid}/${docRef.id}/${this.fileInput.current.files[0].name}`).put(this.fileInput.current.files[0]).then(snapshot => {
+                fire.storage().ref(`users/${currentUser.uid}/${docRef.id}/${this.fileInput.current.files[0].name}`).put(this.fileInput.current.files[0]).then(snapshot => {
                     snapshot.ref.getDownloadURL().then(url => {
                         docRef.update({
                             image: url
