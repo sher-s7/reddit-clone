@@ -24,7 +24,8 @@ export default class NewComment extends React.Component {
                 creator: currentUser.displayName,
                 text: this.state.comment,
                 dateCreated: new Date(),
-                postId: this.props.postId
+                postId: this.props.postId,
+                votes: {}
             }).then(() => {
                 this.setState({ comment: '' });
                 this.props.updateComments();

@@ -62,9 +62,9 @@ export default class PostTemplate extends React.Component {
             <div>
                 <span>Posted by <Link to={`/profile/${this.props.post.data().username}`}>{this.props.post.data().username}</Link></span>
                 <h1>{this.props.post.data().title}</h1>
-                <VoteButton updatePosts={this.props.updatePosts} post={this.props.post} />
+                <VoteButton collection='posts' doc={this.props.post} />
                 {this.generatePost()}
-                {this.props.user && this.props.user.uid === this.props.post.data().uid ? <DeletePostButton updatePosts={this.props.updatePosts} docId={this.props.post.id} /> : null}
+                {this.props.user && this.props.user.uid === this.props.post.data().uid ? <DeletePostButton redirect={this.props.redirect} updatePosts={this.props.updatePosts} docId={this.props.post.id} /> : null}
 
             </div>
 

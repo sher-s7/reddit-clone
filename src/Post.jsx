@@ -36,7 +36,7 @@ export default class Post extends React.Component {
             this.state.post && this.state.comments ? (
                 <div className='postPage'>
 
-                    <PostTemplate post={this.state.post} user={this.state.user} />
+                    <PostTemplate redirect={true} post={this.state.post} user={this.state.user} />
                     <div className='comments'>
                         <div>Comments</div>
                         {this.props.currentUser ? <NewComment updateComments={this.updateComments} postId={this.props.postId} /> : <div>Log in or Sign up to comment</div>}

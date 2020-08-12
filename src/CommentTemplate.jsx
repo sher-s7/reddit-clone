@@ -4,6 +4,7 @@ import DeleteCommentButton from './DeleteCommentButton';
 import EditCommentButton from './EditCommentButton';
 import fire from './config/Fire';
 import EditComment from './EditComment';
+import VoteButton from './VoteButton';
 export default class CommentTemplate extends React.Component {
     constructor(props) {
         super(props);
@@ -28,7 +29,7 @@ export default class CommentTemplate extends React.Component {
         }
         return (
             <div key={comment.id} className='comment'>
-                <div className='commentPoints'>{comment.data().points}</div>
+                <VoteButton collection='comments' doc={this.props.comment}/>
                 <Link to={`/profile/${comment.data().creator}`}>{comment.data().creator}</Link>
                 {this.state.editComment ? <EditComment updateComments={this.props.updateComments} editComment={this.editComment} markAsEdited={this.markAsEdited} docId={comment.id} /> : <p>{comment.data().text}</p>}
                 {currentUserComment ? <EditCommentButton editComment={this.editComment}/> : null}

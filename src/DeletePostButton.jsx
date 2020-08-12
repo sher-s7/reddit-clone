@@ -13,11 +13,17 @@ class DeletePostButton extends React.Component {
                 }
                 fire.firestore().collection('posts').doc(this.props.docId).delete()
             }).then(() => {
+                fire.firestore().collection('comments').where('postId', '==', this.props.docId).get().then(snapshot => {
+                    snapshot.forEach(doc => {
+                        doc.ref.delete();
+                    })
+                })
+                console.log(this.props.redirect)
                 if (this.props.redirect) {
                     this.props.history.push('/')
                 }else {
                     this.props.updatePosts();
-                }
+                } 
             }).catch(error => console.error(error));
         }
     }
