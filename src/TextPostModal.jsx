@@ -14,7 +14,7 @@ class TextPostModal extends React.Component {
         e.preventDefault();
         const currentUser = fire.auth().currentUser;
         if (!currentUser) {
-            alert('Must be logged in to post.')
+            alert('Must be logged in to post')
         } else {
             fire.firestore().collection('posts').add({
                 type: 'text',

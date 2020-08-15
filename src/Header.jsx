@@ -10,6 +10,13 @@ import GroupsNav from './GroupsNav';
 
 export default class Header extends React.Component {
 
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      currentUser: fire.auth().currentUser
+    }
+  }
 
   logout = () => {
     fire.auth().signOut().then(this.props.updateView);
@@ -20,7 +27,7 @@ export default class Header extends React.Component {
       <header>
         <Link to='/'><img src={Logo} alt="logo" /></Link>
         <Link to='/groups'>All groups</Link>
-        <GroupsNav/>
+        <GroupsNav setModal={this.props.setModal} currentUser={fire.auth().currentUser}/>
         {fire.auth().currentUser ?
           <div>
             <Link to={`/profile/${fire.auth().currentUser.displayName}`}>Profile</Link>

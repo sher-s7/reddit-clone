@@ -24,3 +24,14 @@ code {
 .downvoted .downvote {
   color: blue;
 }
+
+.hidden {
+  display: none;
+}
+
+.validationInfo {
+  /* position: absolute; */
+  background-color: black;
+  color: white;
+  font-size: 14px;
+}

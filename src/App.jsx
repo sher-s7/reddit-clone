@@ -15,6 +15,7 @@ import CurrentUserProfile from './CurrentUserProfile';
 import NewPostModal from './NewPostModal';
 import AllGroups from './AllGroups';
 import Post from './Post';
+import NewGroupModal from './NewGroupModal';
 
 export default class App extends React.Component {
 
@@ -55,6 +56,8 @@ export default class App extends React.Component {
       } else {
         alert('Must be signed in')
       }
+    } else if (modal === 'group') {
+      this.setState({modal: <NewGroupModal setModal={this.setModal}/>})
     } else {
       this.setState({ modal: null })
     }
@@ -83,7 +86,7 @@ export default class App extends React.Component {
             <Home updatePosts={this.fetchPosts} posts={this.state.posts ? this.state.posts : null} setModal={this.setModal} />
           </Route>
           <Route path='/profile/:userId' render={({ match }) => <CurrentUserProfile userId={match.params.userId} />} />
-          <Route path='/group/:groupId' render={({ match }) => <Group updatePosts={this.fetchPosts} group={match.params.groupId} setModal={this.setModal} />} />
+          <Route path='/group/:groupId' render={({ match }) => <Group updatePosts={this.fetchPosts} group={match.params.groupId} setModal={this.setModal} currentUser={this.state.currentUser} />} />
           <Route path='/groups' component={AllGroups} />
           <Route path='/:groupId/post/:postId' render={({ match }) => <Post currentUser={this.state.currentUser} updatePosts={this.fetchPosts} postId={match.params.postId} />} />
         </Switch>

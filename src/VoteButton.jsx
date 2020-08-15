@@ -81,7 +81,7 @@ export default class VoteButton extends React.Component {
                 }));
             }
         } else {
-            alert('Must be logged in to vote.')
+            alert('Must be logged in to vote')
         }
     }
 
@@ -131,7 +131,7 @@ export default class VoteButton extends React.Component {
                 }));
             }
         } else {
-            alert('Must be logged in to vote.')
+            alert('Must be logged in to vote')
         }
     }
 
