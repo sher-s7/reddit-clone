@@ -10,28 +10,36 @@ export default class Home extends React.Component {
         super(props);
 
         this.state = {
-
+            joined: false
         }
     }
 
     componentDidMount() {
-        if(this.props.currentUser) {
-            fire.firestore().collection('users').doc(this.props.currentUser.uid).get().then(userRef => {
-                if(userRef.data().joinedGroups.includes(this.props.group)) {
+        this.updateJoinButton(this.props.currentUser);
+        this.fetchPosts();
+    }
+
+    updateJoinButton = (user) => {
+        this.setState({ currentUser: user })
+        if (user) {
+            fire.firestore().collection('users').doc(user.uid).get().then(userRef => {
+                if (userRef.data().joinedGroups.includes(this.props.group)) {            
                     this.setState({
                         joined: true
                     });
                 } else {
                     this.setState({
                         joined: false
-                    })
+                    });
                 }
             })
         }
-        this.fetchPosts();
     }
 
     componentDidUpdate(prevProps) {
+        if (prevProps.currentUser !== this.props.currentUser) {
+            this.updateJoinButton(this.props.currentUser);
+        }
         if (prevProps.group !== this.props.group) {
             this.fetchPosts();
         }
@@ -39,24 +47,32 @@ export default class Home extends React.Component {
 
     fetchPosts = () => {
         fire.firestore().collection('posts').where('group', '==', this.props.group).orderBy('dateCreated', 'desc').limit(25).get().then(postsData => {
-          this.setState({
-            posts: postsData.docs
-          });
+            this.setState({
+                posts: postsData.docs
+            });
         });
     }
 
     joinGroup = () => {
-        fire.firestore().collection('users').doc(fire.auth().currentUser.uid).update({
-            joinedGroups: firebase.firestore.FieldValue.arrayUnion(this.props.group)
-        }).then(this.setState({joined: true}))
-        .catch(error => console.error(error));
+        if (this.state.currentUser) {
+            fire.firestore().collection('users').doc(this.state.currentUser.uid).update({
+                joinedGroups: firebase.firestore.FieldValue.arrayUnion(this.props.group)
+            }).then(this.setState({ joined: true }))
+                .catch(error => console.error(error));
+        } else {
+            alert('Must be logged in to join groups.');
+        }
     }
 
     leaveGroup = () => {
-        fire.firestore().collection('users').doc(fire.auth().currentUser.uid).update({
-            joinedGroups: firebase.firestore.FieldValue.arrayRemove(this.props.group)
-        }).then(this.setState({joined: false}))
-        .catch(error => console.error(error));
+        if (this.state.currentUser) {
+            fire.firestore().collection('users').doc(this.state.currentUser.uid).update({
+                joinedGroups: firebase.firestore.FieldValue.arrayRemove(this.props.group)
+            }).then(this.setState({ joined: false }))
+                .catch(error => console.error(error));
+        }else {
+            alert('Must be logged in to perform this action.')
+        }
     }
     render() {
         return (

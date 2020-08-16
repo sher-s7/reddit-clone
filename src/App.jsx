@@ -25,6 +25,8 @@ export default class App extends React.Component {
       currentUser: null,
       modal: null,
       posts: null,
+      postLimit: 2,
+      disableLoadMore: false
     }
     this.authListener = this.authListener.bind(this);
   }
@@ -57,18 +59,28 @@ export default class App extends React.Component {
         alert('Must be signed in')
       }
     } else if (modal === 'group') {
-      this.setState({modal: <NewGroupModal setModal={this.setModal}/>})
+      this.setState({ modal: <NewGroupModal setModal={this.setModal} /> })
     } else {
       this.setState({ modal: null })
     }
   }
 
-  fetchPosts = () => {
-    fire.firestore().collection('posts').orderBy('dateCreated', 'desc').limit(25).get().then(postsData => {
-      this.setState({
-        posts: postsData.docs
+  fetchPosts = (newLimit) => {
+    fire.firestore().collection('posts').orderBy('dateCreated', 'desc')
+      .limit(newLimit || this.state.postLimit).get().then(postsData => {
+        if (newLimit && postsData.docs.length === this.state.posts.length) {
+          this.setState({ disableLoadMore: true })
+        } else {
+          this.setState({
+            posts: postsData.docs
+          });
+        }
       });
-    });
+    if (newLimit) this.setState({ postLimit: newLimit });
+  }
+
+  fetchNextPosts = () => {
+    this.fetchPosts(this.state.postLimit + 2);
   }
 
   updateView() {
@@ -83,7 +95,7 @@ export default class App extends React.Component {
         {this.state.modal}
         <Switch>
           <Route exact path='/'>
-            <Home updatePosts={this.fetchPosts} posts={this.state.posts ? this.state.posts : null} setModal={this.setModal} />
+            <Home updatePosts={this.fetchPosts} disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} posts={this.state.posts ? this.state.posts : null} setModal={this.setModal} />
           </Route>
           <Route path='/profile/:userId' render={({ match }) => <CurrentUserProfile userId={match.params.userId} />} />
           <Route path='/group/:groupId' render={({ match }) => <Group updatePosts={this.fetchPosts} group={match.params.groupId} setModal={this.setModal} currentUser={this.state.currentUser} />} />
