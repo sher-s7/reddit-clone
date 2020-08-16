@@ -14,7 +14,7 @@ export default class VoteButton extends React.Component {
         this._isMounted = true;
         const user = fire.auth().currentUser;
         fire.firestore().collection(this.props.collection).doc(this.props.doc.id).get().then(docRef => {
-            if (this._isMounted) {
+            if (this._isMounted && docRef.data()) {
                 this.setState({ doc: docRef, points: docRef.data().points, currentUser: user })
                 if (user) {
                     if (docRef.data().votes[user.uid] === 1 && this._isMounted) {
@@ -39,7 +39,6 @@ export default class VoteButton extends React.Component {
 
 
     updateDoc = () => {
-
         fire.firestore().collection(this.props.collection).doc(this.props.doc.id).get().then(docRef => {
             if (this._isMounted) {
                 this.setState({ doc: docRef })

@@ -23,7 +23,7 @@ class PostTemplate extends React.Component {
     }
 
     markAsEdited = () => {
-        fire.firestore().collection('posts').doc(this.props.post.id).update({ edited: true });
+        fire.firestore().collection('posts').doc(this.props.post.id).update({ edited: true }).then();
     }
 
     generatePost = () => {

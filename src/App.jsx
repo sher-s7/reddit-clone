@@ -66,9 +66,10 @@ export default class App extends React.Component {
   }
 
   fetchPosts = (newLimit) => {
+    console.log('fetching')
     fire.firestore().collection('posts').orderBy('dateCreated', 'desc')
       .limit(newLimit || this.state.postLimit).get().then(postsData => {
-        if (newLimit && postsData.docs.length === this.state.posts.length) {
+        if ((newLimit && postsData.docs.length === this.state.posts.length) || postsData.docs.length === 0) {
           this.setState({ disableLoadMore: true })
         } else {
           this.setState({
@@ -98,7 +99,7 @@ export default class App extends React.Component {
             <Home updatePosts={this.fetchPosts} disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} posts={this.state.posts ? this.state.posts : null} setModal={this.setModal} />
           </Route>
           <Route path='/profile/:userId' render={({ match }) => <CurrentUserProfile userId={match.params.userId} />} />
-          <Route path='/group/:groupId' render={({ match }) => <Group updatePosts={this.fetchPosts} group={match.params.groupId} setModal={this.setModal} currentUser={this.state.currentUser} />} />
+          <Route path='/group/:groupId' render={({ match }) => <Group disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} updatePosts={this.fetchPosts} group={match.params.groupId} setModal={this.setModal} currentUser={this.state.currentUser} />} />
           <Route path='/groups' component={AllGroups} />
           <Route path='/:groupId/post/:postId' render={({ match }) => <Post currentUser={this.state.currentUser} updatePosts={this.fetchPosts} postId={match.params.postId} />} />
         </Switch>

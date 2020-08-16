@@ -34,6 +34,7 @@ export default class CommentTemplate extends React.Component {
                 <Link to={`/profile/${comment.data().creator}`}>{comment.data().creator}</Link>
                 <span className='distanceInWords'>{formatDistanceToNow(comment.data().dateCreated.toDate(),
                         { addSuffix: true })}</span>
+                        {comment.data().edited ? <span>(edited)</span> : null }
                 {this.state.editComment ? <EditComment updateComments={this.props.updateComments} editComment={this.editComment} markAsEdited={this.markAsEdited} docId={comment.id} /> : <p>{comment.data().text}</p>}
                 {currentUserComment ? <EditCommentButton editComment={this.editComment}/> : null}
                 {currentUserComment ? <DeleteCommentButton updateComments={this.props.updateComments} commentId={comment.id} /> : null}

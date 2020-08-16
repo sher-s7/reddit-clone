@@ -79,7 +79,7 @@ export default class Home extends React.Component {
             <div>
                 {this.state.joined ? <button id='leaveGroup' onClick={this.leaveGroup}>LEAVE</button> : <button id='joinGroup' onClick={this.joinGroup}>JOIN</button>}
                 <NewPost setModal={this.props.setModal} />
-                {this.state.posts ? <Feed updatePosts={this.props.updatePosts} posts={this.state.posts} /> : <span id='loading'>Loading</span>}
+                {this.state.posts ? <Feed disableLoadMore={this.props.disableLoadMore} loadMore={this.props.loadMore} updatePosts={this.fetchPosts} posts={this.state.posts} /> : <span id='loading'>Loading</span>}
             </div>
         );
     }

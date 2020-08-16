@@ -23,7 +23,7 @@ class DeletePostButton extends React.Component {
                     this.props.history.push('/')
                 }else {
                     this.props.updatePosts();
-                } 
+                }
             }).catch(error => console.error(error));
         }
     }

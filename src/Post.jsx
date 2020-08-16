@@ -1,12 +1,7 @@
 import React from 'react';
 import fire from './config/Fire';
-import firebase from 'firebase/app';
 import NewComment from './NewComment';
 import CommentTemplate from './CommentTemplate';
-import EditPost from './EditPost';
-import EditPostButton from './EditPostButton';
-import DeletePostButton from './DeletePostButton';
-import { Link } from 'react-router-dom';
 import PostTemplate from './PostTemplate';
 export default class Post extends React.Component {
     constructor(props) {
@@ -18,9 +13,7 @@ export default class Post extends React.Component {
     }
 
     componentDidMount = () => {
-        fire.firestore().collection('posts').doc(this.props.postId).get().then(postRef => {
-            this.setState({ post: postRef, user: fire.auth().currentUser })
-        })
+        this.updatePost();
         this.updateComments();
     }
 
@@ -30,13 +23,19 @@ export default class Post extends React.Component {
         });
     }
 
+    updatePost = () => {
+        fire.firestore().collection('posts').doc(this.props.postId).get().then(postRef => {
+            this.setState({ post: postRef, user: fire.auth().currentUser })
+        })
+    }
+
     render() {
 
         return (
             this.state.post && this.state.comments ? (
                 <div className='postPage'>
 
-                    <PostTemplate redirect={true} post={this.state.post} user={this.state.user} />
+                    <PostTemplate updatePosts={this.updatePost} redirect={true} post={this.state.post} user={this.state.user} />
                     <div className='comments'>
                         <div>Comments</div>
                         {this.props.currentUser ? <NewComment updateComments={this.updateComments} postId={this.props.postId} /> : <div>Log in or Sign up to comment</div>}

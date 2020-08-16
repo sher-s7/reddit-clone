@@ -31,6 +31,8 @@ class NewGroupModal extends React.Component {
                 this.props.setModal();
                 this.props.history.push(`/group/${this.state.name}`);
             }).catch(error => console.error(error));
+        } else {
+            alert('Must be signed in to create a group');
         }
     }
 
