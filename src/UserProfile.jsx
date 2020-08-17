@@ -88,8 +88,8 @@ class UserProfile extends React.Component {
                     <div>Comment points: {this.state.commentPoints}</div>
                     <div>Account created: {this.state.accountCreated}</div>
                     {this.state.posts && this.state.comments ? this.renderFeed().map(post =>
-                        post.data().title ? <div>
-                            <PostTemplate redirect={false} updatePosts={this.updatePosts} key={post.id} post={post} user={fire.auth().currentUser} />
+                        post.data().title ? <div key={post.id}>
+                            <PostTemplate redirect={false} updatePosts={this.updatePosts} post={post} user={fire.auth().currentUser} />
                             <Link to={`/${post.data().group}/post/${post.id}`}>{post.data().commentCount === 1 ? `${post.data().commentCount} Comment` : `${post.data().commentCount} Comments`}</Link>
                         </div>
                             : <CommentTemplate user={fire.auth().currentUser} key={post.id} updateComments={this.updateComments} comment={post} />) : <div>loading</div>}
