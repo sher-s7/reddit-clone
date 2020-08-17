@@ -11,7 +11,7 @@ import Home from './Home';
 import Group from './Group';
 import Login from './Login';
 import Signup from './Signup';
-import CurrentUserProfile from './CurrentUserProfile';
+import UserProfile from './UserProfile';
 import NewPostModal from './NewPostModal';
 import AllGroups from './AllGroups';
 import Post from './Post';
@@ -98,7 +98,7 @@ export default class App extends React.Component {
           <Route exact path='/'>
             <Home updatePosts={this.fetchPosts} disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} posts={this.state.posts ? this.state.posts : null} setModal={this.setModal} />
           </Route>
-          <Route path='/profile/:userId' render={({ match }) => <CurrentUserProfile userId={match.params.userId} />} />
+          <Route path='/profile/:userId' render={({ match }) => <UserProfile updatePosts={this.fetchPosts} userId={match.params.userId} />} />
           <Route path='/group/:groupId' render={({ match }) => <Group disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} updatePosts={this.fetchPosts} group={match.params.groupId} setModal={this.setModal} currentUser={this.state.currentUser} />} />
           <Route path='/groups' component={AllGroups} />
           <Route path='/:groupId/post/:postId' render={({ match }) => <Post currentUser={this.state.currentUser} updatePosts={this.fetchPosts} postId={match.params.postId} />} />
