@@ -2,7 +2,7 @@ import React from 'react';
 import fire from './config/Fire';
 import PostTemplate from './PostTemplate';
 import { Link } from 'react-router-dom';
-import RobotLogo from './assets/robot-logo.png'
+import Logo from './assets/bread-logo.png'
 export default class Feed extends React.Component {
     constructor(props) {
         super(props);
@@ -30,7 +30,7 @@ export default class Feed extends React.Component {
                         </li>
                     ))}
                 </ul>
-                    {this.props.disableLoadMore ? <div id='endOfPage'><img alt='end of page' src={RobotLogo}/></div> : <button onClick={this.props.loadMore}>Load more</button> }
+                    {this.props.disableLoadMore ? <div id='endOfPage'><img alt='end of page' src={Logo}/></div> : <button onClick={this.props.loadMore}>Load more</button> }
             </div>
         );
     }

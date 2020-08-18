@@ -33,10 +33,15 @@ class Settings extends React.Component {
         e.preventDefault();
         const currentUser = this.state.currentUser;
         const size = this.fileInput.current.files[0].size / Math.pow(1024, 2);
+        const fileExtension = this.fileInput.current.files[0].type;
+        const acceptedTypes = ['image/jpeg', 'image/png']
         if (!currentUser) {
             alert('Must be logged in to post');
         } else if (size > 20) {
             alert('File must be less than 20MB');
+
+        } else if (!acceptedTypes.includes(fileExtension)) {
+            alert('File must be a PNG or JPG image')
         } else {
             fire.storage().ref(`users/${currentUser.uid}/profilePicture.png`).put(this.fileInput.current.files[0]).then(snapshot => {
                 snapshot.ref.getDownloadURL().then(url => {
@@ -100,9 +105,9 @@ class Settings extends React.Component {
                 fire.firestore().collection('users').doc(fire.auth().currentUser.uid).update({
                     photoUrl: url
                 }).catch(error => console.error(error.message));
-                this.setState({profilePicture: url})
+                this.setState({ profilePicture: url })
             });
-            
+
         }
     }
 
@@ -111,6 +116,7 @@ class Settings extends React.Component {
             <div id='settings'>
                 <h1>Settings</h1>
                 <form onSubmit={this.handleProfilePic}>
+                    <h2>Update profile picture</h2>
                     <label htmlFor='profilePicture'>
                         <img src={this.state.profilePicture ? this.state.profilePicture : 'loading'} alt='profile pic' width={'150px'} />
                         <input required type='file' accept="image/png, image/jpeg" name="profilePicture" id="imageInput" ref={this.fileInput} />
@@ -121,6 +127,7 @@ class Settings extends React.Component {
                 <button onClick={this.deletePicture}>Remove profile picture</button>
 
                 <form onSubmit={this.changePassword}>
+                    <h2>Change password</h2>
                     <label htmlFor="currentPassword">
                         Current password:
                         <input required value={this.state.currentPassword} onChange={this.handleChange} type="password" name='currentPassword' />
@@ -134,6 +141,7 @@ class Settings extends React.Component {
                 </form>
 
                 <form onSubmit={this.deleteAccount}>
+                    <h2>Delete account</h2>
                     <label htmlFor="password">
                         Password:
                         <input required value={this.state.password} onChange={this.handleChange} type="password" name='password' />
