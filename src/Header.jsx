@@ -31,6 +31,7 @@ export default class Header extends React.Component {
         {fire.auth().currentUser ?
           <div>
             <Link to={`/profile/${fire.auth().currentUser.displayName}`}>Profile</Link>
+            <Link to='/settings'>Settings</Link>
             <Link to='/' onClick={this.logout}>Logout</Link>
           </div> :
           (<div><button onClick={() => this.props.setModal('login')} id='loginButton'>LOGIN</button> <button onClick={() => this.props.setModal('signup')} id='signupButton'>SIGN UP</button></div>)}
