@@ -1,6 +1,7 @@
 import React from 'react';
 import fire from './config/Fire';
 import firebase from 'firebase/app'
+import CommentTemplate from './CommentTemplate';
 export default class NewComment extends React.Component {
     constructor(props) {
         super(props);
@@ -26,14 +27,18 @@ export default class NewComment extends React.Component {
                 dateCreated: new Date(),
                 postId: this.props.postId,
                 votes: {}
-            }).then(() => {
+            }).then((docRef) => {
                 this.setState({ comment: '' });
-                this.props.updateComments();
+                docRef.get().then(comment => {
+                    this.props.setNewComment(<CommentTemplate user={this.props.user} key={comment.id} updateComments={this.props.updateComments} comment={comment} />)
+                });
+                
             }).then(
                 fire.firestore().collection('posts').doc(this.props.postId).update({ commentCount: firebase.firestore.FieldValue.increment(1) })
             );
         }
     }
+
 
     render() {
         return (

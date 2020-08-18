@@ -8,7 +8,8 @@ export default class Post extends React.Component {
         super(props);
         this.state = {
             editPost: false,
-            edited: false
+            edited: false,
+            newComments: [],
         }
     }
 
@@ -29,6 +30,11 @@ export default class Post extends React.Component {
         })
     }
 
+    setNewComment = (comment) => {
+        this.setState(prevState => ({ newComments: [comment, ...prevState.newComments] }));
+    }
+
+
     render() {
 
         return (
@@ -38,14 +44,14 @@ export default class Post extends React.Component {
                     <PostTemplate updatePosts={this.updatePost} redirect={true} post={this.state.post} user={this.state.user} />
                     <div className='comments'>
                         <div>Comments</div>
-                        {this.props.currentUser ? <NewComment updateComments={this.updateComments} postId={this.props.postId} /> : <div>Log in or Sign up to comment</div>}
+                        {this.props.currentUser ? <NewComment user={this.state.user} getNewComment={this.getNewComment} setNewComment={this.setNewComment} updateComments={this.updateComments} postId={this.props.postId} /> : <div>Log in or Sign up to comment</div>}
+                        {this.state.newComments.map(comment => comment)}
                         {this.state.comments.map(comment => (
                             <CommentTemplate user={this.state.user} key={comment.id} updateComments={this.updateComments} comment={comment} />
                         ))}
                     </div>
                 </div>
             ) : <span>Loading</span>
-
         );
     }
 }
