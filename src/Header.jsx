@@ -26,10 +26,10 @@ export default class Header extends React.Component {
     return (
       <header>
         <Link to='/'><img id='logo' src={Logo} alt="logo" /></Link>
-        <Link to='/groups'>All groups</Link>
         <GroupsNav setModal={this.props.setModal} currentUser={fire.auth().currentUser}/>
         {fire.auth().currentUser ?
           <div>
+            <Link to='/groups'>All groups</Link>
             <Link to={`/profile/${fire.auth().currentUser.displayName}`}>Profile</Link>
             <Link to='/settings'>Settings</Link>
             <Link to='/' onClick={this.logout}>Logout</Link>

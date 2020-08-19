@@ -34,7 +34,9 @@ export default class Signup extends React.Component {
                                 email: this.state.email,
                                 points: 0,
                                 username: this.state.username,
-                                photoUrl: url
+                                photoUrl: url,
+                                joinedGroups: [],
+                                createdGroups: []
                             }).then(this.props.authListener)
                         });
                     })
