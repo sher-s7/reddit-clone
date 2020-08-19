@@ -87,6 +87,7 @@ class Settings extends React.Component {
             const password = this.state.password;
             this.reauthenticate(password).then(() => {
                 const user = fire.auth().currentUser;
+                fire.firestore().collection('users').doc(user.uid).delete();
                 user.delete()
                     .then(this.props.history.push('/'))
                     .catch(error => this.setState({ deleteFail: error.message }))
