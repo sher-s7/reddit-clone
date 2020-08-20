@@ -99,13 +99,14 @@ export default class App extends React.Component {
           <Route exact path='/'>
             <Home updatePosts={this.fetchPosts} disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} posts={this.state.posts ? this.state.posts : null} setModal={this.setModal} />
           </Route>
-          <Route path='/profile/:userId' render={({ match }) => <UserProfile updatePosts={this.fetchPosts} userId={match.params.userId} />} />
-          <Route path='/group/:groupId' render={({ match }) => <Group disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} updatePosts={this.fetchPosts} group={match.params.groupId} setModal={this.setModal} currentUser={this.state.currentUser} />} />
-          <Route path='/groups' component={AllGroups} />
-          <Route path='/:groupId/post/:postId' render={({ match }) => <Post currentUser={this.state.currentUser} updatePosts={this.fetchPosts} postId={match.params.postId} />} />
-          <Route>
-            <Settings currentUser={this.state.currentUser}/>
+          <Route exact path='/profile/:userId' render={({ match }) => <UserProfile updatePosts={this.fetchPosts} userId={match.params.userId} />} />
+          <Route exact path='/group/:groupId' render={({ match }) => <Group disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} updatePosts={this.fetchPosts} group={match.params.groupId} setModal={this.setModal} currentUser={this.state.currentUser} />} />
+          <Route exact path='/groups' component={AllGroups} />
+          <Route exact path='/group/:groupId/post/:postId' render={({ match }) => <Post currentUser={this.state.currentUser} updatePosts={this.fetchPosts} postId={match.params.postId} />} />
+          <Route exact path='/settings'>
+            <Settings currentUser={this.state.currentUser} />
           </Route>
+          <Route render={() => <h1>404: page not found</h1>} />
         </Switch>
 
 

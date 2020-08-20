@@ -3,7 +3,8 @@ import fire from './config/Fire';
 import NewComment from './NewComment';
 import CommentTemplate from './CommentTemplate';
 import PostTemplate from './PostTemplate';
-export default class Post extends React.Component {
+import { withRouter } from 'react-router-dom';
+class Post extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -26,7 +27,11 @@ export default class Post extends React.Component {
 
     updatePost = () => {
         fire.firestore().collection('posts').doc(this.props.postId).get().then(postRef => {
-            this.setState({ post: postRef, user: fire.auth().currentUser })
+            if (postRef.exists) {
+                this.setState({ post: postRef, user: fire.auth().currentUser })
+            }else {
+                this.props.history.push('/');
+            }
         })
     }
 
@@ -55,3 +60,5 @@ export default class Post extends React.Component {
         );
     }
 }
+
+export default withRouter(Post);

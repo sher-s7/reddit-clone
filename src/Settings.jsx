@@ -3,30 +3,42 @@ import fire from './config/Fire';
 import firebase from 'firebase/app';
 import { withRouter } from 'react-router-dom';
 class Settings extends React.Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
             currentUser: null,
             currentPassword: '',
             newPassword: '',
+            password: '',
         }
 
         this.fileInput = React.createRef();
     }
 
     componentDidMount() {
+        this._isMounted = true;
         this.authListener();
     }
 
 
     authListener() {
         fire.auth().onAuthStateChanged((user) => {
-            if (user) {
+            if (this._isMounted && user) {
                 this.setState({ currentUser: user, profilePicture: user.photoURL });
+                fire.firestore().collection('users').doc(user.uid).get().then(userRef => {
+                    if (userRef.data()) {
+                        this.setState({ joinedGroups: userRef.data().joinedGroups });
+                    }
+                })
             } else {
                 this.props.history.push('/')
             }
         });
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     handleProfilePic = (e) => {
@@ -81,16 +93,23 @@ class Settings extends React.Component {
     }
 
     deleteAccount = (e) => {
+        console.log(this.state.joinedGroups)
         e.preventDefault();
         let confirm = window.confirm("Are you sure you want to delete your account?");
         if (confirm) {
             const password = this.state.password;
             this.reauthenticate(password).then(() => {
                 const user = fire.auth().currentUser;
-                fire.firestore().collection('users').doc(user.uid).delete();
-                user.delete()
-                    .then(this.props.history.push('/'))
-                    .catch(error => this.setState({ deleteFail: error.message }))
+                this.state.joinedGroups.forEach(group => {
+                    fire.firestore().collection('groups').doc(group).update({
+                        numberOfUsers: firebase.firestore.FieldValue.increment(-1)
+                    });
+                });
+                fire.firestore().collection('users').doc(user.uid).delete().then(() => {
+                    user.delete()
+                        .then(this.props.history.push('/'))
+                        .catch(error => this.setState({ deleteFail: error.message }));
+                });
             }).catch((error) => { this.setState({ deleteFail: error.message }) });
         }
     }
