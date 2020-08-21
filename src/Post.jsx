@@ -30,13 +30,16 @@ class Post extends React.Component {
     }
 
     updatePost = () => {
+        console.log('updatepost')
         fire.firestore().collection('posts').doc(this.props.postId).get().then(postRef => {
             if (postRef.exists) {
+                console.log('still exists??')
                 this.setState({ post: postRef, user: fire.auth().currentUser })
             } else {
+                console.log('heh')
                 this.props.history.push('/');
             }
-        })
+        });
     }
 
 
@@ -46,7 +49,7 @@ class Post extends React.Component {
             this.state.post && this.state.comments ? (
                 <div className='postPage'>
 
-                    <PostTemplate updatePosts={this.updatePost} redirect={true} post={this.state.post} user={this.state.user} />
+                    <PostTemplate updatePosts={this.updatePost} post={this.state.post} user={this.state.user} />
                     <div className='comments'>
                         <div>Comments</div>
                         {this.props.currentUser ? <NewComment user={this.state.user} updateComments={this.updateComments} postId={this.props.postId} parents={null} directParent={null} nestDepth={0} highestParent={null} /> : <div>Log in or Sign up to comment</div>}

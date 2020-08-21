@@ -30,7 +30,9 @@ class UserProfile extends React.Component {
 
 
     updateView = () => {
+        console.log('user mounted')
         fire.firestore().collection('users').where('username', '==', this.props.userId).get().then(userSnapshot => {
+            console.log(userSnapshot.docs.length)
             if (userSnapshot.docs.length > 0) {
                 this.setState({ user: userSnapshot.docs[0], accountCreated: format(userSnapshot.docs[0].data().accountCreated.toDate(), 'MMM dd, yyyy') })
                 fire.firestore().collection('posts').where('username', '==', userSnapshot.docs[0].data().username).get().then(postsData => {
@@ -65,7 +67,12 @@ class UserProfile extends React.Component {
         });
     }
 
+    refresh = () => {
+        window.location.reload(false);
+    }
+
     renderFeed = () => {
+        console.log('RENDERING')
         let feed = [];
         this.state.posts.forEach(post => {
             feed.push(post)
@@ -91,12 +98,12 @@ class UserProfile extends React.Component {
                     <div>Post points: {this.state.postPoints}</div>
                     <div>Comment points: {this.state.commentPoints}</div>
                     <div>Account created: {this.state.accountCreated}</div>
-                    {this.state.posts && this.state.comments ? this.renderFeed().map(post =>
+                    {this.state.posts && this.state.comments ? this.renderFeed().map(post => (
                         post.data().title ? <div key={post.id}>
-                            <PostTemplate redirect={false} updatePosts={this.updatePosts} post={post} user={fire.auth().currentUser} />
+                            <PostTemplate redirect={false} updatePosts={this.refresh} post={post} user={fire.auth().currentUser} profile={true} />
                             <Link to={`/group/${post.data().group}/post/${post.id}`}>{post.data().commentCount === 1 ? `${post.data().commentCount} Comment` : `${post.data().commentCount} Comments`}</Link>
                         </div>
-                            : <CommentTemplate user={fire.auth().currentUser} key={post.id} updateComments={this.updateComments} comment={post} profile={true} />) : <div>loading</div>}
+                            : <CommentTemplate user={fire.auth().currentUser} key={post.id} updateComments={this.updateComments} comment={post} postId={post.data().postId} profile={true} />)) : <div>loading</div>}
                 </div>
 
         );

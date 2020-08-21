@@ -1,8 +1,8 @@
 import React from 'react';
 import fire from './config/Fire';
 import firebase from 'firebase/app'
-import CommentTemplate from './CommentTemplate';
 export default class NewComment extends React.Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -11,8 +11,18 @@ export default class NewComment extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this._isMounted = true;
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false;
+    }
+
     handleChange = (e) => {
+        if(this._isMounted){
         this.setState({ [e.target.name]: e.target.value });
+        }
     }
 
     handleSubmit = (e) => {
@@ -36,13 +46,13 @@ export default class NewComment extends React.Component {
                 highestParent: this.props.highestParent
             }).then(() => {
                 this.setState({ comment: '' });
-                if (this.props.showReplyBox) {
-                    this.props.showReplyBox(false)
-                }
                 this.props.updateComments();
             }).then(() => {
                 fire.firestore().collection('posts').doc(this.props.postId).update({ commentCount: firebase.firestore.FieldValue.increment(1) })
                 this.setState({ disabled: false })
+                if (this.props.showReplyBox) {
+                    this.props.showReplyBox(false)
+                }
             }).catch(error => {
                 this.setState({ disabled: false });
                 console.error(error.message);

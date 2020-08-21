@@ -7,6 +7,7 @@ export default class VoteButton extends React.Component {
         super(props);
         this.state = {
             vote: '',
+            disabled: false,
         }
     }
 
@@ -28,7 +29,9 @@ export default class VoteButton extends React.Component {
     }
 
     componentDidUpdate(_prevProps, prevState) {
+        console.log('vote loop check')
         if (prevState.points !== this.state.points) {
+            console.log('vote inner loop')
             this.updateDoc();
         }
     }
@@ -50,6 +53,7 @@ export default class VoteButton extends React.Component {
         const currentUser = this.state.currentUser;
         const doc = this.state.doc;
         if (currentUser) {
+            this.setState({ disabled: true });
             const votesMap = doc.data().votes;
             const uid = currentUser.uid;
             if (votesMap[uid] === 1) {
@@ -59,11 +63,15 @@ export default class VoteButton extends React.Component {
                         [uid]: 0
                     },
                     points: firebase.firestore.FieldValue.increment(-1)
-                }, { merge: true });
-                this.setState((prevState) => ({
-                    vote: '',
-                    points: prevState.points - 1,
-                }));
+                }, { merge: true }).then(() => {
+                    this.setState((prevState) => ({
+                        vote: '',
+                        points: prevState.points - 1,
+                        disabled: false,
+                    }));
+                }
+                );
+
             } else if (votesMap[uid] === -1) {
 
                 fire.firestore().collection(this.props.collection).doc(this.props.doc.id).set({
@@ -71,11 +79,14 @@ export default class VoteButton extends React.Component {
                         [uid]: 1
                     },
                     points: firebase.firestore.FieldValue.increment(2)
-                }, { merge: true });
-                this.setState((prevState) => ({
-                    vote: 'upvoted',
-                    points: prevState.points + 2,
-                }));
+                }, { merge: true }).then(() => {
+                    this.setState((prevState) => ({
+                        vote: 'upvoted',
+                        points: prevState.points + 2,
+                        disabled: false,
+                    }));
+                });
+               
             } else {
 
                 fire.firestore().collection(this.props.collection).doc(this.props.doc.id).set({
@@ -83,11 +94,13 @@ export default class VoteButton extends React.Component {
                         [uid]: 1
                     },
                     points: firebase.firestore.FieldValue.increment(1)
-                }, { merge: true });
-                this.setState((prevState) => ({
-                    vote: 'upvoted',
-                    points: prevState.points + 1,
-                }));
+                }, { merge: true }).then(() => {
+                    this.setState((prevState) => ({
+                        vote: 'upvoted',
+                        points: prevState.points + 1,
+                        disabled: false,
+                    }));
+                });
             }
         } else {
             alert('Must be logged in to vote')
@@ -100,6 +113,7 @@ export default class VoteButton extends React.Component {
         const currentUser = fire.auth().currentUser;
         const doc = this.state.doc;
         if (currentUser) {
+            this.setState({ disabled: true });
             const votesMap = doc.data().votes;
             const uid = currentUser.uid;
             if (votesMap[uid] === 1) {
@@ -109,11 +123,14 @@ export default class VoteButton extends React.Component {
                         [uid]: -1
                     },
                     points: firebase.firestore.FieldValue.increment(-2)
-                }, { merge: true });
-                this.setState((prevState) => ({
-                    vote: 'downvoted',
-                    points: prevState.points - 2,
-                }));
+                }, { merge: true }).then(() => {
+                    this.setState((prevState) => ({
+                        vote: 'downvoted',
+                        points: prevState.points - 2,
+                        disabled: false,
+                    }));
+                    
+                });
             } else if (votesMap[uid] === -1) {
 
                 fire.firestore().collection(this.props.collection).doc(this.props.doc.id).set({
@@ -121,23 +138,28 @@ export default class VoteButton extends React.Component {
                         [uid]: 0
                     },
                     points: firebase.firestore.FieldValue.increment(1)
-                }, { merge: true });
-                this.setState((prevState) => ({
-                    vote: '',
-                    points: prevState.points + 1,
-                }));
+                }, { merge: true }).then(() => {
+                    
+                    this.setState((prevState) => ({
+                        vote: '',
+                        points: prevState.points + 1,
+                        disabled: false,
+                    }));
+                });
             } else {
-
                 fire.firestore().collection(this.props.collection).doc(this.props.doc.id).set({
                     votes: {
                         [uid]: -1
                     },
                     points: firebase.firestore.FieldValue.increment(-1)
-                }, { merge: true });
-                this.setState((prevState) => ({
-                    vote: 'downvoted',
-                    points: prevState.points - 1,
-                }));
+                }, { merge: true }).then(() => {
+                    
+                    this.setState((prevState) => ({
+                        vote: 'downvoted',
+                        points: prevState.points - 1,
+                        disabled: false,
+                    }));
+                });
             }
         } else {
             alert('Must be logged in to vote')
@@ -147,9 +169,9 @@ export default class VoteButton extends React.Component {
     render() {
         return (
             <div className={`points ${this.state.vote}`}>
-                <button className='upvote' onClick={this.handleUpvote}><i className="las la-chevron-up"></i></button>
+                <button disabled={this.state.disabled} className='upvote' onClick={this.handleUpvote}><i className="las la-chevron-up"></i></button>
                 <span>{this.state.points !== null ? this.state.points : ''}</span>
-                <button className='downvote' onClick={this.handleDownvote}><i className="las la-chevron-down"></i></button>
+                <button disabled={this.state.disabled} className='downvote' onClick={this.handleDownvote}><i className="las la-chevron-down"></i></button>
             </div>
         );
     }

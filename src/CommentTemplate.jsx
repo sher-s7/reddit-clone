@@ -20,7 +20,9 @@ export default class CommentTemplate extends React.Component {
 
     componentDidMount() {
         this._isMounted = true;
-        if (!this.props.profile) this.fetchNestedComments();
+        if (!this.props.profile) {
+            this.fetchNestedComments();
+        }
     }
 
     fetchNestedComments = () => {
@@ -60,16 +62,18 @@ export default class CommentTemplate extends React.Component {
 
         if (this.props.profile) {
             fire.firestore().collection('posts').doc(comment.data().postId).get().then(postRef => {
-                if(this._isMounted) this.setState({post: postRef})
+                if (this._isMounted && postRef.exists) {
+                    this.setState({ post: postRef })
+                }
             })
             return (
                 <div key={comment.id} className={'comment'}>
-                    <VoteButton collection='comments' doc={this.props.comment} />
-                    {this.state.post ? <div>Commented on <Link to={`/group/${this.state.post.data().group}/post/${this.state.post.id}`}>{this.state.post.data().title}</Link> in <Link to={`/group/${this.state.post.data().group}`}>{this.state.post.data().group}</Link></div> : 'loading'}
+                    {this.state.post ? <div>Commented on <Link to={`/group/${this.state.post.data().group}/post/${this.state.post.id}`}>{this.state.post.data().title}</Link> in <Link to={`/group/${this.state.post.data().group}`}>{this.state.post.data().group}</Link></div> : null}
                     <span className='distanceInWords'>{formatDistanceToNow(comment.data().dateCreated.toDate(),
                         { addSuffix: true })}</span>
                     {comment.data().edited ? <span>(edited)</span> : null}
                     <div>{comment.data().text}</div>
+                    {currentUserComment ? <DeleteCommentButton updateComments={this.props.updateComments} commentId={comment.id} postId={this.props.postId} /> : null}
                 </div>
             )
         } else {

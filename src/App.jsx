@@ -26,7 +26,7 @@ export default class App extends React.Component {
       currentUser: null,
       modal: null,
       posts: null,
-      postLimit: 2,
+      postLimit: 20,
       disableLoadMore: false
     }
     this.authListener = this.authListener.bind(this);
@@ -70,19 +70,22 @@ export default class App extends React.Component {
     console.log('fetching')
     fire.firestore().collection('posts').orderBy('dateCreated', 'desc')
       .limit(newLimit || this.state.postLimit).get().then(postsData => {
+        console.log(postsData.docs)
         if ((newLimit && postsData.docs.length === this.state.posts.length) || postsData.docs.length === 0) {
           this.setState({ disableLoadMore: true })
-        } else {
+        }
           this.setState({
             posts: postsData.docs
           });
-        }
+        
+        console.log('state', this.state.posts)
+
       });
     if (newLimit) this.setState({ postLimit: newLimit });
   }
 
   fetchNextPosts = () => {
-    this.fetchPosts(this.state.postLimit + 2);
+    this.fetchPosts(this.state.postLimit + 20);
   }
 
   updateView() {

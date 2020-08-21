@@ -38,7 +38,7 @@ class PostTemplate extends React.Component {
                 <div>
                     {postData.edited ? <span className='edited'>(edited)</span> : null}
                     {this.state.editPost ? <EditPost updatePosts={this.props.updatePosts} editPost={this.editPost} markAsEdited={this.markAsEdited} docId={post.id} /> : <h2>{postData.body}</h2>}
-                    {currentUserPost ? <EditPostButton editPost={this.editPost} /> : null}
+                    {currentUserPost && !this.props.profile ? <EditPostButton editPost={this.editPost} /> : null}
                 </div>
             );
         } else if (postData.type === 'image') {
@@ -73,9 +73,9 @@ class PostTemplate extends React.Component {
                     <span className='distanceInWords'>{formatDistanceToNow(this.props.post.data().dateCreated.toDate(),
                         { addSuffix: true })}</span></div>
                 <h1>{this.props.post.data().title}</h1>
-                <VoteButton collection='posts' doc={this.props.post} />
+                {this.props.profile ? null : <VoteButton collection='posts' doc={this.props.post} />}
                 {this.generatePost()}
-                {this.props.user && this.props.user.uid === this.props.post.data().uid ? <DeletePostButton redirect={this.props.redirect} updatePosts={this.props.updatePosts} docId={this.props.post.id} /> : null}
+                {this.props.user && this.props.user.uid === this.props.post.data().uid ? <DeletePostButton profile={this.props.profile} updatePosts={this.props.updatePosts} docId={this.props.post.id} /> : null}
 
             </div>
 
