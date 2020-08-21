@@ -86,7 +86,7 @@ class UserProfile extends React.Component {
                 <div>user not found</div>
                 :
                 <div>
-                    <img src={this.state.user.data().photoUrl} alt="profile pic" />
+                    <img width={'20px'} src={this.state.user.data().photoUrl} alt="profile pic" />
                     <div>{this.state.user.data().username}</div>
                     <div>Post points: {this.state.postPoints}</div>
                     <div>Comment points: {this.state.commentPoints}</div>

@@ -7,6 +7,7 @@ class TextPostModal extends React.Component {
         this.state = {
             title: '',
             body: '',
+            disabled: false,
         }
     }
 
@@ -16,6 +17,7 @@ class TextPostModal extends React.Component {
         if (!currentUser) {
             alert('Must be logged in to post')
         } else {
+            this.setState({disabled: true});
             fire.firestore().collection('posts').add({
                 type: 'text',
                 body: this.state.body,
@@ -29,7 +31,10 @@ class TextPostModal extends React.Component {
                 votes: {}
             }).then((post) => {
                 this.props.setModal();
-                this.props.history.push(`/${this.props.selectedGroup}/post/${post.id}`);
+                this.props.history.push(`/group/${this.props.selectedGroup}/post/${post.id}`);
+            }).catch(error => {
+                console.error(error.message);
+                this.setState({disabled: false})
             })
         }
     }
@@ -43,12 +48,12 @@ class TextPostModal extends React.Component {
             <div id='textModal'>
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="title">
-                        <input value={this.state.title} onChange={this.handleChange} type="text" name="title" id="titleInput" placeholder='Title' required />
+                        <input maxLength={300} value={this.state.title} onChange={this.handleChange} type="text" name="title" id="titleInput" placeholder='Title' required />
                     </label>
                     <label htmlFor="body">
                         <textarea value={this.state.body} onChange={this.handleChange} name="body" id="bodyTextArea" placeholder='Text (optional)' />
                     </label>
-                    <input type="submit" value="Submit" />
+                    <input disabled={this.state.disabled} type="submit" value="Submit" />
                 </form>
             </div>
         );

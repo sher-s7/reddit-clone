@@ -7,6 +7,7 @@ class LinkPostModal extends React.Component {
         this.state = {
             title: '',
             link: '',
+            disabled: false,
         }
     }
 
@@ -16,6 +17,7 @@ class LinkPostModal extends React.Component {
         if (!currentUser) {
             alert('Must be logged in to post')
         } else {
+            this.setState({disabled: true});
             fire.firestore().collection('posts').add({
                 type: 'link',
                 link: this.state.link,
@@ -29,7 +31,8 @@ class LinkPostModal extends React.Component {
                 votes: {}
             }).then((post) => {
                 this.props.setModal();
-                this.props.history.push(`/${this.props.selectedGroup}/post/${post.id}`);
+                this.setState({disabled: false});
+                this.props.history.push(`/group/${this.props.selectedGroup}/post/${post.id}`);
             })
         }
     }
@@ -43,12 +46,12 @@ class LinkPostModal extends React.Component {
             <div id='linkModal'>
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="title">
-                        <input value={this.state.title} onChange={this.handleChange} type="text" name="title" id="titleInput" placeholder='Title' required />
+                        <input maxLength={300} value={this.state.title} onChange={this.handleChange} type="text" name="title" id="titleInput" placeholder='Title' required />
                     </label>
                     <label htmlFor="link">
                         <input value={this.state.link} type='text' onChange={this.handleChange} name="link" id="linkInput" placeholder='Url' required />
                     </label>
-                    <input type="submit" value="Submit" />
+                    <input disabled={this.state.disabled} type="submit" value="Submit" />
                 </form>
             </div>
         );

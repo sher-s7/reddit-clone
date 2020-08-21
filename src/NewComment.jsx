@@ -7,6 +7,7 @@ export default class NewComment extends React.Component {
         super(props);
         this.state = {
             comment: '',
+            disabled: false
         }
     }
 
@@ -21,6 +22,7 @@ export default class NewComment extends React.Component {
         if (!currentUser) {
             alert('Must be logged in to comment')
         } else {
+            this.setState({ disabled: true })
             fire.firestore().collection('comments').add({
                 points: 0,
                 creator: currentUser.displayName,
@@ -38,9 +40,13 @@ export default class NewComment extends React.Component {
                     this.props.showReplyBox(false)
                 }
                 this.props.updateComments();
-            }).then(
+            }).then(() => {
                 fire.firestore().collection('posts').doc(this.props.postId).update({ commentCount: firebase.firestore.FieldValue.increment(1) })
-            );
+                this.setState({ disabled: false })
+            }).catch(error => {
+                this.setState({ disabled: false });
+                console.error(error.message);
+            });
         }
     }
 
@@ -48,8 +54,8 @@ export default class NewComment extends React.Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit} className='newCommentForm'>
-                <textarea value={this.state.comment} name='comment' onChange={this.handleChange} id="commentTextArea" />
-                <input type="submit" value="Submit comment" />
+                <textarea required value={this.state.comment} name='comment' onChange={this.handleChange} id="commentTextArea" />
+                <input disabled={this.state.disabled} type="submit" value="Submit comment" />
                 {this.props.showReplyBox ? <button onClick={() => this.props.showReplyBox(false)}>Cancel</button> : null}
             </form>
         );

@@ -34,8 +34,8 @@ export default class EditComment extends React.Component {
             <form className='editCostForm' onSubmit={this.submitEdit}>
                 Edit comment
                 <textarea name='commentText' value={this.state.commentText} onChange={this.handleChange}></textarea>
-                <button onClick={() => this.props.editComment(false)}>Cancel</button>
                 <input type="submit" value="Submit" />
+                <button onClick={() => this.props.editComment(false)}>Cancel</button>
             </form>
         );
     }

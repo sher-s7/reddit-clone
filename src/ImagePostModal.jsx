@@ -6,6 +6,7 @@ class ImagePostModal extends React.Component {
         super(props);
         this.state = {
             title: '',
+            disabled: false,
         }
 
         this.fileInput = React.createRef();
@@ -20,7 +21,7 @@ class ImagePostModal extends React.Component {
         } else if (size > 20) {
             alert('File must be less than 20MB');
         } else {
-
+            this.setState({disabled: true});
             fire.firestore().collection('posts').add({
                 type: 'image',
                 dateCreated: new Date(),
@@ -39,11 +40,14 @@ class ImagePostModal extends React.Component {
                             image: url
                         }).then(() => {
                             this.props.setModal();
-                            this.props.history.push(`/${this.props.selectedGroup}/post/${docRef.id}`);
+                            this.props.history.push(`/group/${this.props.selectedGroup}/post/${docRef.id}`);
                         })
                     })
                 });
-            })
+            }).catch(error => {
+                console.error(error.message);
+                this.setState({disabled: false})
+            });
         }
     }
 
@@ -56,12 +60,12 @@ class ImagePostModal extends React.Component {
             <div id='imageModal'>
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="title">
-                        <input value={this.state.title} onChange={this.handleChange} type="text" name="title" id="titleInput" placeholder='Title' required />
+                        <input maxLength={300} value={this.state.title} onChange={this.handleChange} type="text" name="title" id="titleInput" placeholder='Title' required />
                     </label>
                     <label htmlFor="image">
                         <input type='file' accept="image/png, image/jpeg" name="image" id="imageInput" ref={this.fileInput} required />
                     </label>
-                    <input type="submit" value="Submit" />
+                    <input disabled={this.state.disabled} type="submit" value="Submit" />
                 </form>
             </div>
         );
