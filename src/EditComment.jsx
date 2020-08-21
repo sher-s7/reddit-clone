@@ -8,7 +8,9 @@ export default class EditComment extends React.Component {
     }
     componentDidMount() {
         fire.firestore().collection('comments').doc(this.props.docId).get().then(docRef => {
-            this.setState({commentText: docRef.data().text})
+            if (docRef.exists) {
+                this.setState({ commentText: docRef.data().text })
+            }
         })
     }
 
@@ -18,12 +20,13 @@ export default class EditComment extends React.Component {
 
     submitEdit = (e) => {
         e.preventDefault();
+        console.log(this.props.docId)
         fire.firestore().collection('comments').doc(this.props.docId).update({
             text: this.state.commentText
         }).then(() => {
             this.props.markAsEdited();
             this.props.editComment(false)
-        }).then(this.props.updateComments);
+        }).then(this.props.updateComments).catch(error => console.error(error.message));
     }
 
     render() {
@@ -31,7 +34,8 @@ export default class EditComment extends React.Component {
             <form className='editCostForm' onSubmit={this.submitEdit}>
                 Edit comment
                 <textarea name='commentText' value={this.state.commentText} onChange={this.handleChange}></textarea>
-                <input type="submit" value="Submit"/>
+                <button onClick={() => this.props.editComment(false)}>Cancel</button>
+                <input type="submit" value="Submit" />
             </form>
         );
     }

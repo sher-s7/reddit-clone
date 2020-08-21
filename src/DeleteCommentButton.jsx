@@ -5,13 +5,23 @@ export default class DeleteCommentButton extends React.Component {
 
     handleClick = () => {
         let confirm = window.confirm("Are you sure you want to delete this comment?");
+
         if (confirm) {
-            fire.firestore().collection('comments').doc(this.props.commentId).get().then(commentRef => {
-                fire.firestore().collection('posts').doc(commentRef.data().postId).update({
+            fire.firestore().collection('comments').doc(this.props.commentId).delete().then(
+                fire.firestore().collection('posts').doc(this.props.postId).update({
                     commentCount: firebase.firestore.FieldValue.increment(-1)
-                }).then(fire.firestore().collection('comments').doc(this.props.commentId).delete().then(this.props.updateComments))
-            })
-            
+                })
+            )
+                .catch(error => console.error(error.message))
+            fire.firestore().collection('comments').where('parents', 'array-contains', this.props.commentId).get().then(replies => {
+                replies.forEach(reply => {
+                    fire.firestore().collection('comments').doc(reply.id).delete();
+                })
+                fire.firestore().collection('posts').doc(this.props.postId).update({
+                    commentCount: firebase.firestore.FieldValue.increment(-replies.docs.length)
+                })
+            }).then(this.props.updateComments)
+
         }
     }
 

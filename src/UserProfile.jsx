@@ -7,6 +7,7 @@ import PostTemplate from './PostTemplate';
 import CommentTemplate from './CommentTemplate';
 
 class UserProfile extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -15,6 +16,7 @@ class UserProfile extends React.Component {
     }
 
     componentDidMount() {
+
         this.updateView();
     }
 
@@ -24,6 +26,8 @@ class UserProfile extends React.Component {
             this.updateView();
         }
     }
+
+
 
     updateView = () => {
         fire.firestore().collection('users').where('username', '==', this.props.userId).get().then(userSnapshot => {
@@ -90,9 +94,9 @@ class UserProfile extends React.Component {
                     {this.state.posts && this.state.comments ? this.renderFeed().map(post =>
                         post.data().title ? <div key={post.id}>
                             <PostTemplate redirect={false} updatePosts={this.updatePosts} post={post} user={fire.auth().currentUser} />
-                            <Link to={`/${post.data().group}/post/${post.id}`}>{post.data().commentCount === 1 ? `${post.data().commentCount} Comment` : `${post.data().commentCount} Comments`}</Link>
+                            <Link to={`/group/${post.data().group}/post/${post.id}`}>{post.data().commentCount === 1 ? `${post.data().commentCount} Comment` : `${post.data().commentCount} Comments`}</Link>
                         </div>
-                            : <CommentTemplate user={fire.auth().currentUser} key={post.id} updateComments={this.updateComments} comment={post} />) : <div>loading</div>}
+                            : <CommentTemplate user={fire.auth().currentUser} key={post.id} updateComments={this.updateComments} comment={post} profile={true} />) : <div>loading</div>}
                 </div>
 
         );

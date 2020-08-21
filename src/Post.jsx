@@ -20,8 +20,12 @@ class Post extends React.Component {
     }
 
     updateComments = () => {
+        console.log('updating')
         fire.firestore().collection('comments').where('postId', '==', this.props.postId).orderBy('points', 'desc').get().then(commentsData => {
             this.setState({ comments: commentsData.docs })
+            fire.firestore().collection('posts').doc(this.props.postId).update({
+                commentCount: commentsData.docs.length
+            });
         });
     }
 
@@ -29,14 +33,10 @@ class Post extends React.Component {
         fire.firestore().collection('posts').doc(this.props.postId).get().then(postRef => {
             if (postRef.exists) {
                 this.setState({ post: postRef, user: fire.auth().currentUser })
-            }else {
+            } else {
                 this.props.history.push('/');
             }
         })
-    }
-
-    setNewComment = (comment) => {
-        this.setState(prevState => ({ newComments: [comment, ...prevState.newComments] }));
     }
 
 
@@ -49,10 +49,9 @@ class Post extends React.Component {
                     <PostTemplate updatePosts={this.updatePost} redirect={true} post={this.state.post} user={this.state.user} />
                     <div className='comments'>
                         <div>Comments</div>
-                        {this.props.currentUser ? <NewComment user={this.state.user} getNewComment={this.getNewComment} setNewComment={this.setNewComment} updateComments={this.updateComments} postId={this.props.postId} /> : <div>Log in or Sign up to comment</div>}
-                        {this.state.newComments.map(comment => comment)}
+                        {this.props.currentUser ? <NewComment user={this.state.user} updateComments={this.updateComments} postId={this.props.postId} parents={null} directParent={null} nestDepth={0} highestParent={null} /> : <div>Log in or Sign up to comment</div>}
                         {this.state.comments.map(comment => (
-                            <CommentTemplate user={this.state.user} key={comment.id} updateComments={this.updateComments} comment={comment} />
+                            comment.data().nestDepth === 0 ? <CommentTemplate user={this.state.user} key={comment.id} updateComments={this.updateComments} comment={comment} postId={this.props.postId} /> : null
                         ))}
                     </div>
                 </div>

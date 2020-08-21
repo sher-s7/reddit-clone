@@ -16,9 +16,10 @@ export default class NewComment extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+        console.log(this.props.postId)
         const currentUser = fire.auth().currentUser;
         if (!currentUser) {
-            alert('Must be logged in to post')
+            alert('Must be logged in to comment')
         } else {
             fire.firestore().collection('comments').add({
                 points: 0,
@@ -26,13 +27,17 @@ export default class NewComment extends React.Component {
                 text: this.state.comment,
                 dateCreated: new Date(),
                 postId: this.props.postId,
-                votes: {}
-            }).then((docRef) => {
+                votes: {},
+                directParent: this.props.directParent,
+                parents: this.props.parents,
+                nestDepth: this.props.nestDepth,
+                highestParent: this.props.highestParent
+            }).then(() => {
                 this.setState({ comment: '' });
-                docRef.get().then(comment => {
-                    this.props.setNewComment(<CommentTemplate user={this.props.user} key={comment.id} updateComments={this.props.updateComments} comment={comment} />)
-                });
-                
+                if (this.props.showReplyBox) {
+                    this.props.showReplyBox(false)
+                }
+                this.props.updateComments();
             }).then(
                 fire.firestore().collection('posts').doc(this.props.postId).update({ commentCount: firebase.firestore.FieldValue.increment(1) })
             );
@@ -45,6 +50,7 @@ export default class NewComment extends React.Component {
             <form onSubmit={this.handleSubmit} className='newCommentForm'>
                 <textarea value={this.state.comment} name='comment' onChange={this.handleChange} id="commentTextArea" />
                 <input type="submit" value="Submit comment" />
+                {this.props.showReplyBox ? <button onClick={() => this.props.showReplyBox(false)}>Cancel</button> : null}
             </form>
         );
     }
