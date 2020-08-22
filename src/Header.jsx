@@ -23,6 +23,14 @@ export default class Header extends React.Component {
     fire.auth().signOut().then(this.props.updateView);
   }
 
+  toggleAccountSettings = () => {
+    this.setState(prevState => {
+      return {
+        hideAccount: !prevState.hideAccount
+      }
+    })
+  }
+
   render() {
     return (
       <header>
@@ -31,16 +39,12 @@ export default class Header extends React.Component {
         {fire.auth().currentUser ? <Link to='/groups'>All groups</Link> : null}
         {fire.auth().currentUser ?
           <div className='navButtons'>
-            <div className='accountButton' onClick={() => this.setState(prevState => {
-              return {
-                hideAccount: !prevState.hideAccount
-              }
-            })}><i class="las la-user-cog"></i></div>
-            <Link className='all' to='/'>ALL</Link>
-            <Link className='feed' to='/feed'>MY FEED</Link>
+            <button className='accountButton' onClick={this.toggleAccountSettings}><i class="las la-user-cog"></i></button>
+            <Link className='all' to='/' onClick={() => this.setState({hideAccount: true})}>ALL</Link>
+            <Link className='feed' to='/feed' onClick={() => this.setState({hideAccount: true})}>MY FEED</Link>
             <div className={`account${this.state.hideAccount ? ' hide' : ''}`}>
-              <Link className='profile' to={`/profile/${fire.auth().currentUser.displayName}`}>PROFILE</Link>
-              <Link className='settings' to='/settings'>SETTINGS</Link>
+              <Link className='profile' to={`/profile/${fire.auth().currentUser.displayName}`} onClick={() => this.setState({hideAccount: true})}>PROFILE</Link>
+              <Link className='settings' to='/settings' onClick={() => this.setState({hideAccount: true})}>SETTINGS</Link>
               <Link className='logout' to='/' onClick={this.logout}>LOGOUT</Link>
             </div>
           </div> :

@@ -37,7 +37,7 @@ class PostTemplate extends React.Component {
             return (
                 <div>
                     {postData.edited ? <span className='edited'>(edited)</span> : null}
-                    {this.state.editPost ? <EditPost updatePosts={this.props.updatePosts} editPost={this.editPost} markAsEdited={this.markAsEdited} docId={post.id} /> : <h2>{postData.body}</h2>}
+                    {this.state.editPost ? <EditPost updatePosts={this.props.updatePosts} editPost={this.editPost} markAsEdited={this.markAsEdited} docId={post.id} /> : <p className='postBody'>{postData.body}</p>}
                     {currentUserPost && !this.props.profile ? <EditPostButton editPost={this.editPost} /> : null}
                 </div>
             );
@@ -63,7 +63,7 @@ class PostTemplate extends React.Component {
     render() {
         return (
             <div className='feedPost'>
-                {this.state.location.pathname === '/' || this.state.location.pathname === '/feed'  || this.state.location.pathname.includes('/post/') || this.state.location.pathname.includes('/profile/') ?
+                {this.state.location.pathname === '/' || this.state.location.pathname === '/feed' || this.state.location.pathname.includes('/post/') || this.state.location.pathname.includes('/profile/') ?
                     <div className='groupName'>
                         <Link to={`/group/${this.props.post.data().group}`}>{this.props.post.data().group}</Link>
                         <span>·</span>

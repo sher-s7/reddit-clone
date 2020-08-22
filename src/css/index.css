@@ -1,15 +1,43 @@
-* {
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
+
+html {
   box-sizing: border-box;
+  font-family: 'Oswald', sans-serif;
+  height: 100%;
+}
+*, *:before, *:after {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+
+  --fontColor: #242424;
+  --bodyColor: white;
+  --buttonColor: #f0f0f0;
+  --bread: #745C3D;
+
+}
+
+a {
+  text-decoration: none;
+}
+
+#root {
+  padding-bottom: 120px;
+  background-color: var(--bodyColor);
 }
 
 /*
 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Header _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Navigation _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 
 */
 header {
   display: flex;
+}
+
+header a {
+  color: var(--fontColor);
 }
 
 #logo {
@@ -23,46 +51,61 @@ header {
   display: grid;
   width: 100%;
   justify-content: space-evenly;
-
-  height: 120px;
+  height: 60px;
   grid-template-columns: 33% 33% 33%;
-  grid-template-rows: 60px 20px 20px 20px;
+  grid-template-rows: 20px 20px 20px;
   text-align: center;
+  background-color: var(--buttonColor);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.459);
 }
 
 .navButtons > * {
-  background: wheat;
   line-height: 60px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .navButtons .all {
   grid-column-start: 1;
-  grid-row-start: 2;
-  grid-row-end: 5;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  font-size: 35px;
 }
 
 .navButtons .feed {
   grid-column-start: 2;
-  grid-row-start: 2;
-  grid-row-end: 5;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  font-size: 18px;
 }
 
 .navButtons .accountButton {
   grid-column-start: 3;
-  grid-row-start: 2;
-  grid-row-end: 5;
+  grid-row-start: 1;
+  grid-row-end: 4;
   z-index: 0;
+  padding: 0;
+  border: none;
+  font-size: 35px;
+  background-color: var(--buttonColor);
+  color: var(--fontColor);
 }
 
 .navButtons .account {
   display: flex;
   flex-direction: column;
   grid-column-start: 3;
+  grid-row-start: 1;
+  grid-row-end: 4;
   line-height: unset;
   position: relative;
-  top: 0;
+  top: -102px;
   transition: 0.3s ease;
   z-index: -1;
+  height: max-content;
+  background-color: var(--buttonColor);
 }
 
 .navButtons .account.hide {
@@ -71,20 +114,18 @@ header {
   transition: 0.4s ease;
 }
 
-/* .navButtons .profile {
-  grid-column-start: 3;
-  grid-row-start: 3;
+.account a {
+  padding: 5px 0;
+  font-size: 18px;
 }
 
-.navButtons .settings {
-  grid-column-start: 3;
-  grid-row-start: 2;
+.navButtons .profile {
+  padding-top: 10px;
 }
 
 .navButtons .logout {
-  grid-column-start: 3;
-  grid-row-start: 1;
-} */
+  padding-bottom: 20px;
+}
 
 /*
 
@@ -98,12 +139,34 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   margin-bottom: 10px;
 }
 
+.postBody {
+  word-wrap: break-word;
+}
+
+.points {
+  display: flex;
+  width: max-content;
+  flex-direction: column;
+  align-items: center;
+}
+
+.points span {
+  font-size: 25px;
+}
+
+.upvote, .downvote {
+  background: none;
+  border: none;
+  font-size: 35px;
+  color: rgb(190, 190, 190);
+}
+
 .upvoted .upvote {
-  color: red;
+  color: #745C3D;
 }
 
 .downvoted .downvote {
-  color: blue;
+  color: #745C3D;
 }
 
 .hidden {
