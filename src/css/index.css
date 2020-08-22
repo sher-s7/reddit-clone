@@ -2,6 +2,97 @@
   box-sizing: border-box;
 }
 
+/*
+
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Header _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+
+*/
+header {
+  display: flex;
+}
+
+#logo {
+  width: 50px;
+}
+
+.navButtons {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  width: 100%;
+  justify-content: space-evenly;
+
+  height: 120px;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: 60px 20px 20px 20px;
+  text-align: center;
+}
+
+.navButtons > * {
+  background: wheat;
+  line-height: 60px;
+}
+
+.navButtons .all {
+  grid-column-start: 1;
+  grid-row-start: 2;
+  grid-row-end: 5;
+}
+
+.navButtons .feed {
+  grid-column-start: 2;
+  grid-row-start: 2;
+  grid-row-end: 5;
+}
+
+.navButtons .accountButton {
+  grid-column-start: 3;
+  grid-row-start: 2;
+  grid-row-end: 5;
+  z-index: 0;
+}
+
+.navButtons .account {
+  display: flex;
+  flex-direction: column;
+  grid-column-start: 3;
+  line-height: unset;
+  position: relative;
+  top: 0;
+  transition: 0.3s ease;
+  z-index: -1;
+}
+
+.navButtons .account.hide {
+  position: relative;
+  top: 65px;
+  transition: 0.4s ease;
+}
+
+/* .navButtons .profile {
+  grid-column-start: 3;
+  grid-row-start: 3;
+}
+
+.navButtons .settings {
+  grid-column-start: 3;
+  grid-row-start: 2;
+}
+
+.navButtons .logout {
+  grid-column-start: 3;
+  grid-row-start: 1;
+} */
+
+/*
+
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+
+*/
+
 .feedPost {
   border: 3px solid black;
   margin-bottom: 10px;
@@ -36,11 +127,7 @@
   opacity: 0.5;
 }
 
-#logo {
-  width: 100px
-}
-
-.indent{
+.indent {
   margin-left: 30px;
 }
 

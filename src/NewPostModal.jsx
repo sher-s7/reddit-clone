@@ -43,6 +43,7 @@ class NewPostModal extends React.Component {
 
         return (
             <div className='newPostModal'>
+                <button className='closeModal' onClick={this.props.setModal}> ╳ </button>
                 <h3>Create a post</h3>
                 <div>
                     <ul>

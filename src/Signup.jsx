@@ -61,7 +61,7 @@ export default class Signup extends React.Component {
     render() {
         return (
             <div id='signUpModal'>
-                <button onClick={this.props.setModal}> ╳ </button>
+                <button className='closeModal' onClick={this.props.setModal}> ╳ </button>
                 <form onSubmit={this.signup}>
                     <label htmlFor="username">
                         Username:

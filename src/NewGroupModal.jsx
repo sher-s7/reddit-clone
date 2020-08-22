@@ -55,6 +55,7 @@ class NewGroupModal extends React.Component {
     render() {
         return (
             <div id='newGroupModal'>
+                <button className='closeModal' onClick={this.props.setModal}> ╳ </button>
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="title">
                         <span onMouseEnter={this.showValidations} onMouseLeave={this.hideValidations}>Name <i className="las la-info-circle"></i></span>

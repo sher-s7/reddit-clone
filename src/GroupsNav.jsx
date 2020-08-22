@@ -14,12 +14,17 @@ export default class GroupsNav extends React.Component {
     }
 
     handleClick = () => {
+        this.displayGroups();
         this.props.currentUser ? this.props.setModal('group') : alert('Must be signed in to create new groups');
     }
 
-    displayGroups = (className) => {
-        this.setState({ displayGroupList: className });
-        if (className === 'display') this.loadGroups();
+    displayGroups = () => {
+        if (this.state.displayGroupList === 'hidden') {
+            this.loadGroups();
+            this.setState({ displayGroupList: 'display' });
+        } else {
+            this.setState({ displayGroupList: 'hidden' });
+        }
     }
 
     loadGroups = () => {
@@ -49,8 +54,8 @@ export default class GroupsNav extends React.Component {
 
     render() {
         return (
-            <div onMouseLeave={() => this.displayGroups('hidden')} id='groupList'>
-                <button onClick={() => this.displayGroups('display')}>{this.props.currentUser ? 'Joined groups' : 'Groups'}</button>
+            <div id='groupList'>
+                <button onClick={this.displayGroups}>{this.props.currentUser ? 'Joined groups' : 'Groups'}</button>
                 <ul className={this.state.displayGroupList}>
                     <li>
                         <button onClick={this.handleClick} className='newGroupButton'>
@@ -58,7 +63,7 @@ export default class GroupsNav extends React.Component {
                         </button>
                     </li>
                     {this.state.groups && this.state.groups.length > 0
-                        ? this.state.groups.map(group => <li key={group.id || group}><Link to={`/group/${group.id || group}`}>{group.id || group}</Link></li>)
+                        ? this.state.groups.map(group => <li onClick={this.displayGroups} key={group.id || group}><Link to={`/group/${group.id || group}`}>{group.id || group}</Link></li>)
                         : 'Joined groups will appear here'}
                 </ul>
             </div>
