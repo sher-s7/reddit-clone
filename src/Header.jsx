@@ -29,6 +29,7 @@ export default class Header extends React.Component {
         <GroupsNav setModal={this.props.setModal} currentUser={fire.auth().currentUser}/>
         {fire.auth().currentUser ?
           <div>
+            <Link to='/feed'>My feed</Link>
             <Link to='/groups'>All groups</Link>
             <Link to={`/profile/${fire.auth().currentUser.displayName}`}>Profile</Link>
             <Link to='/settings'>Settings</Link>

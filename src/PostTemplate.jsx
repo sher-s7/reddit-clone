@@ -63,7 +63,7 @@ class PostTemplate extends React.Component {
     render() {
         return (
             <div className='feedPost'>
-                {this.state.location.pathname === '/'  || this.state.location.pathname.includes('/post/') || this.state.location.pathname.includes('/profile/') ?
+                {this.state.location.pathname === '/' || this.state.location.pathname === '/feed'  || this.state.location.pathname.includes('/post/') || this.state.location.pathname.includes('/profile/') ?
                     <div className='groupName'>
                         <Link to={`/group/${this.props.post.data().group}`}>{this.props.post.data().group}</Link>
                         <span>·</span>

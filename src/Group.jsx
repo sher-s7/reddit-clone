@@ -11,7 +11,9 @@ class Group extends React.Component {
         super(props);
 
         this.state = {
-            joined: false
+            joined: false,
+            postLimit: this.props.postLimit,
+            disableLoadMore: false,
         }
     }
 
@@ -62,15 +64,22 @@ class Group extends React.Component {
         this._isMounted = false;
     }
 
-    fetchPosts = () => {
-        fire.firestore().collection('posts').where('group', '==', this.props.group).orderBy('dateCreated', 'desc').limit(25).get().then(postsData => {
-            if (this._isMounted) {
-                this.setState({
-                    posts: postsData.docs
-                });
+    fetchPosts = (limit) => {
+        fire.firestore().collection('posts').where('group', '==', this.props.group).orderBy('dateCreated', 'desc').limit(limit || this.state.postLimit).get().then(postsData => {
+            if ((limit && postsData.docs.length === this.state.posts.length) || postsData.docs.length === 0) {
+                this.setState({ disableLoadMore: true })
             }
+            this.setState({
+                posts: postsData.docs
+            });
         });
+        if (limit) this.setState({ postLimit: limit });
+    };
 
+
+
+    fetchNextPosts = () => {
+        this.fetchPosts(this.state.postLimit + this.props.postLimit);
     }
 
     joinGroup = () => {
@@ -118,7 +127,7 @@ class Group extends React.Component {
                 {this.state.description ? <h4>{this.state.description}</h4> : null}
                 {this.state.joined ? <button id='leaveGroup' onClick={this.leaveGroup}>LEAVE</button> : <button id='joinGroup' onClick={this.joinGroup}>JOIN</button>}
                 <NewPost setModal={this.props.setModal} />
-                {this.state.posts ? <Feed disableLoadMore={this.props.disableLoadMore} loadMore={this.props.loadMore} updatePosts={this.fetchPosts} posts={this.state.posts} /> : <span id='loading'>Loading</span>}
+                {this.state.posts ? <Feed disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} updatePosts={this.fetchPosts} posts={this.state.posts} /> : <span id='loading'>Loading</span>}
             </div>
         );
     }
