@@ -50,7 +50,7 @@ class PostTemplate extends React.Component {
         } else if (postData.type === 'link') {
             return (
                 <div>
-                    <a target='_blank' href={`http://${postData.link}`} rel="noopener noreferrer">
+                    <a target='_blank' href={postData.link} rel="noopener noreferrer">
                         <img src={LinkImage} alt="link" />
                         {postData.link}
                     </a>

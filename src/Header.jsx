@@ -4,7 +4,7 @@ import {
 } from "react-router-dom";
 
 
-import Logo from './assets/bread-logo.png'
+import Toast from './Toast';
 import fire from './config/Fire';
 import GroupsNav from './GroupsNav';
 
@@ -20,19 +20,12 @@ class Header extends React.Component {
   }
 
   componentDidMount() {
-    const location = window.location.pathname;
-    if (location === '/') {
-      this.setState({ currentPage: 'curAll' })
-    } else if (location.includes('feed')) {
-      this.setState({ currentPage: 'curFeed' })
-    } else if (location.includes('profile') || location.includes('settings')) {
-      this.setState({ currentPage: 'curAccount' })
-    }
+    this.updateHeaderClass();
   }
 
   componentDidUpdate(prevProps) {
     console.log('header update')
-    if(prevProps.location.pathname !== this.props.location.pathname) {
+    if (prevProps.location.pathname !== this.props.location.pathname) {
       this.updateHeaderClass();
     }
   }
@@ -45,6 +38,8 @@ class Header extends React.Component {
       this.setState({ currentPage: 'curFeed' })
     } else if (location.includes('profile') || location.includes('settings')) {
       this.setState({ currentPage: 'curAccount' })
+    } else {
+      this.setState({ currentPage: null })
     }
   }
 
@@ -63,10 +58,11 @@ class Header extends React.Component {
   render() {
     return (
       <header className={this.state.currentPage}>
-        <Link to='/'><img id='logo' src={Logo} alt="logo" /></Link>
+        <Link to='/'>
+          <Toast />
+        </Link>
         <h1 id='breddit'>Breddit</h1>
         <GroupsNav setModal={this.props.setModal} currentUser={fire.auth().currentUser} />
-        {fire.auth().currentUser ? <Link to='/groups'>All groups</Link> : null}
         {fire.auth().currentUser ?
           <div className='navButtons'>
             <button className='accountButton' onClick={this.toggleAccountSettings}><i className="las la-user-cog"></i></button>

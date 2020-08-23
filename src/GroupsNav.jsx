@@ -55,16 +55,18 @@ export default class GroupsNav extends React.Component {
     render() {
         return (
             <div id='groupList'>
-                <button onClick={this.displayGroups}>{this.props.currentUser ? 'Joined groups' : 'Groups'}</button>
+                <button onClick={this.displayGroups}>Groups</button>
                 <ul className={this.state.displayGroupList}>
                     <li>
                         <button onClick={this.handleClick} className='newGroupButton'>
-                            <i className="las la-plus-square"></i> Create a group
+                        <i class="las la-plus"/> Create a group
                         </button>
                     </li>
+                    {fire.auth().currentUser ? <h3>Joined groups</h3> : null}
                     {this.state.groups && this.state.groups.length > 0
                         ? this.state.groups.map(group => <li onClick={this.displayGroups} key={group.id || group}><Link to={`/group/${group.id || group}`}>{group.id || group}</Link></li>)
                         : 'Joined groups will appear here'}
+                    {fire.auth().currentUser ? <li id='allGroups'><Link to='/groups'>All groups</Link></li> : null}
                 </ul>
             </div>
         );
