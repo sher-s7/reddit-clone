@@ -1,11 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap");
 
 html {
   box-sizing: border-box;
-  font-family: 'Oswald', sans-serif;
+  font-family: "Oswald", sans-serif;
   height: 100%;
 }
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   padding: 0;
   margin: 0;
   box-sizing: inherit;
@@ -13,8 +15,7 @@ html {
   --fontColor: #242424;
   --bodyColor: white;
   --buttonColor: #f0f0f0;
-  --bread: #745C3D;
-
+  --bread: #745c3d;
 }
 
 a {
@@ -34,6 +35,8 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Navigation _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 */
 header {
   display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 header a {
@@ -42,6 +45,16 @@ header a {
 
 #logo {
   width: 50px;
+}
+
+#breddit {
+  font-size: 25px;
+  margin: 0;
+}
+
+#groupList {
+  background: none;
+  border: none;
 }
 
 .navButtons {
@@ -58,13 +71,22 @@ header a {
   background-color: var(--buttonColor);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.459);
+  z-index: 1;
 }
 
 .navButtons > * {
   line-height: 60px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  transition: 0.2s;
+  outline-color: var(--bread);
+
+  /* Prevent blue highlight */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .navButtons .all {
@@ -72,6 +94,7 @@ header a {
   grid-row-start: 1;
   grid-row-end: 4;
   font-size: 35px;
+  border-top-left-radius: 10px;
 }
 
 .navButtons .feed {
@@ -88,9 +111,11 @@ header a {
   z-index: 0;
   padding: 0;
   border: none;
+  border-top-right-radius: 10px;
   font-size: 35px;
   background-color: var(--buttonColor);
   color: var(--fontColor);
+  outline-color: var(--bread);
 }
 
 .navButtons .account {
@@ -106,6 +131,8 @@ header a {
   z-index: -1;
   height: max-content;
   background-color: var(--buttonColor);
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
 }
 
 .navButtons .account.hide {
@@ -125,6 +152,13 @@ header a {
 
 .navButtons .logout {
   padding-bottom: 20px;
+}
+
+.curAll .navButtons .all,
+.curFeed .navButtons .feed,
+.curAccount .navButtons .accountButton {
+  box-shadow: inset 0 10px 13px rgba(0, 0, 0, 0.14);
+  transition: 0.2s;
 }
 
 /*
@@ -154,7 +188,8 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   font-size: 25px;
 }
 
-.upvote, .downvote {
+.upvote,
+.downvote {
   background: none;
   border: none;
   font-size: 35px;
@@ -162,11 +197,11 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 }
 
 .upvoted .upvote {
-  color: #745C3D;
+  color: #745c3d;
 }
 
 .downvoted .downvote {
-  color: #745C3D;
+  color: #745c3d;
 }
 
 .hidden {
