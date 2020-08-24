@@ -1,5 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"); */
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 
 *,
 *:before,
@@ -11,14 +12,15 @@
   --fontColor: #2d1a18;
   --bodyColor: white;
   --buttonColor: #f0f0f0;
-  --bread: #745c3d;
+  --bread: #9c805b;
+  --border: #745c3d38;
 }
 
 html {
   box-sizing: border-box;
-  font-family: "Oswald", serif;
-  height: 100%;
+  font-family: 'Roboto Condensed', sans-serif;
   color: var(--fontColor);
+  background-color: var(--buttonColor);
 }
 
 a {
@@ -29,7 +31,6 @@ a {
 #root {
   padding-top: 60px;
   padding-bottom: 120px;
-  background-color: var(--bodyColor);
 }
 
 button {
@@ -67,7 +68,7 @@ header {
   background-color: var(--bodyColor);
   justify-content: space-evenly;
   align-items: center;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.247);
+  border-bottom: 1px solid var(--border);
 }
 
 #logo {
@@ -111,18 +112,19 @@ header {
   height: 200px;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: var(--buttonColor);
+  background-color: var(--bodyColor);
+  border: 1px solid var(--border)
 }
 
 #groupList li {
   padding: 4px;
   margin: 4px 0;
+  border-radius: 2px;
 }
 
 #groupList li:hover,
 #groupList li:active {
-  background-color: #d6d6d6;
-  border-radius: 3px;
+  background-color: var(--buttonColor);
 }
 
 #groupList li a {
@@ -151,17 +153,17 @@ header {
   display: grid;
   width: 100%;
   justify-content: space-evenly;
-  height: 60px;
+  height: 40px;
   grid-template-columns: 33% 33% 33%;
-  grid-template-rows: 20px 20px 20px;
+  grid-template-rows: 13.33px 13.33px 13.33px;
   text-align: center;
   background-color: var(--bodyColor);
   z-index: 1;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.247);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.123);
 }
 
 .navButtons > * {
-  line-height: 60px;
+  line-height: 40px;
   transition: 0.2s;
 
   /* Prevent blue highlight */
@@ -178,7 +180,7 @@ header {
   grid-column-start: 1;
   grid-row-start: 1;
   grid-row-end: 4;
-  font-size: 35px;
+  font-size: 25px;
   /* border-top-left-radius: 10px; */
 }
 
@@ -186,7 +188,7 @@ header {
   grid-column-start: 2;
   grid-row-start: 1;
   grid-row-end: 4;
-  font-size: 18px;
+  font-size: 25px;
 }
 
 .navButtons .accountButton {
@@ -197,7 +199,7 @@ header {
   padding: 0;
   border: none;
   /* border-top-right-radius: 10px; */
-  font-size: 35px;
+  font-size: 25px;
   background-color: var(--bodyColor);
   color: var(--bread);
 }
@@ -253,8 +255,14 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 */
 
 .feedPost {
-  border: 3px solid black;
+  list-style: none;
+  background-color: var(--bodyColor);
+  border: 1px solid var(--border);
+  border-radius: 4px;
   margin-bottom: 10px;
+  width: 90%;
+  padding:10px;
+  margin: 20px auto;
 }
 
 .edited {
