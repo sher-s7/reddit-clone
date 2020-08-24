@@ -44,14 +44,14 @@ class PostTemplate extends React.Component {
         } else if (postData.type === 'image') {
             return (
                 <div>
-                    <img width='250px' src={postData.image} alt='post img'></img>
+                    <img width='250px' src={postData.image} alt='Post image'></img>
                 </div>
             );
         } else if (postData.type === 'link') {
             return (
                 <div>
                     <a target='_blank' href={postData.link} rel="noopener noreferrer">
-                        <img src={LinkImage} alt="link" />
+                        <img src={LinkImage} alt="Post link" />
                         {postData.link}
                     </a>
                 </div>

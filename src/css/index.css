@@ -9,11 +9,15 @@
   margin: 0;
   box-sizing: inherit;
 
-  --fontColor: #2d1a18;
+  --fontColor: #3d1e1c;
   --bodyColor: white;
   --buttonColor: #f0f0f0;
   --bread: #9c805b;
   --border: #745c3d38;
+}
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 html {
@@ -53,6 +57,11 @@ p {
   font-weight: 300;
 }
 
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
 /*
 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Navigation _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
@@ -69,6 +78,7 @@ header {
   justify-content: space-evenly;
   align-items: center;
   border-bottom: 1px solid var(--border);
+  z-index: 1;
 }
 
 #logo {
@@ -80,6 +90,7 @@ header {
   font-size: 25px;
   margin: 0;
   font-family: "Roboto Slab", serif;
+  color: var(--fontColor);
 }
 
 #groupList {
@@ -113,7 +124,8 @@ header {
   overflow-x: hidden;
   overflow-y: scroll;
   background-color: var(--bodyColor);
-  border: 1px solid var(--border)
+  border: 1px solid var(--border);
+  transition: 0.2s;
 }
 
 #groupList li {
@@ -216,9 +228,11 @@ header {
   transition: 0.3s ease;
   z-index: -1;
   height: max-content;
-  background-color: var(--buttonColor);
+  background-color: var(--bodyColor);
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
+  border: 1px solid var(--border);
+  border-bottom: none;
 }
 
 .navButtons .account.hide {
@@ -298,10 +312,6 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 .downvoted .downvote {
   color: var(--bread);
-}
-
-.hidden {
-  display: none;
 }
 
 .validationInfo {

@@ -169,9 +169,9 @@ export default class VoteButton extends React.Component {
     render() {
         return (
             <div className={`points ${this.state.vote}`}>
-                <button disabled={this.state.disabled} className='upvote' onClick={this.handleUpvote}>🠝</button>
+                <button disabled={this.state.disabled} className='upvote' onClick={this.handleUpvote}><i class="las la-caret-up"></i></button>
                 <span>{this.state.points !== null ? this.state.points : ''}</span>
-                <button disabled={this.state.disabled} className='downvote' onClick={this.handleDownvote}>🠟</button>
+                <button disabled={this.state.disabled} className='downvote' onClick={this.handleDownvote}><i class="las la-caret-down"></i></button>
             </div>
         );
     }

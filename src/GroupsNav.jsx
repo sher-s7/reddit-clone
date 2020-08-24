@@ -7,10 +7,19 @@ export default class GroupsNav extends React.Component {
         this.state = {
             displayGroupList: 'hidden'
         }
+        this.wrapperRef = React.createRef();
+        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
     componentDidMount() {
         this.loadGroups();
+        document.addEventListener('mousedown', this.handleClickOutside);
+        document.addEventListener('touchstart', this.handleClickOutside);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside);
+        document.removeEventListener('touchstart', this.handleClickOutside);
     }
 
     handleClick = () => {
@@ -52,11 +61,17 @@ export default class GroupsNav extends React.Component {
 
     }
 
+    handleClickOutside(event) {
+        if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
+          this.setState({ displayGroupList: 'hidden' });
+        }
+      }
+
     render() {
         return (
             <div id='groupList'>
                 <button onClick={this.displayGroups}>Groups</button>
-                <ul className={this.state.displayGroupList}>
+                <ul className={this.state.displayGroupList} ref={this.wrapperRef}>
                     <li>
                         <button onClick={this.handleClick} className='newGroupButton'>
                         <i class="las la-plus"/> Create a group

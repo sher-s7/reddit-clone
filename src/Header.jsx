@@ -17,16 +17,32 @@ class Header extends React.Component {
       currentUser: fire.auth().currentUser,
       hideAccount: true,
     }
+
+    this.wrapperRef = React.createRef();
+    this.handleClickOutside = this.handleClickOutside.bind(this);
   }
 
   componentDidMount() {
     this.updateHeaderClass();
+    document.addEventListener('mousedown', this.handleClickOutside);
+    document.addEventListener('touchstart', this.handleClickOutside);
   }
 
   componentDidUpdate(prevProps) {
     console.log('header update')
     if (prevProps.location.pathname !== this.props.location.pathname) {
       this.updateHeaderClass();
+    }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+    document.removeEventListener('touchstart', this.handleClickOutside);
+  }
+
+  handleClickOutside(event) {
+    if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
+      this.setState({ hideAccount: true });
     }
   }
 
@@ -61,14 +77,14 @@ class Header extends React.Component {
         <Link to='/'>
           <Toast />
         </Link>
-        <h1 id='breddit'>Breddit</h1>
+        <Link to='/'><h1 id='breddit'>Breddit</h1></Link>
         <GroupsNav setModal={this.props.setModal} currentUser={fire.auth().currentUser} />
         {fire.auth().currentUser ?
           <div className='navButtons'>
             <button className='accountButton' onClick={this.toggleAccountSettings}><i className="las la-user-cog"></i></button>
             <Link className='all' to='/' onClick={() => this.setState({ hideAccount: true })}><i class="las la-globe"></i></Link>
             <Link className='feed' to='/feed' onClick={() => this.setState({ hideAccount: true })}><i class="las la-home"></i></Link>
-            <div className={`account${this.state.hideAccount ? ' hide' : ''}`}>
+            <div ref={this.wrapperRef} className={`account${this.state.hideAccount ? ' hide' : ''}`} onBlur={() => this.setState({ hideAccount: true })}>
               <Link className='profile' to={`/profile/${fire.auth().currentUser.displayName}`} onClick={() => this.setState({ hideAccount: true })}>PROFILE</Link>
               <Link className='settings' to='/settings' onClick={() => this.setState({ hideAccount: true })}>SETTINGS</Link>
               <Link className='logout' to='/' onClick={this.logout}>LOGOUT</Link>
