@@ -18,8 +18,8 @@ export default class Home extends React.Component {
 
     render() {
         return (
-            <div>
-                <h1>All</h1>
+            <div className='feedContainer'>
+                <h1 className='feedHeading'>ALL</h1>
                 <NewPost setModal={this.props.setModal} />
                 {this.props.posts ? <Feed disableLoadMore={this.props.disableLoadMore} loadMore={this.props.loadMore} updatePosts={this.props.updatePosts} posts={this.props.posts} /> : null}
             </div>

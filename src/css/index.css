@@ -1,6 +1,7 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"); */
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 *,
 *:before,
@@ -15,14 +16,15 @@
   --bread: #9c805b;
   --border: #745c3d38;
 }
-html, body {
+html,
+body {
   max-width: 100%;
   overflow-x: hidden;
 }
 
 html {
   box-sizing: border-box;
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: "Roboto Condensed", sans-serif;
   color: var(--fontColor);
   background-color: var(--buttonColor);
 }
@@ -263,20 +265,171 @@ header {
 
 /*
 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Group _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+
+*/
+.groupHeaderContainer {
+  display: grid;
+  grid-template-columns: 60px 1fr 60px;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.groupHeader {
+  text-align: center;
+  font-size: 18px;
+  margin: 0;
+  color: var(--buttonColor);
+  background-color: #c2c2c2;
+  display: inline-block;
+  padding: 5px 7px;
+  border-radius: 2px;
+  height: 36px;
+  width: max-content;
+  grid-column-start: 1;
+  grid-row-start: 1;
+  line-height: 26px;
+}
+
+.feedHeading {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+  color: var(--buttonColor);
+  background-color: #c2c2c2;
+  /* display: inline-block; */
+  padding: 5px 7px;
+  border-radius: 2px;
+  height: 36px;
+  width: max-content;
+  line-height: 26px;
+}
+
+.numMembers {
+  color: #b1b1b1;
+  font-size: 14px;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  text-align: center;
+}
+
+.numMembers .number {
+  color: var(--bread);
+  font-size: 18px;
+}
+
+#leaveGroup, #joinGroup {
+  text-align: center;
+  font-size: 16px;
+  margin: 0;
+  display: inline-block;
+  padding: 5px 7px;
+  border-radius: 2px;
+  height: 36px;
+  grid-column-start: 3;
+  grid-row-start: 1;
+  width: max-content;
+  justify-self: right;
+}
+
+#leaveGroup {
+  color: var(--buttonColor);
+  background-color: var(--bread);
+}
+
+#joinGroup {
+  color: var(--bread);
+  background-color: transparent;
+  border: 1px solid var(--bread);
+
+}
+
+.groupDescription {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 2;
+  text-align: center;
+  font-weight: 100;
+  color: var(--bread);
+  margin-top: 10px;
+}
+
+
+
+/*
+
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Feed _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+
+*/
+
+.feedContainer {
+  padding: 0 20px;
+}
+
+/*
+
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 
 */
+
+.newPostContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+}
+
+.newPostContainer h3 {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  text-align: left;
+  font-family: 'Roboto', sans-serif;
+  color: var(--bread);
+  font-size: 16px;
+}
+
+.newPostButton {
+  text-align: center;
+  height: 30px;
+  border: none;
+  border-radius: 3px;
+  margin: 0px 1px 10px 1px;
+  background: var(--bread);
+  color: var(--buttonColor);
+}
+
+.newPostButton .text {
+  grid-column-start: 1;
+  grid-row-start: 2;
+}
+
+.newPostButton .image {
+  grid-column-start: 2;
+  grid-row-start: 2;
+}
+
+.newPostButton .link {
+  grid-column-start: 3;
+  grid-row-start: 2;
+}
+
+.newPostButton:active {
+  background-color: #886f4f;
+}
 
 .feedPost {
   list-style: none;
   background-color: var(--bodyColor);
   border: 1px solid var(--border);
   border-radius: 4px;
+  margin: 0 auto;
   margin-bottom: 10px;
-  width: 90%;
-  padding:10px;
-  margin: 20px auto;
+  padding: 10px;
 }
 
 .edited {

@@ -115,17 +115,20 @@ class Group extends React.Component {
     }
 
     pluralize = (word, num) => {
-        return num !== 1 ? `${word}s` : word;
+        return num !== 1 ? `${word}S` : word;
     }
 
     render() {
         return (
-            <div>
-                <h1>{this.props.group} {typeof this.state.numberOfUsers === 'number' ?
-                    <span>· {this.state.numberOfUsers} {this.pluralize('member', this.state.numberOfUsers)}</span>
-                    : null}</h1>
-                {this.state.description ? <h4>{this.state.description}</h4> : null}
-                {this.state.joined ? <button id='leaveGroup' onClick={this.leaveGroup}>LEAVE</button> : <button id='joinGroup' onClick={this.joinGroup}>JOIN</button>}
+            <div className='feedContainer'>
+                <div className='groupHeaderContainer'>
+                    <h1 className='groupHeader'>{this.props.group}</h1>
+                    {this.state.joined ? <button id='leaveGroup' onClick={this.leaveGroup}>LEAVE</button> : <button id='joinGroup' onClick={this.joinGroup}>JOIN</button>}
+                    {typeof this.state.numberOfUsers === 'number' ?
+                        <span className='numMembers'><span className='number'>{this.state.numberOfUsers}</span> {this.pluralize('MEMBER', this.state.numberOfUsers)}</span>
+                        : null}
+                    {this.state.description ? <h4 className='groupDescription'>{this.state.description}</h4> : null}
+                </div>
                 <NewPost setModal={this.props.setModal} />
                 {this.state.posts ? <Feed disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} updatePosts={this.fetchPosts} posts={this.state.posts} /> : <span id='loading'>Loading</span>}
             </div>

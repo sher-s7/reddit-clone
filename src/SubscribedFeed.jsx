@@ -55,7 +55,8 @@ class SubscribedFeed extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className='feedContainer'>
+                <h1 className='feedHeading'>MY FEED</h1>
                 <NewPost setModal={this.props.setModal} />
                 {this.state.posts ? <Feed disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} updatePosts={this.fetchPosts} posts={this.state.posts} /> : <span id='joinGroupsMessage'>Posts from your groups will show up here once you've joined them.</span>}
             </div>

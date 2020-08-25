@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react';
 import DeletePostButton from './DeletePostButton';
 import { Link, withRouter } from 'react-router-dom';
