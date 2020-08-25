@@ -8,7 +8,7 @@ import EditPostButton from './EditPostButton';
 import EditPost from './EditPost';
 import 'line-awesome/dist/line-awesome/css/line-awesome.min.css'
 import VoteButton from './VoteButton';
-import { formatDistanceToNow } from 'date-fns';
+import { formatDistanceStrict } from 'date-fns';
 
 class PostTemplate extends React.Component {
     constructor(props) {
@@ -50,12 +50,12 @@ class PostTemplate extends React.Component {
             );
         } else if (postData.type === 'link') {
             return (
-                <div>
-                    <a target='_blank' href={postData.link} rel="noopener noreferrer">
-                        <img src={LinkImage} alt="Post link" />
+                <>
+                    <img src={LinkImage} alt="Post link" className='postLinkImage'/>
+                    <a className='postLink' target='_blank' href={postData.link} rel="noopener noreferrer">
                         {postData.link}
                     </a>
-                </div>
+                </>
             );
         }
 
@@ -67,13 +67,13 @@ class PostTemplate extends React.Component {
                 {this.state.location.pathname === '/' || this.state.location.pathname === '/feed' || this.state.location.pathname.includes('/post/') || this.state.location.pathname.includes('/profile/') ?
                     <div className='groupName'>
                         <Link to={`/group/${this.props.post.data().group}`}>{this.props.post.data().group}</Link>
-                        <span>·</span>
+                        <span> ·</span>
                     </div>
                     : null}
-                <div>Posted by <Link to={`/profile/${this.props.post.data().username}`}>{this.props.post.data().username}</Link>
-                    <span className='distanceInWords'>{formatDistanceToNow(this.props.post.data().dateCreated.toDate(),
+                <div className='postedBy'><span className='user'>Posted by <Link to={`/profile/${this.props.post.data().username}`}>{this.props.post.data().username}</Link></span>
+                    <span className='distanceInWords'>{formatDistanceStrict(this.props.post.data().dateCreated.toDate(),new Date(),
                         { addSuffix: true })}</span></div>
-                <h1>{this.props.post.data().title}</h1>
+                <h1 className='postTitle'>{this.props.post.data().title}</h1>
                 {this.props.profile ? null : <VoteButton collection='posts' doc={this.props.post} />}
                 {this.generatePost()}
                 {this.props.user && this.props.user.uid === this.props.post.data().uid ? <DeletePostButton profile={this.props.profile} updatePosts={this.props.updatePosts} docId={this.props.post.id} /> : null}

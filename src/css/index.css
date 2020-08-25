@@ -1,7 +1,7 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"); */
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 *,
 *:before,
@@ -299,7 +299,6 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Group _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
   margin-top: 20px;
   color: var(--buttonColor);
   background-color: #c2c2c2;
-  /* display: inline-block; */
   padding: 5px 7px;
   border-radius: 2px;
   height: 36px;
@@ -321,7 +320,8 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Group _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
   font-size: 18px;
 }
 
-#leaveGroup, #joinGroup {
+#leaveGroup,
+#joinGroup {
   text-align: center;
   font-size: 16px;
   margin: 0;
@@ -344,7 +344,6 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Group _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
   color: var(--bread);
   background-color: transparent;
   border: 1px solid var(--bread);
-
 }
 
 .groupDescription {
@@ -356,8 +355,6 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Group _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
   color: var(--bread);
   margin-top: 10px;
 }
-
-
 
 /*
 
@@ -388,7 +385,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   grid-column-start: 1;
   grid-column-end: 4;
   text-align: left;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: var(--bread);
   font-size: 16px;
 }
@@ -432,6 +429,62 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   padding: 10px;
 }
 
+.postContainer.link {
+  display: grid;
+  grid-template-rows: 1fr 80px 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.postContainer.link .groupName {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+.postContainer.link .postedBy {
+  grid-column-start: 3;
+  grid-column-end: 6;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+.postedBy .user {
+  display: none;
+}
+
+.postContainer.link .points {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  align-self: center;
+}
+
+.postContainer.link .postTitle {
+  grid-column-start: 3;
+  grid-column-end: 6;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.postContainer.link .postLinkImage{
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  width: 80px;
+}
+.postContainer.link .postLink{
+  grid-column-start: 2;
+  grid-column-end: 6;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  align-self: flex-end;
+  font-size: 14px;
+  text-overflow: ellipsis;
+}
+
 .edited {
   color: var(--bread);
 }
@@ -448,14 +501,14 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 }
 
 .points span {
-  font-size: 25px;
+  font-size: 14px;
 }
 
 .upvote,
 .downvote {
   background: none;
   border: none;
-  font-size: 35px;
+  font-size: 30px;
   color: rgb(190, 190, 190);
 }
 
