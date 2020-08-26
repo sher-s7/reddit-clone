@@ -519,21 +519,27 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 /* -  -  -  -  -  -  -  -  -   Image Posts -  -  -  -  -  -  -  -  -  -  -  -  */
 .postContainer.image {
-  grid-template-rows: 30px 30px 1fr auto;
-  grid-template-columns: 1fr 1fr 1fr 1fr auto;
+  grid-template-rows: 25px 25px auto auto;
+  grid-template-columns: 70px auto auto auto auto;
+  padding: 10px;
+  padding-bottom: 0;
 }
 
 .postContainer.image .postTitle {
   grid-column-start: 1;
+  grid-column-end: 6;
   grid-row-start: 3;
-  grid-column-end: 5;
-  padding: 5px;
+  grid-row-end: 4;
+  padding-bottom: 5px;
 }
 
 .postContainer.image .imageContainer {
   grid-column-start: 1;
   grid-column-end: 6;
   grid-row-start: 4;
+  grid-row-end: 5;
+  width: calc(100% + 20px);
+  margin-left: -10px;
 }
 
 .postContainer.image .imageContainer img {
@@ -565,14 +571,13 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   text-overflow: ellipsis;
   align-self: start;
   max-height: 100px;
-  mask-image: linear-gradient(180deg,#000 60%,transparent);
+  mask-image: linear-gradient(180deg, #000 60%, transparent);
 }
 
 .commentCount {
   font-size: 14px;
   grid-column-start: 2;
   grid-column-end: 4;
-
 }
 .editPostButton {
   font-size: 14px;
