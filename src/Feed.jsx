@@ -26,7 +26,6 @@ export default class Feed extends React.Component {
                     {this.props.posts ? this.props.posts.map(post => (
                         <li key={post.id} className='feedPost'>
                             <PostTemplate redirect={false} updatePosts={this.props.updatePosts} key={post.id} post={post} user={this.state.user} />
-                            <Link className='commentCount' to={`/group/${post.data().group}/post/${post.id}`}>{post.data().commentCount === 1 ? `${post.data().commentCount} Comment` : `${post.data().commentCount} Comments`}</Link>
                         </li>
                     )) : null}
                 </ul>

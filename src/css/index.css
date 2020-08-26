@@ -278,7 +278,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Group _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
   grid-template-rows: 40px 70px auto;
   align-items: center;
   margin-top: 20px;
-  padding-bottom: 15px;
+  padding: 0 10px 15px 10px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -445,13 +445,14 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 .dividingDot {
   padding: 0 5px;
+  font-weight: bolder;
+  color: var(--grey);
 }
 
 .postContainer {
   display: grid;
   align-items: center;
   padding: 0;
-  border-radius: 2px;
 }
 
 .postContainer .postTitle {
@@ -461,56 +462,52 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 .postContainer .groupName {
   grid-column-start: 1;
-  grid-column-end: 2;
+  grid-column-end: 5;
   grid-row-start: 1;
   grid-row-end: 2;
-  max-width: 120px;
   overflow: hidden;
   text-overflow: ellipsis;
-  min-width: max-content;
-  padding: 0 5px;
 }
 
 .postContainer .postedBy {
   grid-column-start: 1;
-  grid-column-end: 5;
+  grid-column-end: 6;
   grid-row-start: 2;
   grid-row-end: 3;
   font-size: 14px;
-  /* text-align: right; */
-  padding: 0 5px;
   color: var(--grey);
   font-size: 14px;
 }
 
-.postedBy .user {
-  /* display: none; */
+.postContainer .points {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 5;
+  grid-row-end: 6;
+  display: flex;
+  width: max-content;
+  flex-direction: row;
+  align-items: center;
 }
 
 /* -  -  -  -  -  -  -  -  -   Link Posts -  -  -  -  -  -  -  -  -  -  -  -  */
 .postContainer.link {
-  grid-template-rows: 30px 1fr 25px;
+  grid-template-rows: 30px 30px 1fr 25px;
   grid-template-columns: 1fr 1fr 1fr 1fr 45px;
-}
-
-.postContainer.link .points {
-  grid-column-start: 5;
-  grid-column-end: 6;
-  grid-row-start: 1;
-  grid-row-end: 4;
-  justify-self: right;
+  padding: 10px;
+  padding-bottom: 0;
 }
 
 .postContainer.link .postTitle {
   grid-column-start: 1;
-  grid-column-end: 5;
+  grid-column-end: 6;
   grid-row-start: 2;
   grid-row-end: 3;
 }
 
 .postContainer.link .postLink {
   grid-column-start: 1;
-  grid-column-end: 5;
+  grid-column-end: 6;
   grid-row-start: 3;
   grid-row-end: 4;
   align-self: flex-end;
@@ -533,13 +530,6 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   padding: 5px;
 }
 
-.postContainer.image .points {
-  grid-column-start: 5;
-  grid-row-start: 1;
-  grid-row-end: 3;
-  justify-self: right;
-}
-
 .postContainer.image .imageContainer {
   grid-column-start: 1;
   grid-column-end: 6;
@@ -552,72 +542,65 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 /* -  -  -  -  -  -  -  -  -   Text Posts -  -  -  -  -  -  -  -  -  -  -  -  */
 .postContainer.text {
-  grid-template-columns: 1fr 1fr 1fr 1fr auto;
-  grid-template-rows: 30px auto auto auto;
+  grid-template-columns: 70px auto auto auto auto;
+  grid-template-rows: 25px 25px auto auto;
   overflow: hidden;
+  padding: 10px;
   padding-bottom: 0;
 }
 
 .postContainer.text .postTitle {
-  grid-row-start: 2;
+  grid-row-start: 3;
+  grid-row-end: 4;
   grid-column-start: 1;
-  grid-column-end: 5;
-}
-
-.postContainer.text .points {
-  grid-column-start: 5;
-  grid-row-start: 1;
-  grid-row-end: 5;
-  justify-self: right;
-  align-self: center;
+  grid-column-end: 6;
 }
 
 .postContainer.text .postBody {
-  grid-row-start: 3;
+  grid-row-start: 4;
   grid-row-end: 5;
   grid-column-start: 1;
-  grid-column-end: 5;
+  grid-column-end: 6;
   overflow: hidden;
   text-overflow: ellipsis;
   align-self: start;
   max-height: 100px;
+  mask-image: linear-gradient(180deg,#000 60%,transparent);
 }
 
 .commentCount {
-  margin-top: 10px;
-  display: block;
   font-size: 14px;
-}
+  grid-column-start: 2;
+  grid-column-end: 4;
 
+}
 .editPostButton {
-  position: absolute;
-  bottom: 10px;
-  right: 60px;
   font-size: 14px;
+  grid-column-start: 4;
+  grid-column-end: 5;
+  grid-row-start: 5;
+  grid-row-end: 6;
 }
 .deletePostButton {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
+  grid-column-start: 5;
+  grid-column-end: 6;
   font-size: 14px;
+  grid-row-start: 5;
+  grid-row-end: 6;
 }
 .edited {
   color: var(--bread);
-  grid-column-start: 4;
+  grid-column-start: 5;
   grid-row-start: 1;
   font-size: 14px;
   font-weight: lighter;
-}
-
-.points {
-  display: flex;
-  width: max-content;
-  flex-direction: row;
-  align-items: center;
+  text-align: right;
 }
 
 .points span {
   font-size: 14px;
+  font-weight: bolder;
+  color: var(--grey);
 }
 
 .upvote,
