@@ -492,8 +492,8 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 /* -  -  -  -  -  -  -  -  -   Link Posts -  -  -  -  -  -  -  -  -  -  -  -  */
 .postContainer.link {
-  grid-template-rows: 30px 30px 1fr 25px;
-  grid-template-columns: 1fr 1fr 1fr 1fr 45px;
+  grid-template-rows: 25px 25px auto auto;
+  grid-template-columns: 70px auto auto auto auto;
   padding: 10px;
   padding-bottom: 0;
 }
@@ -501,15 +501,15 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 .postContainer.link .postTitle {
   grid-column-start: 1;
   grid-column-end: 6;
-  grid-row-start: 2;
-  grid-row-end: 3;
+  grid-row-start: 3;
+  grid-row-end: 4;
 }
 
 .postContainer.link .postLink {
   grid-column-start: 1;
   grid-column-end: 6;
-  grid-row-start: 3;
-  grid-row-end: 4;
+  grid-row-start: 4;
+  grid-row-end: 5;
   align-self: flex-end;
   font-size: 14px;
   text-overflow: ellipsis;
