@@ -7,7 +7,7 @@ export default class EditCommentButton extends React.Component {
     }
     render() {
         return (
-            <button onClick={() => this.props.editComment(true)}>
+            <button className='editCommentButton' onClick={() => this.props.editComment(true)}>
                 Edit
             </button>
         );

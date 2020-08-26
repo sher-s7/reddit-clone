@@ -62,7 +62,7 @@ export default class GroupsNav extends React.Component {
     }
 
     handleClickOutside(event) {
-        if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
+        if (this.wrapperRef && this.wrapperRef.current && !this.wrapperRef.current.contains(event.target)) {
           this.setState({ displayGroupList: 'hidden' });
         }
       }
@@ -74,7 +74,7 @@ export default class GroupsNav extends React.Component {
                 <ul className={this.state.displayGroupList} ref={this.wrapperRef}>
                     <li>
                         <button onClick={this.handleClick} className='newGroupButton'>
-                        <i class="las la-plus"/> Create a group
+                        <i className="las la-plus"/> Create a group
                         </button>
                     </li>
                     {fire.auth().currentUser ? <h3>Joined groups</h3> : null}

@@ -65,7 +65,7 @@ export default class Signup extends React.Component {
                 <form onSubmit={this.signup}>
                     <label htmlFor="username">
                         Username:
-                <input required value={this.state.username} onChange={this.handleChange} type="text" name="username" id="usernameField" />
+                <input pattern="^[a-zA-Z0-9_]{3,14}$" required value={this.state.username} onChange={this.handleChange} type="text" name="username" id="usernameField" />
                     </label>
                     <label htmlFor="email">
                         Email:

@@ -2,7 +2,6 @@
 import React from 'react';
 import DeletePostButton from './DeletePostButton';
 import { Link, withRouter } from 'react-router-dom';
-import LinkImage from './assets/link.png';
 import fire from './config/Fire';
 import EditPostButton from './EditPostButton';
 import EditPost from './EditPost';
@@ -36,26 +35,23 @@ class PostTemplate extends React.Component {
         }
         if (postData.type === 'text') {
             return (
-                <div>
+                <>
                     {postData.edited ? <span className='edited'>(edited)</span> : null}
                     {this.state.editPost ? <EditPost updatePosts={this.props.updatePosts} editPost={this.editPost} markAsEdited={this.markAsEdited} docId={post.id} /> : <p className='postBody'>{postData.body}</p>}
                     {currentUserPost && !this.props.profile ? <EditPostButton editPost={this.editPost} /> : null}
-                </div>
+                </>
             );
         } else if (postData.type === 'image') {
             return (
-                <div>
+                <div className='imageContainer'>
                     <img width='250px' src={postData.image} alt='Post image'></img>
                 </div>
             );
         } else if (postData.type === 'link') {
             return (
-                <>
-                    <img src={LinkImage} alt="Post link" className='postLinkImage'/>
-                    <a className='postLink' target='_blank' href={postData.link} rel="noopener noreferrer">
-                        {postData.link}
-                    </a>
-                </>
+                <a className='postLink' target='_blank' href={postData.link} rel="noopener noreferrer">
+                    {postData.link}
+                </a>
             );
         }
 
@@ -67,11 +63,10 @@ class PostTemplate extends React.Component {
                 {this.state.location.pathname === '/' || this.state.location.pathname === '/feed' || this.state.location.pathname.includes('/post/') || this.state.location.pathname.includes('/profile/') ?
                     <div className='groupName'>
                         <Link to={`/group/${this.props.post.data().group}`}>{this.props.post.data().group}</Link>
-                        <span> ·</span>
                     </div>
                     : null}
-                <div className='postedBy'><span className='user'>Posted by <Link to={`/profile/${this.props.post.data().username}`}>{this.props.post.data().username}</Link></span>
-                    <span className='distanceInWords'>{formatDistanceStrict(this.props.post.data().dateCreated.toDate(),new Date(),
+                <div className='postedBy'><span className='user'>Posted by <Link to={`/profile/${this.props.post.data().username}`}>{this.props.post.data().username}</Link></span><span className='dividingDot'>·</span>
+                    <span className='distanceInWords'>{formatDistanceStrict(this.props.post.data().dateCreated.toDate(), new Date(),
                         { addSuffix: true })}</span></div>
                 <h1 className='postTitle'>{this.props.post.data().title}</h1>
                 {this.props.profile ? null : <VoteButton collection='posts' doc={this.props.post} />}

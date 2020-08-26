@@ -8,7 +8,7 @@ export default class EditPostButton extends React.Component {
 
     render() {
         return (
-            <button onClick={() => this.props.editPost(true)}>
+            <button className='editPostButton' onClick={() => this.props.editPost(true)}>
                 Edit
             </button>
         );

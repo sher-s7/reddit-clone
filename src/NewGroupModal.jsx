@@ -64,7 +64,7 @@ class NewGroupModal extends React.Component {
                     </label>
                     <label htmlFor="desc">
                         <span>Description</span>
-                        <input required name='desc' onChange={this.handleChange} value={this.state.desc} type="text" />
+                        <input required name='desc' maxLength={129} onChange={this.handleChange} value={this.state.desc} type="text" />
                     </label>
                     <input type="submit" value="Create group" />
                 </form>
