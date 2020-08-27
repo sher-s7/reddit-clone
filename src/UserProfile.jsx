@@ -18,20 +18,20 @@ class UserProfile extends React.Component {
     }
 
     componentDidMount() {
-        this.props.showLoader();
         this.updateView();
     }
 
     componentDidUpdate(prevProps) {
         console.log('update check')
-        if (prevProps.userId !== this.props.userId) {
-            this.updateView();
+        if (prevProps.location.pathname !== this.props.location.pathname) {
+            window.location.reload(true);
         }
     }
 
 
 
     updateView = () => {
+        this.props.showLoader();
         console.log('user mounted')
         fire.firestore().collection('users').where('username', '==', this.props.userId).get().then(userSnapshot => {
             console.log(userSnapshot.docs.length)

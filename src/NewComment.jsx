@@ -65,7 +65,7 @@ export default class NewComment extends React.Component {
         return (
             <form onSubmit={this.handleSubmit} className='newCommentForm'>
                 <textarea required value={this.state.comment} name='comment' onChange={this.handleChange} id="commentTextArea" />
-                <input disabled={this.state.disabled} type="submit" value="Submit comment" />
+                <input disabled={this.state.disabled} type="submit" value="SUBMIT" />
                 {this.props.showReplyBox ? <button onClick={() => this.props.showReplyBox(false)}>Cancel</button> : null}
             </form>
         );

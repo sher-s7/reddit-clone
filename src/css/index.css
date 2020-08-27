@@ -95,6 +95,12 @@ p {
   }
 }
 
+textarea {
+  border: 2px solid var(--border);
+  height: 60px;
+  resize: vertical;
+}
+
 /*
 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Navigation _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
@@ -272,6 +278,7 @@ header {
   border-top-left-radius: 10px;
   border: 1px solid var(--border);
   border-bottom: none;
+  overflow: hidden;
 }
 
 .navButtons .account.hide {
@@ -283,6 +290,7 @@ header {
 .account a {
   padding: 5px 0;
   font-size: 18px;
+  background-color: var(--bodyColor) !important;
 }
 
 .navButtons .profile {
@@ -453,6 +461,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   grid-column-end: 4;
   grid-row-start: 1;
   grid-row-end: 2;
+  margin-left: 2px;
   text-align: left;
   font-family: "Roboto", sans-serif;
   color: var(--bread);
@@ -463,8 +472,8 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   text-align: center;
   height: 30px;
   border: none;
-  border-radius: 3px;
-  margin: 0px 1px 10px 1px;
+  border-radius: 2px;
+  margin: 0px 2px 10px 2px;
   background: var(--bread);
   color: var(--buttonColor);
 }
@@ -488,7 +497,8 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   background-color: #886f4f;
 }
 
-.feedPost {
+.feedPost,
+.postPage .post {
   list-style: none;
   background-color: var(--bodyColor);
   border-top: 1px solid var(--border);
@@ -497,6 +507,10 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   margin-bottom: 10px;
   padding: 0;
   position: relative;
+}
+
+.postPage .post {
+  border-top: none;
 }
 
 .dividingDot {
@@ -514,6 +528,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 .postContainer .postTitle {
   margin: 0;
   font-size: 16px;
+  padding-bottom: 5px;
 }
 
 .postContainer .groupName {
@@ -535,15 +550,18 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   font-size: 14px;
 }
 
+.points {
+  display: flex;
+  width: max-content;
+  flex-direction: row;
+  align-items: center;
+}
+
 .postContainer .points {
   grid-column-start: 1;
   grid-column-end: 2;
   grid-row-start: 5;
   grid-row-end: 6;
-  display: flex;
-  width: max-content;
-  flex-direction: row;
-  align-items: center;
 }
 
 /* -  -  -  -  -  -  -  -  -   Link Posts -  -  -  -  -  -  -  -  -  -  -  -  */
@@ -586,7 +604,6 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   grid-column-end: 6;
   grid-row-start: 3;
   grid-row-end: 4;
-  padding-bottom: 5px;
 }
 
 .postContainer.image .imageContainer {
@@ -710,6 +727,116 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   animation-iteration-count: 1;
 }
 
+/* -  -  -  -  -  -  -  -  -   Post Page -  -  -  -  -  -  -  -  -  -  -  -  */
+.postPage .postContainer.text .postBody {
+  mask-image: none;
+  overflow: unset;
+  text-overflow: unset;
+  max-height: max-content;
+}
+
+.postPage .commentCount {
+  display: none;
+}
+
+.postPage #commentTextArea {
+  width: 90%;
+}
+
+.postPage .comments {
+  padding: 10px;
+}
+
+#commentsHeader {
+  font-weight: bold;
+  color: var(--bread);
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.newCommentForm input {
+  padding: 3px 6px;
+  border: none;
+  background-color: var(--bread);
+  border-radius: 2px;
+  font-size: 16px;
+  color: var(--bodyColor);
+  margin-top: 5px;
+}
+
+.comment {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-template-rows: 30px auto auto auto auto;
+  align-items: center;
+  position: relative;
+}
+
+.comment .user {
+  grid-column-start: 1;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  font-size: 14px;
+}
+
+.comment .distanceInWords {
+  grid-column-start: 3;
+  grid-column-end: 5;
+  font-size: 14px;
+  color: var(--grey);
+  text-align: right;
+}
+
+.comment .body {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.comment .editCommentForm {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.comment .points {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 3;
+}
+
+.comment .replyButton {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 3;
+}
+
+.comment .editCommentButton {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 3;
+  grid-row-end: 4;
+}
+.comment .deleteCommentButton {
+  grid-column-start: 4;
+  grid-column-end: 5;
+  grid-row-start: 3;
+  grid-row-end: 4;
+}
+
+.comment .replies {
+  grid-row-start: 4;
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+
+.indent {
+  margin-left: 20px;
+  padding-left: 10px;
+  border-left: 1px solid var(--border);
+}
 /*
 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ All Groups _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
@@ -757,12 +884,16 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Profile _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  margin-bottom: 20px;
   border-bottom: 1px solid var(--border);
+}
+#profileInfo > div {
+  padding: 2px 0;
 }
 
 #profilePicture {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   border-radius: 2px;
 }
 
@@ -790,26 +921,6 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Profile _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
   color: var(--bread);
   text-align: center;
   margin-top: 20px;
-}
-
-.indent {
-  margin-left: 30px;
-}
-
-.showMore {
-  width: 230px;
-  height: 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
-.showMore .open {
-  width: 210px;
-  height: 2px;
-  background-color: black;
-  border: none;
-  cursor: pointer;
 }
 
 .validationInfo {

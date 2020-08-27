@@ -34,7 +34,7 @@ export default class DeleteCommentButton extends React.Component {
 
     render() {
         return (
-            <button onClick={this.handleClick}>
+            <button className='deleteCommentButton' onClick={this.handleClick}>
                 Delete
             </button>
         );

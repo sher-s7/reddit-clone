@@ -16,6 +16,7 @@ class Post extends React.Component {
     }
 
     componentDidMount = () => {
+        this.props.showLoader();
         this.updatePost();
         this.updateComments();
     }
@@ -40,7 +41,7 @@ class Post extends React.Component {
                 console.log('heh')
                 this.props.history.push('/');
             }
-        });
+        }).then(this.props.hideLoader);
     }
 
 
@@ -49,10 +50,11 @@ class Post extends React.Component {
         return (
             this.state.post && this.state.comments ? (
                 <div className='postPage'>
-
-                    <PostTemplate updatePosts={this.updatePost} post={this.state.post} user={this.state.user} />
+                    <div className='post'>
+                        <PostTemplate updatePosts={this.updatePost} post={this.state.post} user={this.state.user} />
+                    </div>
                     <div className='comments'>
-                        <div>Comments</div>
+                        <div id='commentsHeader'>COMMENTS</div>
                         {this.props.currentUser ? <NewComment user={this.state.user} updateComments={this.updateComments} postId={this.props.postId} parents={null} directParent={null} nestDepth={0} highestParent={null} /> : <div>Log in or Sign up to comment</div>}
                         {this.state.comments.map(comment => (
                             comment.data().nestDepth === 0 ?
@@ -66,7 +68,7 @@ class Post extends React.Component {
                         ))}
                     </div>
                 </div>
-            ) : <div>loading</div>
+            ) : null
         );
     }
 }
