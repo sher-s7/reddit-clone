@@ -4,6 +4,7 @@ import NewComment from './NewComment';
 import CommentTemplate from './CommentTemplate';
 import PostTemplate from './PostTemplate';
 import { withRouter } from 'react-router-dom';
+import Toast from './assets/toast.svg';
 class Post extends React.Component {
     constructor(props) {
         super(props);
@@ -54,11 +55,18 @@ class Post extends React.Component {
                         <div>Comments</div>
                         {this.props.currentUser ? <NewComment user={this.state.user} updateComments={this.updateComments} postId={this.props.postId} parents={null} directParent={null} nestDepth={0} highestParent={null} /> : <div>Log in or Sign up to comment</div>}
                         {this.state.comments.map(comment => (
-                            comment.data().nestDepth === 0 ? <CommentTemplate user={this.state.user} key={comment.id} updateComments={this.updateComments} comment={comment} postId={this.props.postId} /> : null
+                            comment.data().nestDepth === 0 ?
+                                <CommentTemplate
+                                    user={this.state.user}
+                                    key={comment.id}
+                                    updateComments={this.updateComments}
+                                    comment={comment}
+                                    postId={this.props.postId} />
+                                : null
                         ))}
                     </div>
                 </div>
-            ) : <span>Loading</span>
+            ) : <img src={Toast} alt='loading' className='loading' />
         );
     }
 }

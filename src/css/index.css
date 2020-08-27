@@ -65,6 +65,26 @@ p {
   opacity: 0;
 }
 
+.loading {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  animation: loading 2s infinite linear;
+  opacity: 0.5;
+}
+
+@keyframes loading {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(359deg);
+  }
+}
+
 /*
 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Navigation _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
@@ -195,6 +215,7 @@ header {
 
 .navButtons .all {
   grid-column-start: 1;
+  grid-column-end: 2;
   grid-row-start: 1;
   grid-row-end: 4;
   font-size: 25px;
@@ -203,6 +224,7 @@ header {
 
 .navButtons .feed {
   grid-column-start: 2;
+  grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 4;
   font-size: 25px;
@@ -210,6 +232,7 @@ header {
 
 .navButtons .accountButton {
   grid-column-start: 3;
+  grid-column-end: 4;
   grid-row-start: 1;
   grid-row-end: 4;
   z-index: 0;
@@ -225,6 +248,7 @@ header {
   display: flex;
   flex-direction: column;
   grid-column-start: 3;
+  grid-column-end: 4;
   grid-row-start: 1;
   grid-row-end: 4;
   line-height: unset;
@@ -275,7 +299,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Group _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 .groupHeaderContainer {
   display: grid;
   grid-template-columns: 60px 1fr 60px;
-  grid-template-rows: 40px 70px auto;
+  grid-template-rows: 40px 40px auto;
   align-items: center;
   margin-top: 20px;
   padding: 0 10px 15px 10px;
@@ -297,6 +321,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Group _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
   grid-column-start: 1;
   grid-column-end: 4;
   grid-row-start: 1;
+  grid-row-end: 2;
   line-height: 22px;
 
   overflow: hidden;
@@ -323,6 +348,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Group _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
   grid-column-start: 1;
   grid-column-end: 2;
   grid-row-start: 2;
+  grid-row-end: 3;
   text-align: center;
 }
 
@@ -341,9 +367,11 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Group _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
   border-radius: 2px;
   height: 30px;
   grid-column-start: 3;
+  grid-column-end: 4;
   grid-row-start: 2;
+  grid-row-end: 3;
   width: max-content;
-  justify-self: right;
+  justify-self: center;
 }
 
 #leaveGroup {
@@ -361,6 +389,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Group _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
   grid-column-start: 1;
   grid-column-end: 4;
   grid-row-start: 3;
+  grid-row-end: 4;
   text-align: center;
   font-weight: 100;
   color: var(--bread);
@@ -377,6 +406,11 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Feed _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 .feedContainer {
   padding: 0;
+}
+
+.loadMore {
+  display: block;
+  margin: 0 auto;
 }
 
 /*
@@ -397,6 +431,8 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 .newPostContainer h3 {
   grid-column-start: 1;
   grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 2;
   text-align: left;
   font-family: "Roboto", sans-serif;
   color: var(--bread);
@@ -492,7 +528,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 /* -  -  -  -  -  -  -  -  -   Link Posts -  -  -  -  -  -  -  -  -  -  -  -  */
 .postContainer.link {
-  grid-template-rows: 25px 25px auto auto;
+  grid-template-rows: auto 25px auto auto;
   grid-template-columns: 70px auto auto auto auto;
   padding: 10px;
   padding-bottom: 0;
@@ -519,7 +555,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 /* -  -  -  -  -  -  -  -  -   Image Posts -  -  -  -  -  -  -  -  -  -  -  -  */
 .postContainer.image {
-  grid-template-rows: 25px 25px auto auto;
+  grid-template-rows: auto 25px auto auto;
   grid-template-columns: 70px auto auto auto auto;
   padding: 10px;
   padding-bottom: 0;
@@ -549,7 +585,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /* -  -  -  -  -  -  -  -  -   Text Posts -  -  -  -  -  -  -  -  -  -  -  -  */
 .postContainer.text {
   grid-template-columns: 70px auto auto auto auto;
-  grid-template-rows: 25px 25px auto auto;
+  grid-template-rows: auto 25px auto auto;
   overflow: hidden;
   padding: 10px;
   padding-bottom: 0;
@@ -576,6 +612,8 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 .commentCount {
   font-size: 14px;
+  grid-row-start: 5;
+  grid-row-end: 6;
   grid-column-start: 2;
   grid-column-end: 4;
 }
@@ -596,7 +634,9 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 .edited {
   color: var(--bread);
   grid-column-start: 5;
+  grid-column-end: 6;
   grid-row-start: 1;
+  grid-row-end: 2;
   font-size: 14px;
   font-weight: lighter;
   text-align: right;
@@ -648,6 +688,41 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 .clicked {
   animation: pulse 0.5s ease;
   animation-iteration-count: 1;
+}
+
+/*
+
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Feed _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+
+*/
+.allGroups {
+  padding: 20px;
+}
+
+.allGroups h2 {
+  text-align: center;
+  font-size: 18px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  color: var(--buttonColor);
+  background-color: #c2c2c2;
+  padding: 5px 7px;
+  border-radius: 2px;
+  height: 32px;
+  width: max-content;
+  line-height: 22px;
+}
+
+.allGroups #allGroupsList {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: space-around;
+}
+
+#allGroupsList a {
+  font-size: 20px;
+  padding: 5px 0;
 }
 
 .validationInfo {

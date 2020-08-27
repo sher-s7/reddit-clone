@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import { withRouter, Link } from 'react-router-dom';
 import PostTemplate from './PostTemplate';
 import CommentTemplate from './CommentTemplate';
+import Toast from './assets/toast.svg';
 
 class UserProfile extends React.Component {
 
@@ -104,7 +105,7 @@ class UserProfile extends React.Component {
                             <PostTemplate redirect={false} updatePosts={this.refresh} post={post} user={fire.auth().currentUser} profile={true} />
                             <Link to={`/group/${post.data().group}/post/${post.id}`}>{post.data().commentCount === 1 ? `${post.data().commentCount} Comment` : `${post.data().commentCount} Comments`}</Link>
                         </div>
-                            : <CommentTemplate user={fire.auth().currentUser} key={post.id} updateComments={this.updateComments} comment={post} postId={post.data().postId} profile={true} />)) : <div>loading</div>}
+                            : <CommentTemplate user={fire.auth().currentUser} key={post.id} updateComments={this.updateComments} comment={post} postId={post.data().postId} profile={true} />)) : <img src={Toast} alt='loading' className='loading'/>}
                 </div>
 
         );

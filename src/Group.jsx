@@ -4,6 +4,7 @@ import NewPost from './NewPost';
 import fire from './config/Fire';
 import firebase from 'firebase/app';
 import { withRouter } from 'react-router-dom';
+import Toast from './assets/toast.svg';
 
 class Group extends React.Component {
     _isMounted = false;
@@ -130,7 +131,7 @@ class Group extends React.Component {
                     {this.state.description ? <h4 className='groupDescription'>{this.state.description}</h4> : null}
                 </div>
                 <NewPost setModal={this.props.setModal} />
-                {this.state.posts ? <Feed disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} updatePosts={this.fetchPosts} posts={this.state.posts} /> : <span id='loading'>Loading</span>}
+                {this.state.posts ? <Feed disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} updatePosts={this.fetchPosts} posts={this.state.posts} /> : <img src={Toast} alt='loading' className='loading'/>}
             </div>
         );
     }

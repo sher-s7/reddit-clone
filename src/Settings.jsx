@@ -139,7 +139,7 @@ class Settings extends React.Component {
                 <form onSubmit={this.handleProfilePic}>
                     <h2>Update profile picture</h2>
                     <label htmlFor='profilePicture'>
-                        <img src={this.state.profilePicture ? this.state.profilePicture : 'loading'} alt='Profile picture' width={'150px'} />
+                        <img src={this.state.profilePicture ? this.state.profilePicture : ''} alt='Profile picture' width={'150px'} />
                         <input required type='file' accept="image/png, image/jpeg" name="profilePicture" id="imageInput" ref={this.fileInput} />
                     </label>
                     <input type="submit" value="Submit" />

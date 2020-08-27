@@ -29,7 +29,7 @@ export default class Feed extends React.Component {
                         </li>
                     )) : null}
                 </ul>
-                    {this.props.disableLoadMore ? <div id='endOfPage'><img alt='End of page' src={Logo}/></div> : <button onClick={this.props.loadMore}>Load more</button> }
+                    {this.props.disableLoadMore ? <div id='endOfPage'><img alt='End of page' src={Logo}/></div> : <button className='loadMore' onClick={this.props.loadMore}>Load more</button> }
             </div>
         );
     }
