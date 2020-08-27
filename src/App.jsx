@@ -31,6 +31,7 @@ export default class App extends React.Component {
       postLimitIncrement: 20,
       disableLoadMore: false
     }
+    this.props.hideLoader();
     this.authListener = this.authListener.bind(this);
   }
 
@@ -70,6 +71,7 @@ export default class App extends React.Component {
 
   fetchPosts = (newLimit) => {
     console.log('fetching')
+    this.props.showLoader();
     fire.firestore().collection('posts').orderBy('dateCreated', 'desc')
       .limit(newLimit || this.state.postLimit).get().then(postsData => {
         console.log(postsData.docs)
@@ -79,7 +81,7 @@ export default class App extends React.Component {
           this.setState({
             posts: postsData.docs
           });
-        
+        this.props.hideLoader();
         console.log('state', this.state.posts)
 
       });
@@ -102,17 +104,19 @@ export default class App extends React.Component {
         {this.state.modal}
         <Switch>
           <Route exact path='/'>
-            <Home updatePosts={this.fetchPosts} disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} posts={this.state.posts ? this.state.posts : null} setModal={this.setModal} />
+            <Home showLoader={this.props.showLoader} hideLoader={this.props.hideLoader} updatePosts={this.fetchPosts} disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} posts={this.state.posts ? this.state.posts : null} setModal={this.setModal} />
           </Route>
           <Route exact path='/feed'>
-            <SubscribedFeed postLimit={this.state.postLimit} setModal={this.setModal} user={this.state.currentUser}/>
+            <SubscribedFeed showLoader={this.props.showLoader} hideLoader={this.props.hideLoader} postLimit={this.state.postLimit} setModal={this.setModal} user={this.state.currentUser}/>
           </Route>
-          <Route exact path='/profile/:userId' render={({ match }) => <UserProfile updatePosts={this.fetchPosts} userId={match.params.userId} />} />
-          <Route exact path='/group/:groupId' render={({ match }) => <Group postLimit={this.state.postLimit} updatePosts={this.fetchPosts} group={match.params.groupId} setModal={this.setModal} currentUser={this.state.currentUser} />} />
-          <Route exact path='/groups' component={AllGroups} />
-          <Route exact path='/group/:groupId/post/:postId' render={({ match }) => <Post currentUser={this.state.currentUser} updatePosts={this.fetchPosts} postId={match.params.postId} />} />
+          <Route exact path='/profile/:userId' render={({ match }) => <UserProfile showLoader={this.props.showLoader} hideLoader={this.props.hideLoader} updatePosts={this.fetchPosts} userId={match.params.userId} />} />
+          <Route exact path='/group/:groupId' render={({ match }) => <Group showLoader={this.props.showLoader} hideLoader={this.props.hideLoader} postLimit={this.state.postLimit} updatePosts={this.fetchPosts} group={match.params.groupId} setModal={this.setModal} currentUser={this.state.currentUser} />} />
+          <Route exact path='/groups'>
+            <AllGroups showLoader={this.props.showLoader} hideLoader={this.props.hideLoader}/>
+          </Route>
+          <Route exact path='/group/:groupId/post/:postId' render={({ match }) => <Post showLoader={this.props.showLoader} hideLoader={this.props.hideLoader} currentUser={this.state.currentUser} updatePosts={this.fetchPosts} postId={match.params.postId} />} />
           <Route exact path='/settings'>
-            <Settings currentUser={this.state.currentUser} />
+            <Settings showLoader={this.props.showLoader} hideLoader={this.props.hideLoader} currentUser={this.state.currentUser} />
           </Route>
           <Route render={() => <h1>404: page not found</h1>} />
         </Switch>

@@ -1,7 +1,6 @@
 import React from 'react';
 import fire from './config/Fire';
 import { Link } from 'react-router-dom';
-import Toast from './assets/toast.svg';
 export default class AllGroups extends React.Component {
     constructor(props) {
         super(props);
@@ -11,12 +10,13 @@ export default class AllGroups extends React.Component {
 
     componentDidMount() {
         let groupsArr = [];
+        this.props.showLoader();
         fire.firestore().collection('groups').get().then(groupsData => {
             groupsData.docs.forEach(group => {
                 groupsArr.push(group.id)
-            });
+            })
             this.setState({ groups: groupsArr })
-        });
+        }).then(this.props.hideLoader);
     }
 
     displayGroups = () => {
@@ -35,7 +35,7 @@ export default class AllGroups extends React.Component {
 
     render() {
         return (
-            this.state.groups ? this.displayGroups() : <img src={Toast} alt='loading' className='loading' />
+            this.state.groups ? this.displayGroups() : null
         );
     }
 }

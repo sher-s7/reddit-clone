@@ -4,7 +4,6 @@ import NewPost from './NewPost';
 import fire from './config/Fire';
 import firebase from 'firebase/app';
 import { withRouter } from 'react-router-dom';
-import Toast from './assets/toast.svg';
 
 class Group extends React.Component {
     _isMounted = false;
@@ -20,6 +19,7 @@ class Group extends React.Component {
 
     componentDidMount() {
         this._isMounted = true;
+        this.props.showLoader();
         fire.firestore().collection('groups').doc(this.props.group).get().then(groupRef => {
             if (this._isMounted && groupRef.data()) {
                 this.setState({ numberOfUsers: groupRef.data().numberOfUsers, description: groupRef.data().description });
@@ -73,7 +73,7 @@ class Group extends React.Component {
             this.setState({
                 posts: postsData.docs
             });
-        });
+        }).then(this.props.hideLoader);
         if (limit) this.setState({ postLimit: limit });
     };
 
@@ -131,7 +131,7 @@ class Group extends React.Component {
                     {this.state.description ? <h4 className='groupDescription'>{this.state.description}</h4> : null}
                 </div>
                 <NewPost setModal={this.props.setModal} />
-                {this.state.posts ? <Feed disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} updatePosts={this.fetchPosts} posts={this.state.posts} /> : <img src={Toast} alt='loading' className='loading'/>}
+                {this.state.posts ? <Feed disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} updatePosts={this.fetchPosts} posts={this.state.posts} /> : null}
             </div>
         );
     }

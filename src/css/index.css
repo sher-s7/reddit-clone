@@ -30,6 +30,10 @@ html {
   background-color: var(--buttonColor);
 }
 
+.loader--hide {
+  display: none;
+}
+
 a {
   text-decoration: none;
   color: var(--bread);
@@ -65,23 +69,29 @@ p {
   opacity: 0;
 }
 
-.loading {
-  width: 50px;
-  height: 50px;
+#loader {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -60%);
-  animation: loading 2s infinite linear;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  -webkit-animation: load 0.5s linear infinite; /* Safari */
+  animation: load 0.5s linear infinite;
+  z-index: 100;
   opacity: 0.5;
 }
 
-@keyframes loading {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
+@keyframes load {
+  0% {
+    box-shadow: 0 0 0 0px #745c3d38;
+    background-color: #745c3d38;
   }
-  to {
-    transform: translate(-50%, -50%) rotate(359deg);
+
+  100% {
+    box-shadow: 0 0 0 20px #745c3d00;
+    background-color: #745c3d00;
   }
 }
 
@@ -413,6 +423,16 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Feed _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   margin: 0 auto;
 }
 
+#endOfPage {
+  display: flex;
+  justify-content: center;
+}
+
+#endOfPage img {
+  width: 30px;
+  opacity: 0.5;
+}
+
 /*
 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
@@ -692,7 +712,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 /*
 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Feed _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ All Groups _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 
 */
@@ -725,20 +745,51 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Feed _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   padding: 5px 0;
 }
 
-.validationInfo {
-  background-color: black;
-  color: white;
-  font-size: 14px;
-}
+/*
 
-#endOfPage {
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Profile _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+
+*/
+#profileInfo {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
 }
 
-#endOfPage img {
-  width: 30px;
-  opacity: 0.5;
+#profilePicture {
+  width: 50px;
+  height: 50px;
+  border-radius: 2px;
+}
+
+#username {
+  font-weight: bold;
+}
+
+#postPoints,
+#commentPoints,
+#accountCreated {
+  color: var(--bread);
+}
+
+#postPoints span,
+#commentPoints span,
+#accountCreated span {
+  font-weight: bold;
+}
+
+#userProfile .commentCount {
+  padding: 5px 0;
+}
+
+#userNotFound {
+  color: var(--bread);
+  text-align: center;
+  margin-top: 20px;
 }
 
 .indent {
@@ -759,6 +810,12 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Feed _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   background-color: black;
   border: none;
   cursor: pointer;
+}
+
+.validationInfo {
+  background-color: black;
+  color: white;
+  font-size: 14px;
 }
 
 /* Animations */

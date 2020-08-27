@@ -3,10 +3,9 @@ import React from 'react';
 import fire from './config/Fire';
 import { format } from 'date-fns';
 
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PostTemplate from './PostTemplate';
 import CommentTemplate from './CommentTemplate';
-import Toast from './assets/toast.svg';
 
 class UserProfile extends React.Component {
 
@@ -14,11 +13,12 @@ class UserProfile extends React.Component {
         super(props);
         this.state = {
             user: null,
+            showMessage: false,
         }
     }
 
     componentDidMount() {
-
+        this.props.showLoader();
         this.updateView();
     }
 
@@ -53,8 +53,10 @@ class UserProfile extends React.Component {
 
                     this.setState({ commentPoints: commentPoints, comments: commentsData.docs });
                 });
+            } else {
+                this.setState({ showMessage: true })
             }
-        })
+        }).then(this.props.hideLoader).catch(error => console.error(error));
     }
 
     updatePosts = () => {
@@ -92,20 +94,23 @@ class UserProfile extends React.Component {
     render() {
         return (
             this.state.user === null ?
-                <div>user not found</div>
+                <div id='userNotFound' className={this.state.showMessage ? '' : 'hidden'}>User not found</div>
                 :
-                <div>
-                    <img width={'20px'} src={this.state.user.data().photoUrl} alt="Profile picture" />
-                    <div>{this.state.user.data().username}</div>
-                    <div>Post points: {this.state.postPoints}</div>
-                    <div>Comment points: {this.state.commentPoints}</div>
-                    <div>Account created: {this.state.accountCreated}</div>
-                    {this.state.posts && this.state.comments ? this.renderFeed().map(post => (
-                        post.data().title ? <div key={post.id}>
-                            <PostTemplate redirect={false} updatePosts={this.refresh} post={post} user={fire.auth().currentUser} profile={true} />
-                            <Link to={`/group/${post.data().group}/post/${post.id}`}>{post.data().commentCount === 1 ? `${post.data().commentCount} Comment` : `${post.data().commentCount} Comments`}</Link>
-                        </div>
-                            : <CommentTemplate user={fire.auth().currentUser} key={post.id} updateComments={this.updateComments} comment={post} postId={post.data().postId} profile={true} />)) : <img src={Toast} alt='loading' className='loading'/>}
+                <div id='userProfile'>
+                    <div id='profileInfo'>
+                        <img id='profilePicture' src={this.state.user.data().photoUrl} alt="Profile picture" />
+                        <div id='username'>{this.state.user.data().username}</div>
+                        <div id='postPoints'>Post points: <span>{this.state.postPoints}</span></div>
+                        <div id='commentPoints'>Comment points: <span>{this.state.commentPoints}</span></div>
+                        <div id='accountCreated'>Account created: <span>{this.state.accountCreated}</span></div>
+                    </div>
+                    <ul>
+                        {this.state.posts && this.state.comments ? this.renderFeed().map(post => (
+                            post.data().title ? <li className='feedPost' key={post.id}>
+                                <PostTemplate redirect={false} updatePosts={this.refresh} post={post} user={fire.auth().currentUser} profile={true} />
+                            </li>
+                                : <CommentTemplate user={fire.auth().currentUser} key={post.id} updateComments={this.updateComments} comment={post} postId={post.data().postId} profile={true} />)) : null}
+                    </ul>
                 </div>
 
         );

@@ -4,7 +4,7 @@ import NewComment from './NewComment';
 import CommentTemplate from './CommentTemplate';
 import PostTemplate from './PostTemplate';
 import { withRouter } from 'react-router-dom';
-import Toast from './assets/toast.svg';
+
 class Post extends React.Component {
     constructor(props) {
         super(props);
@@ -66,7 +66,7 @@ class Post extends React.Component {
                         ))}
                     </div>
                 </div>
-            ) : <img src={Toast} alt='loading' className='loading' />
+            ) : <div>loading</div>
         );
     }
 }

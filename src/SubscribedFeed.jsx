@@ -12,6 +12,7 @@ class SubscribedFeed extends React.Component {
         this.state = {
             postLimit: this.props.postLimit,
             disableLoadMore: false,
+            hideMessage: 'hidden',
         }
     }
 
@@ -19,6 +20,7 @@ class SubscribedFeed extends React.Component {
         if (this.props.user) {
             this.fetchPosts();
         }
+        this.props.showLoader();
         this.authListener();
     }
 
@@ -44,8 +46,16 @@ class SubscribedFeed extends React.Component {
                     this.setState({ disableLoadMore: true })
                 }
                 this.setState({ posts: posts.docs });
-            }).catch(error => console.error(error));
-        }).catch(error => console.error(error));
+            }).catch(error => {
+                 console.error(error)
+                 this.props.hideLoader();
+                 this.setState({hideMessage: ''});
+                });
+        }).then(this.props.hideLoader).catch(error => {
+            console.error(error)
+            this.props.hideLoader();
+            this.setState({hideMessage: ''});
+        });
         if (limit) this.setState({ postLimit: limit });
     }
 
@@ -58,7 +68,7 @@ class SubscribedFeed extends React.Component {
             <div className='feedContainer'>
                 <h1 className='feedHeading'>MY FEED</h1>
                 <NewPost setModal={this.props.setModal} />
-                {this.state.posts ? <Feed disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} updatePosts={this.fetchPosts} posts={this.state.posts} /> : <span id='joinGroupsMessage'>Posts from your groups will show up here once you've joined them.</span>}
+                {this.state.posts ? <Feed disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} updatePosts={this.fetchPosts} posts={this.state.posts} /> : <span className={this.state.hideMessage} id='joinGroupsMessage'>Posts from your groups will show up here once you've joined them.</span>}
             </div>
         );
     }
