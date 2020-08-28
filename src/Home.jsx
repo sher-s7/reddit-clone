@@ -7,6 +7,7 @@ export default class Home extends React.Component {
     componentDidMount() {
         console.log('mounted home')
         this.props.updatePosts();
+        document.addEventListener('scroll', this.props.showNewPostButton);
     }
 
     componentDidUpdate(prevProps) {
@@ -14,6 +15,11 @@ export default class Home extends React.Component {
         if(prevProps.posts !== this.props.posts){
             console.log('home posts', this.props.posts)
         }
+    }
+
+    componentWillUnmount() {
+        this.props.hideNewPostButton();
+        document.removeEventListener('scroll', this.props.showNewPostButton);
     }
 
     render() {

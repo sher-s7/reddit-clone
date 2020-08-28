@@ -19,6 +19,9 @@ import NewGroupModal from './NewGroupModal';
 import Settings from './Settings';
 import SubscribedFeed from './SubscribedFeed';
 
+import {faPlus as NewPostTab} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 export default class App extends React.Component {
 
   constructor(props) {
@@ -40,7 +43,6 @@ export default class App extends React.Component {
   componentDidMount() {
     this.authListener();
     this.fetchPosts();
-    document.addEventListener('scroll', this.showNewPostButton)
   }
 
 
@@ -98,12 +100,17 @@ export default class App extends React.Component {
   };
 
   showNewPostButton = this.debounce(() => {
+    console.log('DETECTING SCROLL')
     if (window.scrollY > 200) {
       this.setState({ scrollPostButton: '' })
     } else {
       this.setState({ scrollPostButton: 'hidden' })
     }
   }, 250)
+
+  hideNewPostButton = () => {
+    this.setState({ scrollPostButton: 'hidden' });
+  }
 
   fetchPosts = (newLimit) => {
     console.log('fetching')
@@ -138,16 +145,16 @@ export default class App extends React.Component {
 
         <Header updateView={this.updateView} authListener={this.authListener} user={this.state.currentUser} setModal={this.setModal} />
         {this.state.modal}
-        <button id='scrollPostButton' className={this.state.scrollPostButton} onClick={() => this.setModal('text')}><i className="las la-plus"></i></button>
+        <button id='scrollPostButton' className={this.state.scrollPostButton} onClick={() => this.setModal('text')}><FontAwesomeIcon icon={NewPostTab}/></button>
         <Switch>
           <Route exact path='/'>
-            <Home showLoader={this.props.showLoader} hideLoader={this.props.hideLoader} updatePosts={this.fetchPosts} disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} posts={this.state.posts ? this.state.posts : null} setModal={this.setModal} />
+            <Home hideNewPostButton={this.hideNewPostButton} showNewPostButton={this.showNewPostButton} showLoader={this.props.showLoader} hideLoader={this.props.hideLoader} updatePosts={this.fetchPosts} disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} posts={this.state.posts ? this.state.posts : null} setModal={this.setModal} />
           </Route>
           <Route exact path='/feed'>
-            <SubscribedFeed showLoader={this.props.showLoader} hideLoader={this.props.hideLoader} postLimit={this.state.postLimit} setModal={this.setModal} user={this.state.currentUser} />
+            <SubscribedFeed hideNewPostButton={this.hideNewPostButton} showNewPostButton={this.showNewPostButton} showLoader={this.props.showLoader} hideLoader={this.props.hideLoader} postLimit={this.state.postLimit} setModal={this.setModal} user={this.state.currentUser} />
           </Route>
           <Route exact path='/profile/:userId' render={({ match }) => <UserProfile showLoader={this.props.showLoader} hideLoader={this.props.hideLoader} updatePosts={this.fetchPosts} userId={match.params.userId} />} />
-          <Route exact path='/group/:groupId' render={({ match }) => <Group showLoader={this.props.showLoader} hideLoader={this.props.hideLoader} postLimit={this.state.postLimit} updatePosts={this.fetchPosts} group={match.params.groupId} setModal={this.setModal} currentUser={this.state.currentUser} />} />
+          <Route exact path='/group/:groupId' render={({ match }) => <Group hideNewPostButton={this.hideNewPostButton} showNewPostButton={this.showNewPostButton} showLoader={this.props.showLoader} hideLoader={this.props.hideLoader} postLimit={this.state.postLimit} updatePosts={this.fetchPosts} group={match.params.groupId} setModal={this.setModal} currentUser={this.state.currentUser} />} />
           <Route exact path='/groups'>
             <AllGroups showLoader={this.props.showLoader} hideLoader={this.props.hideLoader} />
           </Route>

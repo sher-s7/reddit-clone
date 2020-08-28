@@ -22,6 +22,7 @@ class SubscribedFeed extends React.Component {
         }
         this.props.showLoader();
         this.authListener();
+        document.addEventListener('scroll', this.props.showNewPostButton);
     }
 
     authListener() {
@@ -37,6 +38,11 @@ class SubscribedFeed extends React.Component {
         if (prevProps.user !== this.props.user) {
             this.fetchPosts()
         }
+    }
+
+    componentWillUnmount() {
+        this.props.hideNewPostButton();
+        document.removeEventListener('scroll', this.props.showNewPostButton);
     }
 
     fetchPosts = (limit) => {

@@ -29,6 +29,7 @@ class Group extends React.Component {
         });
         this.updateJoinButton(this.props.currentUser);
         this.fetchPosts();
+        document.addEventListener('scroll', this.props.showNewPostButton);
     }
 
     updateJoinButton = (user) => {
@@ -63,6 +64,8 @@ class Group extends React.Component {
 
     componentWillUnmount() {
         this._isMounted = false;
+        this.props.hideNewPostButton();
+        document.removeEventListener('scroll', this.props.showNewPostButton);
     }
 
     fetchPosts = (limit) => {

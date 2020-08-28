@@ -1060,17 +1060,21 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Modals _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 }
 
 #scrollPostButton {
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   position: fixed;
-  bottom: 60px;
-  right: 20px;
-  border-radius: 50%;
+  bottom: 160px;
+  right: 0;
   background-color: var(--bread);
   color: var(--buttonColor);
-  z-index: 5;
-  font-size: 20px;
+  z-index: 4;
+  font-size: 15px;
   transition: 0.3s;
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Animations */
