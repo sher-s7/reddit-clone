@@ -51,7 +51,7 @@ class TextPostModal extends React.Component {
                         <input maxLength={300} value={this.state.title} onChange={this.handleChange} type="text" name="title" id="titleInput" placeholder='Title' required />
                     </label>
                     <label htmlFor="body">
-                        <textarea value={this.state.body} onChange={this.handleChange} name="body" id="bodyTextArea" placeholder='Text (optional)' />
+                        <textarea maxLength={10000} value={this.state.body} onChange={this.handleChange} name="body" id="bodyTextArea" placeholder='Text (optional)' />
                     </label>
                     <input disabled={this.state.disabled} type="submit" value="Submit" />
                 </form>

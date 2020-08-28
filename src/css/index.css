@@ -866,7 +866,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ All Groups _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 */
 .allGroups {
-  padding: 20px;
+  padding: 20px 0;
 }
 
 .allGroups h2 {
@@ -884,14 +884,26 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ All Groups _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 }
 
 .allGroups #allGroupsList {
-  display: grid;
-  grid-template-columns: auto auto auto;
   justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+  font-size: 31px;
 }
 
 #allGroupsList a {
-  font-size: 20px;
-  padding: 5px 0;
+  font-size: 18px;
+  padding: 15px 0 15px 30px;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -khtml-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+#allGroupsList a:active {
+  background-color: var(--border);
 }
 
 /*
@@ -950,6 +962,81 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Profile _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
   margin-top: 20px;
 }
 
+/*
+
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Settings _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+
+*/
+
+#settingsContainer {
+  padding: 20px;
+}
+
+#settingsContainer form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+#settingsContainer form:first-child {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+#imageFormContainer {
+  border: 1px solid var(--border);
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 2px;
+}
+
+#profilePictureContainer {
+  margin-bottom: 5px;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+}
+
+#settings #profilePictureContainer {
+  width: 150px;
+  height: 150px;
+}
+
+#profilePictureContainer img{
+  width: auto;
+  height: 100%;
+}
+
+#settingsContainer form h2 {
+  margin-bottom: 10px;
+}
+
+#settingsContainer form input {
+  background: transparent;
+  padding: 10px;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  color: var(--bread);
+  width: 100%;
+  margin-bottom: 10px;
+  transition: 0.3s;
+}
+
+#settingsContainer form input:focus {
+  background-color: var(--border);
+}
+
+#settingsContainer p {
+  color: var(--bread);
+  font-weight: bold;
+  font-size: 14px;
+  font-family: "Roboto";
+}
 .validationInfo {
   background-color: black;
   color: white;

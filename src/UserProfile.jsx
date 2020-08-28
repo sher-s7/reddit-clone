@@ -98,7 +98,9 @@ class UserProfile extends React.Component {
                 :
                 <div id='userProfile'>
                     <div id='profileInfo'>
-                        <img id='profilePicture' src={this.state.user.data().photoUrl} alt="Profile picture" />
+                        <div id='profilePictureContainer'>
+                            <img id='profilePicture' src={this.state.user.data().photoUrl} alt="Profile picture" />
+                        </div>
                         <div id='username'>{this.state.user.data().username}</div>
                         <div id='postPoints'>Post points: <span>{this.state.postPoints}</span></div>
                         <div id='commentPoints'>Comment points: <span>{this.state.commentPoints}</span></div>

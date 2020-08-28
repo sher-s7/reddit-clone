@@ -135,41 +135,47 @@ class Settings extends React.Component {
     render() {
         return (
             <div id='settings'>
-                <h1>Settings</h1>
-                <form onSubmit={this.handleProfilePic}>
-                    <h2>Update profile picture</h2>
-                    <label htmlFor='profilePicture'>
-                        <img src={this.state.profilePicture ? this.state.profilePicture : ''} alt='Profile picture' width={'150px'} />
-                        <input required type='file' accept="image/png, image/jpeg" name="profilePicture" id="imageInput" ref={this.fileInput} />
-                    </label>
-                    <input type="submit" value="Submit" />
-                    <p>{this.state.success ? 'Profile picture updated.' : null}</p>
-                </form>
-                <button onClick={this.deletePicture}>Remove profile picture</button>
+                <h1 className='feedHeading'>SETTINGS</h1>
+                <div id='settingsContainer'>
+                    <div id='imageFormContainer'>
+                        <form onSubmit={this.handleProfilePic}>
+                            <h2>Update profile picture</h2>
+                            <label htmlFor='profilePicture'>
+                                <div id='profilePictureContainer'>
+                                    <img src={this.state.profilePicture ? this.state.profilePicture : ''} alt='Profile picture' />
+                                </div>
+                                <input required type='file' accept="image/png, image/jpeg" name="profilePicture" id="imageInput" ref={this.fileInput} size='10' />
+                            </label>
+                            <input type="submit" value="Submit" />
+                            <p>{this.state.success ? 'Profile picture updated.' : null}</p>
+                        </form>
+                        <button onClick={this.deletePicture}>Remove profile picture</button>
+                    </div>
 
-                <form onSubmit={this.changePassword}>
-                    <h2>Change password</h2>
-                    <label htmlFor="currentPassword">
-                        Current password:
+                    <form onSubmit={this.changePassword}>
+                        <h2>Change password</h2>
+                        <label htmlFor="currentPassword">
+                            Current password:
                         <input required value={this.state.currentPassword} onChange={this.handleChange} type="password" name='currentPassword' />
-                    </label>
-                    <label htmlFor="newPassword">
-                        New password:
+                        </label>
+                        <label htmlFor="newPassword">
+                            New password:
                         <input required value={this.state.newPassword} onChange={this.handleChange} type="password" name='newPassword' />
-                    </label>
-                    <input type="submit" value="Submit" />
-                    <p>{this.state.passwordSuccess ? this.state.passwordSuccess : null}</p>
-                </form>
+                        </label>
+                        <input type="submit" value="Submit" />
+                        <p>{this.state.passwordSuccess ? this.state.passwordSuccess : null}</p>
+                    </form>
 
-                <form onSubmit={this.deleteAccount}>
-                    <h2>Delete account</h2>
-                    <label htmlFor="password">
-                        Password:
+                    <form onSubmit={this.deleteAccount}>
+                        <h2>Delete account</h2>
+                        <label htmlFor="password">
+                            Password:
                         <input required value={this.state.password} onChange={this.handleChange} type="password" name='password' />
-                    </label>
-                    <input type="submit" value="Delete account" />
-                    <p>{this.state.deleteFail}</p>
-                </form>
+                        </label>
+                        <input type="submit" value="Delete account" />
+                        <p>{this.state.deleteFail}</p>
+                    </form>
+                </div>
             </div>
         );
     }

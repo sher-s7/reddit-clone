@@ -15,7 +15,8 @@ export default class AllGroups extends React.Component {
             groupsData.docs.forEach(group => {
                 groupsArr.push(group.id)
             })
-            this.setState({ groups: groupsArr })
+            const sortedGroupsArr = groupsArr.sort((a, b) => a.toLowerCase() > b.toLowerCase())
+            this.setState({ groups: sortedGroupsArr })
         }).then(this.props.hideLoader);
     }
 
