@@ -1007,7 +1007,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Settings _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   height: 150px;
 }
 
-#profilePictureContainer img{
+#profilePictureContainer img {
   width: auto;
   height: 100%;
 }
@@ -1037,10 +1037,40 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Settings _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   font-size: 14px;
   font-family: "Roboto";
 }
+
+/*
+
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Modals _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+
+*/
+.newPostModal {
+  position: fixed;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--bread);
+}
+
 .validationInfo {
   background-color: black;
   color: white;
   font-size: 14px;
+}
+
+#scrollPostButton {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 60px;
+  right: 20px;
+  border-radius: 50%;
+  background-color: var(--bread);
+  color: var(--buttonColor);
+  z-index: 5;
+  font-size: 20px;
+  transition: 0.3s;
 }
 
 /* Animations */

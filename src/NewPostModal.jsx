@@ -6,6 +6,7 @@ import LinkPostModal from './LinkPostModal';
 import { withRouter } from 'react-router-dom';
 
 class NewPostModal extends React.Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -13,20 +14,38 @@ class NewPostModal extends React.Component {
             groups: [],
             selectedGroup: ''
         }
+        this.wrapperRef = React.createRef();
+        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
     componentDidMount() {
+        this._isMounted = true;
         let arr = [];
         let path = this.props.location.pathname.split('/');
         fire.firestore().collection('groups').get().then(groupsData => {
-            groupsData.docs.forEach(doc =>
-                arr.push(doc.id)
-            )
-            path.includes('group') ? this.setState({ groups: arr, selectedGroup: path[path.length - 1] }) :
-                this.setState({ groups: arr, selectedGroup: arr[0] });
+            if (this._isMounted) {
+                groupsData.docs.forEach(doc =>
+                    arr.push(doc.id)
+                )
+                path.includes('group') ? this.setState({ groups: arr, selectedGroup: path[path.length - 1] }) :
+                    this.setState({ groups: arr, selectedGroup: arr[0] });
+            }
         });
+        document.addEventListener('mousedown', this.handleClickOutside);
+        document.addEventListener('touchstart', this.handleClickOutside);
     }
 
+    componentWillUnmount() {
+        this._isMounted = false;
+        document.removeEventListener('mousedown', this.handleClickOutside);
+        document.removeEventListener('touchstart', this.handleClickOutside);
+    }
+
+    handleClickOutside(event) {
+        if (this.wrapperRef && this.wrapperRef.current && !this.wrapperRef.current.contains(event.target)) {
+            this.props.setModal();
+        }
+    }
     dislpayModal = () => {
         if (this.state.tab === 'text') {
             return <TextPostModal updateView={this.props.updateView} setModal={this.props.setModal} selectedGroup={this.state.selectedGroup} />;
@@ -42,7 +61,7 @@ class NewPostModal extends React.Component {
     render() {
 
         return (
-            <div className='newPostModal'>
+            <div className='newPostModal' ref={this.wrapperRef}>
                 <button className='closeModal' onClick={this.props.setModal}> ╳ </button>
                 <h3>Create a post</h3>
                 <div>
