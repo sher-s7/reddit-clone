@@ -7,7 +7,7 @@ import EditPostButton from './EditPostButton';
 import EditPost from './EditPost';
 import 'line-awesome/dist/line-awesome/css/line-awesome.min.css'
 import VoteButton from './VoteButton';
-import { formatDistanceStrict } from 'date-fns';
+import { formatDistanceToNowStrict } from 'date-fns';
 
 class PostTemplate extends React.Component {
     constructor(props) {
@@ -66,7 +66,7 @@ class PostTemplate extends React.Component {
                     </div>
                     : null}
                 <div className='postedBy'><span className='user'>Posted by <Link to={`/profile/${this.props.post.data().username}`}>{this.props.post.data().username}</Link></span><span className='dividingDot'>·</span>
-                    <span className='distanceInWords'>{formatDistanceStrict(this.props.post.data().dateCreated.toDate(), new Date(),
+                    <span className='distanceInWords'>{formatDistanceToNowStrict(this.props.post.data().dateCreated.toDate(),
                         { addSuffix: true })}</span></div>
                 <h1 className='postTitle'>{this.props.post.data().title}</h1>
                 {this.props.profile ? null : <VoteButton collection='posts' doc={this.props.post} />}

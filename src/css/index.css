@@ -660,6 +660,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   grid-column-end: 5;
   grid-row-start: 5;
   grid-row-end: 6;
+  text-align: right;
 }
 .deletePostButton {
   grid-column-start: 5;
@@ -667,6 +668,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   font-size: 14px;
   grid-row-start: 5;
   grid-row-end: 6;
+  text-align: right;
 }
 .edited {
   color: var(--bread);
@@ -740,7 +742,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 }
 
 .postPage #commentTextArea {
-  width: 90%;
+  width: 100%;
 }
 
 .postPage .comments {
@@ -772,6 +774,12 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   position: relative;
 }
 
+#userProfile .comment {
+  padding: 10px;
+  grid-template-rows: auto auto auto auto auto;
+  margin-bottom: 10px;
+}
+
 .comment .user {
   grid-column-start: 1;
   grid-row-start: 1;
@@ -780,7 +788,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 }
 
 .comment .distanceInWords {
-  grid-column-start: 3;
+  grid-column-start: 4;
   grid-column-end: 5;
   font-size: 14px;
   color: var(--grey);
@@ -811,6 +819,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 3;
+  font-size: 14px;
 }
 
 .comment .editCommentButton {
@@ -818,12 +827,16 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   grid-column-end: 4;
   grid-row-start: 3;
   grid-row-end: 4;
+  font-size: 14px;
+  text-align: right;
 }
 .comment .deleteCommentButton {
   grid-column-start: 4;
   grid-column-end: 5;
   grid-row-start: 3;
   grid-row-end: 4;
+  font-size: 14px;
+  text-align: right;
 }
 
 .comment .replies {
@@ -837,6 +850,15 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   padding-left: 10px;
   border-left: 1px solid var(--border);
 }
+
+.commentedOn {
+  font-size: 14px;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  color: var(--grey);
+  margin-bottom: 10px;
+}
+
 /*
 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ All Groups _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
@@ -915,6 +937,11 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Profile _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 #userProfile .commentCount {
   padding: 5px 0;
+  grid-column-start: 1;
+}
+
+#userProfile .deleteCommentButton {
+  padding-top: 10px;
 }
 
 #userNotFound {

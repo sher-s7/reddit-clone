@@ -5,7 +5,7 @@ import EditCommentButton from './EditCommentButton';
 import fire from './config/Fire';
 import EditComment from './EditComment';
 import VoteButton from './VoteButton';
-import { formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNowStrict } from 'date-fns';
 import NewComment from './NewComment';
 export default class CommentTemplate extends React.Component {
     _isMounted = false;
@@ -26,11 +26,9 @@ export default class CommentTemplate extends React.Component {
     }
 
     fetchNestedComments = () => {
-        
         fire.firestore().collection('comments').where('directParent', '==', this.props.comment.id).get().then(replies => {
             if (!replies.empty) {
                 this.setState({ replies: replies.docs })
-                console.log(replies.docs)
             } else {
                 this.setState({ lastReply: true, replies: [] })
             }
@@ -76,11 +74,11 @@ export default class CommentTemplate extends React.Component {
             })
             return (
                 <div key={comment.id} className={'comment'}>
-                    {this.state.post ? <div className='commentedOn'>Commented on <Link to={`/group/${this.state.post.data().group}/post/${this.state.post.id}`}>{this.state.post.data().title}</Link> in <Link to={`/group/${this.state.post.data().group}`}>{this.state.post.data().group}</Link></div> : null}
-                    <span className='distanceInWords'>{formatDistanceToNow(comment.data().dateCreated.toDate(),
+                    {this.state.post ? <div className='commentedOn'><Link to={`/group/${this.state.post.data().group}/post/${this.state.post.id}`}>{this.state.post.data().title}</Link> <div>in <Link to={`/group/${this.state.post.data().group}`}>{this.state.post.data().group}</Link></div></div> : null}
+                    <span className='distanceInWords'>{formatDistanceToNowStrict(comment.data().dateCreated.toDate(),
                         { addSuffix: true })}</span>
                     {comment.data().edited ? <span className='edited'>(edited)</span> : null}
-                    <div className='body'>{comment.data().text}</div>
+                    <p className='body'>{comment.data().text}</p>
                     {currentUserComment ? <DeleteCommentButton updateComments={this.props.updateComments} commentId={comment.id} postId={this.props.postId} /> : null}
                 </div>
             )
@@ -89,7 +87,7 @@ export default class CommentTemplate extends React.Component {
                 <div key={comment.id} className={`comment${nestDepth > 0 ? ' indent' : ''}`}>
                     <VoteButton collection='comments' doc={this.props.comment} />
                     <Link to={`/profile/${comment.data().creator}`} className='user'>{comment.data().creator}</Link>
-                    <span className='distanceInWords'>{formatDistanceToNow(comment.data().dateCreated.toDate(),
+                    <span className='distanceInWords'>{formatDistanceToNowStrict(comment.data().dateCreated.toDate(),
                         { addSuffix: true })}</span>
                     {comment.data().edited ? <span className='edited'>(edited)</span> : null}
                     {this.state.editComment ? <EditComment updateComments={this.props.updateComments} editComment={this.editComment} markAsEdited={this.markAsEdited} docId={comment.id} /> : <p className='body'>{comment.data().text}</p>}
