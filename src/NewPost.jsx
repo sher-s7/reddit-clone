@@ -8,7 +8,7 @@ export default class NewPost extends React.Component {
     render() {
         return (
             <div className='newPostContainer'>
-                <h3>Create a new post</h3>
+                <h3>CREATE A NEW POST</h3>
                 <button onClick={() => this.props.setModal('text')} className='newPostButton text'>TEXT</button>
                 <button onClick={() => this.props.setModal('image')} className='newPostButton image'>IMAGE</button>
                 <button onClick={() => this.props.setModal('link')} className='newPostButton link'>LINK</button>

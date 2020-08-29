@@ -65,7 +65,7 @@ class ImagePostModal extends React.Component {
                     <label htmlFor="image">
                         <input type='file' accept="image/png, image/jpeg" name="image" id="imageInput" ref={this.fileInput} required />
                     </label>
-                    <input disabled={this.state.disabled} type="submit" value="Submit" />
+                    <input disabled={this.state.disabled} type="submit" value="POST" />
                 </form>
             </div>
         );

@@ -16,6 +16,7 @@
   --bread: #9c805b;
   --border: #745c3d38;
   --grey: #bebebe;
+  --inputBG: #e4e1db;
 }
 html,
 body {
@@ -62,6 +63,15 @@ h3 {
 }
 p {
   font-weight: 300;
+}
+
+input,
+textarea {
+  cursor: text;
+}
+
+input[type="submit"] {
+  cursor: pointer;
 }
 
 .hidden {
@@ -451,9 +461,10 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 .newPostContainer {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 25px 1fr;
   align-items: center;
   padding: 0 20px;
+  margin-top: 20px;
 }
 
 .newPostContainer h3 {
@@ -461,11 +472,10 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   grid-column-end: 4;
   grid-row-start: 1;
   grid-row-end: 2;
-  margin-left: 2px;
+  margin-left: 3px;
   text-align: left;
-  font-family: "Roboto", sans-serif;
   color: var(--bread);
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .newPostButton {
@@ -564,10 +574,60 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   grid-row-end: 6;
 }
 
+.editPostForm {
+  position: fixed;
+  background: var(--buttonColor);
+  display: flex;
+  flex-direction: column;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 75%;
+  height: 300px;
+  /* box-shadow: 0px 0px 5px #00000042; */
+  padding: 10px;
+  z-index: 5;
+  border-radius: 2px;
+  border: 2px solid var(--border);
+}
+
+.editPostForm p {
+  font-weight: bolder;
+  color: var(--bread);
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.editPostForm textarea {
+  height: 100%;
+  padding: 5px;
+  background-color: var(--buttonColor);
+  transition: 0.2s;
+  color: var(--bread);
+}
+
+.editPostForm textarea:focus {
+  background-color: var(--inputBG);
+}
+
+.editPostForm input[type="submit"],
+.editPostForm button {
+  height: 40px;
+  color: var(--bread);
+  border: 2px solid var(--border);
+  margin-top: 5px;
+}
+
+.editPostForm input[type="submit"] {
+  background-color: var(--bread);
+  color: var(--buttonColor);
+  border: none;
+}
+
 /* -  -  -  -  -  -  -  -  -   Link Posts -  -  -  -  -  -  -  -  -  -  -  -  */
 .postContainer.link {
   grid-template-rows: auto 25px auto auto;
-  grid-template-columns: 70px auto auto auto auto;
+  grid-template-columns: 70px auto auto auto 40px;
   padding: 10px;
   padding-bottom: 0;
 }
@@ -594,7 +654,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 /* -  -  -  -  -  -  -  -  -   Image Posts -  -  -  -  -  -  -  -  -  -  -  -  */
 .postContainer.image {
   grid-template-rows: auto 25px auto auto;
-  grid-template-columns: 70px auto auto auto auto;
+  grid-template-columns: 70px auto auto auto 40px;
   padding: 10px;
   padding-bottom: 0;
 }
@@ -621,7 +681,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 /* -  -  -  -  -  -  -  -  -   Text Posts -  -  -  -  -  -  -  -  -  -  -  -  */
 .postContainer.text {
-  grid-template-columns: 70px auto auto auto auto;
+  grid-template-columns: 70px auto auto auto 40px;
   grid-template-rows: auto 25px auto auto;
   overflow: hidden;
   padding: 10px;
@@ -654,13 +714,15 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   grid-column-start: 2;
   grid-column-end: 4;
 }
+
 .editPostButton {
   font-size: 14px;
   grid-column-start: 4;
   grid-column-end: 5;
   grid-row-start: 5;
   grid-row-end: 6;
-  text-align: right;
+  width: max-content;
+  justify-self: end;
 }
 .deletePostButton {
   grid-column-start: 5;
@@ -669,6 +731,8 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   grid-row-start: 5;
   grid-row-end: 6;
   text-align: right;
+  width: max-content;
+  justify-self: end;
 }
 .edited {
   color: var(--bread);
@@ -743,6 +807,14 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 .postPage #commentTextArea {
   width: 100%;
+  background-color: var(--buttonColor);
+  padding: 5px;
+  color: var(--bread);
+  min-height: 60px;
+}
+
+.postPage #commentTextArea:focus {
+  background-color: var(--inputBG);
 }
 
 .postPage .comments {
@@ -756,7 +828,17 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   margin-bottom: 10px;
 }
 
-.newCommentForm input {
+.newCommentForm {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  grid-row-start: 3;
+}
+
+.newCommentForm button, .editCommentForm button {
+  margin-left: 10px;
+}
+
+.newCommentForm input, .editCommentForm input {
   padding: 3px 6px;
   border: none;
   background-color: var(--bread);
@@ -788,7 +870,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 }
 
 .comment .distanceInWords {
-  grid-column-start: 4;
+  grid-column-start: 3;
   grid-column-end: 5;
   font-size: 14px;
   color: var(--grey);
@@ -809,6 +891,14 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   grid-row-end: 3;
 }
 
+.comment .editCommentForm textarea {
+  width: 100%;
+  min-height: 100px;
+  background-color: transparent;
+  padding: 5px;
+  font-weight: 100;
+}
+
 .comment .points {
   grid-column-start: 1;
   grid-column-end: 2;
@@ -816,27 +906,24 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 }
 
 .comment .replyButton {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 3;
   font-size: 14px;
+  margin-right: 10px;
 }
 
-.comment .editCommentButton {
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 3;
-  grid-row-end: 4;
-  font-size: 14px;
-  text-align: right;
-}
-.comment .deleteCommentButton {
-  grid-column-start: 4;
+.replyEditDeleteContainer {
+  grid-column-start: 2;
   grid-column-end: 5;
   grid-row-start: 3;
   grid-row-end: 4;
-  font-size: 14px;
   text-align: right;
+}
+
+.comment .editCommentButton {
+  font-size: 14px;
+  margin-right: 10px;
+}
+.comment .deleteCommentButton {
+  font-size: 14px;
 }
 
 .comment .replies {
@@ -1028,7 +1115,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Settings _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 }
 
 #settingsContainer form input:focus {
-  background-color: var(--border);
+  background-color: var(--inputBG);
 }
 
 #settingsContainer p {
@@ -1045,12 +1132,101 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Modals _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 */
 .newPostModal {
+  display: flex;
+  flex-direction: column;
   position: fixed;
   z-index: 10;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: var(--bread);
+  background: var(--buttonColor);
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
+
+.newPostModal h3 {
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--bread);
+  margin-bottom: 5px;
+}
+
+#postTypeTab ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+}
+#postTypeTab ul li {
+  width: 100%;
+  height: 100%;
+}
+#postTypeTab ul li button {
+  width: 100%;
+  height: 100%;
+  padding: 10px 5px;
+  text-align: center;
+  background-color: var(--border);
+  color: var(--bread);
+}
+
+#postTypeTab ul li .selectedTab {
+  background-color: var(--bread);
+  color: var(--bodyColor);
+}
+
+.newPostModal form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.newPostModal label[for="groups"] {
+  margin-top: 10px;
+  color: var(--bread);
+}
+
+.newPostModal form > *,
+.newPostModal form label > * {
+  width: 100%;
+}
+
+.newPostModal input,
+.newPostModal select {
+  padding: 10px 5px;
+  border: 2px solid var(--border);
+  color: var(--bread);
+  background-color: var(--buttonColor);
+  transition: 0.2s;
+}
+
+#textModal {
+  height: 100%;
+}
+#textModal label[for="body"] {
+  height: 100%;
+}
+.newPostModal textarea {
+  padding: 5px;
+  border: 2px solid var(--border);
+  height: 100%;
+  color: var(--bread);
+  background-color: var(--buttonColor);
+  transition: 0.2s;
+}
+
+.newPostModal label,
+.newPostModal select {
+  margin-bottom: 5px;
+}
+
+.newPostModal input:focus,
+.newPostModal textarea:focus {
+  background-color: var(--inputBG);
+}
+
+.closeModal {
+  text-align: right;
 }
 
 .validationInfo {

@@ -37,7 +37,8 @@ class PostTemplate extends React.Component {
             return (
                 <>
                     {postData.edited ? <span className='edited'>(edited)</span> : null}
-                    {this.state.editPost ? <EditPost updatePosts={this.props.updatePosts} editPost={this.editPost} markAsEdited={this.markAsEdited} docId={post.id} /> : <p className='postBody'>{postData.body}</p>}
+                    <p className='postBody'>{postData.body}</p>
+                    {this.state.editPost ? <EditPost updatePosts={this.props.updatePosts} editPost={this.editPost} markAsEdited={this.markAsEdited} docId={post.id} /> : null }
                     {currentUserPost && !this.props.profile ? <EditPostButton editPost={this.editPost} /> : null}
                 </>
             );

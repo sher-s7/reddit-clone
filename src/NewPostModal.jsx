@@ -62,13 +62,13 @@ class NewPostModal extends React.Component {
 
         return (
             <div className='newPostModal' ref={this.wrapperRef}>
-                <button className='closeModal' onClick={this.props.setModal}> ╳ </button>
-                <h3>Create a post</h3>
-                <div>
+                <button className='closeModal' onClick={() => this.props.setModal(null)}> ╳ </button>
+                <h3>CREATE A POST</h3>
+                <div id='postTypeTab'>
                     <ul>
-                        <li><button onClick={() => this.setState({ tab: 'text' })}>Text</button></li>
-                        <li><button onClick={() => this.setState({ tab: 'image' })}>Image</button></li>
-                        <li><button onClick={() => this.setState({ tab: 'link' })}>Link</button></li>
+                        <li><button className={this.state.tab === 'text' ? 'selectedTab' : ''} onClick={() => this.setState({ tab: 'text' })}>TEXT</button></li>
+                        <li><button className={this.state.tab === 'image' ? 'selectedTab' : ''} onClick={() => this.setState({ tab: 'image' })}>IMAGE</button></li>
+                        <li><button className={this.state.tab === 'link' ? 'selectedTab' : ''} onClick={() => this.setState({ tab: 'link' })}>LINK</button></li>
                     </ul>
                 </div>
                 <label htmlFor='groups'>Select a group</label>

@@ -60,7 +60,6 @@ export default class App extends React.Component {
     if (modal) {
       document.body.style.top = `-${window.scrollY}px`;
       document.body.style.position = 'fixed';
-      console.log('helo')
     }
 
     if (modal === 'login') {
@@ -142,7 +141,6 @@ export default class App extends React.Component {
   render() {
     return (
       <Router>
-
         <Header updateView={this.updateView} authListener={this.authListener} user={this.state.currentUser} setModal={this.setModal} />
         {this.state.modal}
         <button id='scrollPostButton' className={this.state.scrollPostButton} onClick={() => this.setModal('text')}><FontAwesomeIcon icon={NewPostTab}/></button>

@@ -51,7 +51,7 @@ class LinkPostModal extends React.Component {
                     <label htmlFor="link">
                         <input value={this.state.link} type='text' onChange={this.handleChange} name="link" id="linkInput" placeholder='Url' required />
                     </label>
-                    <input disabled={this.state.disabled} type="submit" value="Submit" />
+                    <input disabled={this.state.disabled} type="submit" value="POST" />
                 </form>
             </div>
         );
