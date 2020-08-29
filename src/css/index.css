@@ -35,6 +35,10 @@ html {
   display: none;
 }
 
+::placeholder {
+  color: #9c805baf;
+}
+
 a {
   text-decoration: none;
   color: var(--bread);
@@ -1144,7 +1148,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Modals _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 
 */
-.newPostModal {
+.newPostModal, #newGroupModal {
   display: flex;
   flex-direction: column;
   position: fixed;

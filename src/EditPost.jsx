@@ -46,7 +46,7 @@ export default class EditPost extends React.Component {
         return (
             <form ref={this.wrapperRef} className='editPostForm' onSubmit={this.submitEdit}>
                 <p>EDIT POST</p>
-                <textarea name='postBody' value={this.state.postBody} onChange={this.handleChange}></textarea>
+                <textarea maxLength={10000} name='postBody' value={this.state.postBody} onChange={this.handleChange}></textarea>
                 <input type="submit" value="Submit" />
                 <button onClick={() => this.props.editPost(false)}>Cancel</button>
             </form>
