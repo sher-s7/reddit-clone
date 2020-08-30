@@ -1484,11 +1484,11 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Modals _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
   .postPage .post {
     margin-top: 5px;
-    width: auto;
+    width: 100%;
   }
 
-  .postPage .postContainer.image {
-    width: max-content;
+  .postPage .postContainer.image .imageContainer {
+    text-align: center;
   }
 
   .postPage .postContainer.image img {
