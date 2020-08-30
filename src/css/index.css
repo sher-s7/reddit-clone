@@ -842,6 +842,10 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   background-color: var(--inputBG);
 }
 
+#commentTextArea:invalid {
+  box-shadow: none;
+}
+
 .postPage .comments {
   padding: 10px;
 }
