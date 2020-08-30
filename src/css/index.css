@@ -706,6 +706,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   grid-row-end: 5;
   width: calc(100% + 20px);
   margin-left: -10px;
+  text-align: center;
 }
 
 .postContainer.image .imageContainer img {

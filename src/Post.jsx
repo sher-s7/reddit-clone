@@ -41,8 +41,8 @@ class Post extends React.Component {
             this.setState({ comments: serializedComments })
             fire.firestore().collection('posts').doc(this.props.postId).update({
                 commentCount: commentsData.docs.length
-            });
-        });
+            }).catch(error => console.warn(error.message, 'Must log in.'));
+        }).catch(error => console.warn(error.message, 'Must log in.'));
     }
 
 
@@ -56,7 +56,7 @@ class Post extends React.Component {
 
                 this.props.history.push('/');
             }
-        }).then(this.props.hideLoader);
+        }).then(this.props.hideLoader).catch(error => console.warn(error.message, 'Must log in.'));
     }
 
 
