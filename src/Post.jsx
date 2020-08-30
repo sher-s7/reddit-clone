@@ -23,27 +23,42 @@ class Post extends React.Component {
     }
 
     updateComments = () => {
-        
         fire.firestore().collection('comments').where('postId', '==', this.props.postId).orderBy('points', 'desc').get().then(commentsData => {
-            this.setState({ comments: commentsData.docs })
+            let comments = commentsData.docs;
+            let commentsByNestDepth = [[], [], [], [], []];
+            for (let i = 0; i < 5; i++) {
+                commentsByNestDepth[i] = comments.filter(comment => comment.data().nestDepth === i);
+            }
+            let serializedComments = []
+            commentsByNestDepth.forEach((arr, index) => {
+                index === 0 ?
+                    serializedComments.push(...arr) :
+                    arr.sort((a, b) => a.data().points > b.data().points).forEach(comment => {
+                        const insertAt = serializedComments.findIndex(parent => parent.id === comment.data().directParent);
+                        serializedComments.splice(insertAt + 1, 0, comment)
+                    })
+            })
+            this.setState({ comments: serializedComments })
             fire.firestore().collection('posts').doc(this.props.postId).update({
                 commentCount: commentsData.docs.length
             });
         });
     }
 
+
     updatePost = () => {
-        
+
         fire.firestore().collection('posts').doc(this.props.postId).get().then(postRef => {
             if (postRef.exists) {
-                
+
                 this.setState({ post: postRef, user: fire.auth().currentUser })
             } else {
-                
+
                 this.props.history.push('/');
             }
         }).then(this.props.hideLoader);
     }
+
 
 
     render() {
@@ -54,20 +69,18 @@ class Post extends React.Component {
                     <div className='post'>
                         <PostTemplate updatePosts={this.updatePost} post={this.state.post} user={this.state.user} />
                     </div>
-                    {this.state.post && this.state.post.data() ? <GroupInfo group={this.state.post.data().group} currentUser={this.props.currentUser}/> : null}
+                    {this.state.post && this.state.post.data() ? <GroupInfo group={this.state.post.data().group} currentUser={this.props.currentUser} /> : null}
                     <div className='comments'>
                         <div id='commentsHeader'>COMMENTS</div>
                         {this.props.currentUser ? <NewComment user={this.state.user} updateComments={this.updateComments} postId={this.props.postId} parents={null} directParent={null} nestDepth={0} highestParent={null} /> : <div>Log in or Sign up to comment</div>}
                         <div className='commentsList'>
                             {this.state.comments.map(comment => (
-                                comment.data().nestDepth === 0 ?
-                                    <CommentTemplate
-                                        user={this.state.user}
-                                        key={comment.id}
-                                        updateComments={this.updateComments}
-                                        comment={comment}
-                                        postId={this.props.postId} />
-                                    : null
+                                <CommentTemplate
+                                    user={this.state.user}
+                                    key={comment.id}
+                                    updateComments={this.updateComments}
+                                    comment={comment}
+                                    postId={this.props.postId} />
                             ))}
                         </div>
                     </div>
