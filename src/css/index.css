@@ -1171,8 +1171,8 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Settings _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 }
 
 #profilePictureContainer img {
-  width: auto;
-  height: 100%;
+  width: 100%;
+  height: auto;
 }
 
 #settingsContainer form h2 {
