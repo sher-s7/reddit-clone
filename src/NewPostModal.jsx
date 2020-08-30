@@ -27,8 +27,9 @@ class NewPostModal extends React.Component {
                 groupsData.docs.forEach(doc =>
                     arr.push(doc.id)
                 )
-                path.includes('group') ? this.setState({ groups: arr, selectedGroup: path[path.length - 1] }) :
-                    this.setState({ groups: arr, selectedGroup: arr[0] });
+                const sorted = arr.sort((a,b) => a.toLowerCase() > b.toLowerCase());
+                path.includes('group') ? this.setState({ groups: sorted, selectedGroup: path[path.length - 1] }) :
+                    this.setState({ groups: sorted, selectedGroup: sorted[0] });
             }
         });
         document.addEventListener('mousedown', this.handleClickOutside);
