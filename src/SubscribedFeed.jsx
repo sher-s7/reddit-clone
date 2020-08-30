@@ -34,7 +34,7 @@ class SubscribedFeed extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        
+
         if (prevProps.user !== this.props.user) {
             this.fetchPosts()
         }
@@ -47,20 +47,25 @@ class SubscribedFeed extends React.Component {
 
     fetchPosts = (limit) => {
         fire.firestore().collection('users').doc(this.props.user.uid).get().then(user => {
-            fire.firestore().collection('posts').where('group', 'in', user.data().joinedGroups).orderBy('dateCreated', 'desc').limit(limit || this.state.postLimit).get().then(posts => {
-                if ((limit && posts.docs.length === this.state.posts.length) || posts.docs.length === 0) {
-                    this.setState({ disableLoadMore: true })
-                }
-                this.setState({ posts: posts.docs });
-            }).catch(error => {
-                 console.error(error)
-                 this.props.hideLoader();
-                 this.setState({hideMessage: ''});
+            if (user.data().joinedGroups.length > 0) {
+                fire.firestore().collection('posts').where('group', 'in', user.data().joinedGroups).orderBy('dateCreated', 'desc').limit(limit || this.state.postLimit).get().then(posts => {
+                    if ((limit && posts.docs.length === this.state.posts.length) || posts.docs.length === 0) {
+                        this.setState({ disableLoadMore: true })
+                    }
+                    this.setState({ posts: posts.docs });
+                }).catch(error => {
+                    console.error(error)
+                    this.props.hideLoader();
+                    this.setState({ hideMessage: '' });
                 });
+            } else {
+                this.props.hideLoader();
+                this.setState({ hideMessage: '' });
+            }
         }).then(this.props.hideLoader).catch(error => {
             console.error(error)
             this.props.hideLoader();
-            this.setState({hideMessage: ''});
+            this.setState({ hideMessage: '' });
         });
         if (limit) this.setState({ postLimit: limit });
     }
