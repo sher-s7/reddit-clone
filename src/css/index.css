@@ -227,6 +227,15 @@ header {
   text-decoration: underline;
 }
 
+#joinGroupsMessage {
+  display: block;
+  text-align: center;
+}
+
+#noJoined {
+  font-size: 14px;
+}
+
 .navButtons {
   position: fixed;
   bottom: 0;
