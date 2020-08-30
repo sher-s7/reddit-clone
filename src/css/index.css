@@ -1519,8 +1519,8 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Modals _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   }
 
   .postPage .postContainer.image img {
-    max-height: 400px;
-    width: auto;
+    max-width: 760px;
+    width: 100%;
     margin: 0 auto;
   }
 
