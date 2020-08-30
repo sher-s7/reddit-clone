@@ -27,7 +27,7 @@ export default class NewComment extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.props.postId)
+        
         const currentUser = fire.auth().currentUser;
         if (!currentUser) {
             alert('Must be logged in to comment')

@@ -34,9 +34,9 @@ export default class VoteButton extends React.Component {
     }
 
     componentDidUpdate(_prevProps, prevState) {
-        console.log('vote loop check')
+        
         if (prevState.points !== this.state.points) {
-            console.log('vote inner loop')
+            
             this.updateDoc();
         }
     }

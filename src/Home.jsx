@@ -5,15 +5,15 @@ import NewPost from './NewPost';
 export default class Home extends React.Component {
     
     componentDidMount() {
-        console.log('mounted home')
+        
         this.props.updatePosts();
         document.addEventListener('scroll', this.props.showNewPostButton);
     }
 
     componentDidUpdate(prevProps) {
-        console.log('home update check')
+        
         if(prevProps.posts !== this.props.posts){
-            console.log('home posts', this.props.posts)
+            
         }
     }
 

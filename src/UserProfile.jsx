@@ -22,7 +22,7 @@ class UserProfile extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log('update check')
+        
         if (prevProps.location.pathname !== this.props.location.pathname) {
             window.location.reload(true);
         }
@@ -32,9 +32,9 @@ class UserProfile extends React.Component {
 
     updateView = () => {
         this.props.showLoader();
-        console.log('user mounted')
+        
         fire.firestore().collection('users').where('username', '==', this.props.userId).get().then(userSnapshot => {
-            console.log(userSnapshot.docs.length)
+            
             if (userSnapshot.docs.length > 0) {
                 this.setState({ user: userSnapshot.docs[0], accountCreated: format(userSnapshot.docs[0].data().accountCreated.toDate(), 'MMM dd, yyyy') })
                 fire.firestore().collection('posts').where('username', '==', userSnapshot.docs[0].data().username).get().then(postsData => {
@@ -76,7 +76,7 @@ class UserProfile extends React.Component {
     }
 
     renderFeed = () => {
-        console.log('RENDERING')
+        
         let feed = [];
         this.state.posts.forEach(post => {
             feed.push(post)

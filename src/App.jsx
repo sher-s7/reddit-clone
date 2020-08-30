@@ -19,7 +19,7 @@ import NewGroupModal from './NewGroupModal';
 import Settings from './Settings';
 import SubscribedFeed from './SubscribedFeed';
 
-import {faPlus as NewPostTab} from '@fortawesome/free-solid-svg-icons';
+import { faPlus as NewPostTab } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default class App extends React.Component {
@@ -71,6 +71,11 @@ export default class App extends React.Component {
         this.setState({ modal: <NewPostModal updateView={this.updateView} setModal={this.setModal} tab={modal} /> })
       } else {
         alert('Must be signed in')
+        this.setState({ modal: null })
+        const scrollY = document.body.style.top;
+        document.body.style.position = '';
+        document.body.style.top = '';
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
       }
     } else if (modal === 'group') {
       this.setState({ modal: <NewGroupModal setModal={this.setModal} /> })
@@ -85,9 +90,9 @@ export default class App extends React.Component {
 
   debounce(func, wait, immediate) {
     var timeout;
-    return function() {
+    return function () {
       var context = this, args = arguments;
-      var later = function() {
+      var later = function () {
         timeout = null;
         if (!immediate) func.apply(context, args);
       };
@@ -99,7 +104,7 @@ export default class App extends React.Component {
   };
 
   showNewPostButton = this.debounce(() => {
-    console.log('DETECTING SCROLL')
+    
     if (window.scrollY > 200) {
       this.setState({ scrollPostButton: '' })
     } else {
@@ -112,11 +117,11 @@ export default class App extends React.Component {
   }
 
   fetchPosts = (newLimit) => {
-    console.log('fetching')
+    
     this.props.showLoader();
     fire.firestore().collection('posts').orderBy('dateCreated', 'desc')
       .limit(newLimit || this.state.postLimit).get().then(postsData => {
-        console.log(postsData.docs)
+        
         if ((newLimit && postsData.docs.length === this.state.posts.length) || postsData.docs.length === 0) {
           this.setState({ disableLoadMore: true })
         }
@@ -124,7 +129,7 @@ export default class App extends React.Component {
           posts: postsData.docs
         });
         this.props.hideLoader();
-        console.log('state', this.state.posts)
+        
 
       });
     if (newLimit) this.setState({ postLimit: newLimit });
@@ -143,7 +148,7 @@ export default class App extends React.Component {
       <Router>
         <Header updateView={this.updateView} authListener={this.authListener} user={this.state.currentUser} setModal={this.setModal} />
         {this.state.modal}
-        <button id='scrollPostButton' className={this.state.scrollPostButton} onClick={() => this.setModal('text')}><FontAwesomeIcon icon={NewPostTab}/></button>
+        <button id='scrollPostButton' className={this.state.scrollPostButton} onClick={() => this.setModal('text')}><FontAwesomeIcon icon={NewPostTab} /></button>
         <Switch>
           <Route exact path='/'>
             <Home hideNewPostButton={this.hideNewPostButton} showNewPostButton={this.showNewPostButton} showLoader={this.props.showLoader} hideLoader={this.props.hideLoader} updatePosts={this.fetchPosts} disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} posts={this.state.posts ? this.state.posts : null} setModal={this.setModal} />

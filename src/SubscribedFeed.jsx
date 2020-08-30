@@ -34,7 +34,7 @@ class SubscribedFeed extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log('subbed update')
+        
         if (prevProps.user !== this.props.user) {
             this.fetchPosts()
         }

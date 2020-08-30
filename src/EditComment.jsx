@@ -20,7 +20,7 @@ export default class EditComment extends React.Component {
 
     submitEdit = (e) => {
         e.preventDefault();
-        console.log(this.props.docId)
+        
         fire.firestore().collection('comments').doc(this.props.docId).update({
             text: this.state.commentText
         }).then(() => {

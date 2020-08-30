@@ -94,7 +94,7 @@ class Settings extends React.Component {
     }
 
     deleteAccount = (e) => {
-        console.log(this.state.joinedGroups)
+        
         e.preventDefault();
         let confirm = window.confirm("Are you sure you want to delete your account?");
         if (confirm) {

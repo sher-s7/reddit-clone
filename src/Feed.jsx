@@ -12,9 +12,9 @@ export default class Feed extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log('feed update check')
+        
         if (prevProps.posts !== this.props.posts) {
-            console.log('feed posts', this.props.posts)
+            
         }
     }
 

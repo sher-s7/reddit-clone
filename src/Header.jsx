@@ -29,7 +29,7 @@ class Header extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log('header update')
+    
     if (prevProps.location.pathname !== this.props.location.pathname) {
       this.updateHeaderClass();
     }

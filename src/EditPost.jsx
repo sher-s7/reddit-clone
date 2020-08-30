@@ -36,7 +36,7 @@ export default class EditPost extends React.Component {
         fire.firestore().collection('posts').doc(this.props.docId).update({
             body: this.state.postBody
         }).then(() => {
-            console.log('edited')
+            
             this.props.markAsEdited();
             this.props.editPost(false)
         }).then(this.props.updatePosts);

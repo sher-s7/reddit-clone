@@ -14,6 +14,24 @@ export default class Signup extends React.Component {
         }
 
         this.handleChange = this.handleChange.bind(this);
+        this.wrapperRef = React.createRef();
+        this.handleClickOutside = this.handleClickOutside.bind(this);
+    }
+
+    componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutside);
+        document.addEventListener('touchstart', this.handleClickOutside);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside);
+        document.removeEventListener('touchstart', this.handleClickOutside);
+    }
+
+    handleClickOutside(event) {
+        if (this.wrapperRef && this.wrapperRef.current && !this.wrapperRef.current.contains(event.target)) {
+            this.props.setModal();
+        }
     }
 
     signup = (e) => {
@@ -60,8 +78,9 @@ export default class Signup extends React.Component {
 
     render() {
         return (
-            <div id='signUpModal'>
-                <button className='closeModal' onClick={this.props.setModal}> ╳ </button>
+            <div ref={this.wrapperRef} id='signUpModal'>
+                <button className='closeModal' onClick={() => this.props.setModal(null)}> ╳ </button>
+                <h2>SIGN UP</h2>
                 <form onSubmit={this.signup}>
                     <label htmlFor="username">
                         Username:
@@ -75,7 +94,7 @@ export default class Signup extends React.Component {
                         Password:
                 <input required value={this.state.password} onChange={this.handleChange} type="password" name="password" id="passwordField" />
                     </label>
-                    <input type="submit" value="Sign Up" />
+                    <input type="submit" value="SIGN UP" />
                     <p>{this.state.error}</p>
                 </form>
             </div>

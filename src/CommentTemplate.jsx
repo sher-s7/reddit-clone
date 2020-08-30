@@ -77,8 +77,7 @@ export default class CommentTemplate extends React.Component {
                     {this.state.post ? <div className='commentedOn'><Link to={`/group/${this.state.post.data().group}/post/${this.state.post.id}`}>{this.state.post.data().title}</Link> <div>in <Link to={`/group/${this.state.post.data().group}`}>{this.state.post.data().group}</Link></div></div> : null}
                     <span className='distanceInWords'>{formatDistanceToNowStrict(comment.data().dateCreated.toDate(),
                         { addSuffix: true })}</span>
-                    {comment.data().edited ? <span className='edited'>(edited)</span> : null}
-                    <p className='body'>{comment.data().text}</p>
+                    <p className='body'>{comment.data().text} {comment.data().edited ? <span className='edited'>(edited)</span> : null}</p>
                     {currentUserComment ? <DeleteCommentButton updateComments={this.props.updateComments} commentId={comment.id} postId={this.props.postId} /> : null}
                 </div>
             )
@@ -89,8 +88,7 @@ export default class CommentTemplate extends React.Component {
                     <Link to={`/profile/${comment.data().creator}`} className='user'>{comment.data().creator}</Link>
                     <span className='distanceInWords'>{formatDistanceToNowStrict(comment.data().dateCreated.toDate(),
                         { addSuffix: true })}</span>
-                    {comment.data().edited ? <span className='edited'>(edited)</span> : null}
-                    {this.state.editComment ? <EditComment updateComments={this.props.updateComments} editComment={this.editComment} markAsEdited={this.markAsEdited} docId={comment.id} /> : <p className='body'>{comment.data().text}</p>}
+                    {this.state.editComment ? <EditComment updateComments={this.props.updateComments} editComment={this.editComment} markAsEdited={this.markAsEdited} docId={comment.id} /> : <p className='body'>{comment.data().text} {comment.data().edited ? <span className='edited'>(edited)</span> : null}</p>}
                     <div className='replyEditDeleteContainer'>
                         {nestDepth >= 4 ? null : <button className='replyButton' onClick={() => {
                             this.showReplyBox(true);

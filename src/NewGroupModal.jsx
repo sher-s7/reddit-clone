@@ -22,15 +22,15 @@ class NewGroupModal extends React.Component {
                 createdBy: fire.auth().currentUser.displayName,
                 numberOfUsers: 1
             })
-            .then(() => {
-                fire.firestore().collection('users').doc(fire.auth().currentUser.uid).update({
-                    createdGroups: firebase.firestore.FieldValue.arrayUnion(this.state.name),
-                    joinedGroups: firebase.firestore.FieldValue.arrayUnion(this.state.name)
-                })
-            }).then(() => {
-                this.props.setModal();
-                this.props.history.push(`/group/${this.state.name}`);
-            }).catch(error => console.error(error));
+                .then(() => {
+                    fire.firestore().collection('users').doc(fire.auth().currentUser.uid).update({
+                        createdGroups: firebase.firestore.FieldValue.arrayUnion(this.state.name),
+                        joinedGroups: firebase.firestore.FieldValue.arrayUnion(this.state.name)
+                    })
+                }).then(() => {
+                    this.props.setModal();
+                    this.props.history.push(`/group/${this.state.name}`);
+                }).catch(error => console.error(error));
         } else {
             alert('Must be signed in to create a group');
         }
@@ -42,11 +42,11 @@ class NewGroupModal extends React.Component {
 
     showValidations = () => {
         this.setState({
-            validations: 'validationInfo'
+            validations: ''
         })
     }
     hideValidations = () => {
-        console.log('show validations')
+        
         this.setState({
             validations: 'hidden'
         })
@@ -55,11 +55,17 @@ class NewGroupModal extends React.Component {
     render() {
         return (
             <div id='newGroupModal'>
-                <button className='closeModal' onClick={this.props.setModal}> ╳ </button>
+                <button className='closeModal' onClick={() => this.props.setModal(null)}> ╳ </button>
+                <div id='groupInfoContainer'>
+                    <div>
+                        <i onMouseEnter={this.showValidations} onMouseLeave={this.hideValidations} className="las la-info-circle"></i>
+                        <p className={`validationInfo ${this.state.validations}`}>Name must be between 3 to 25 characters long. Whitespace and special characters are not allowed, except for underscores.</p>
+                    </div>
+                </div>
+                <h2>CREATE A GROUP</h2>
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="title">
-                        <span onMouseEnter={this.showValidations} onMouseLeave={this.hideValidations}>Name <i className="las la-info-circle"></i></span>
-                        <div className={this.state.validations}>Name must be between 3 to 25 characters long. Whitespace and special characters are not allowed, except for underscores.</div>
+                        Name
                         <input pattern="^[A-Za-z_]{3,25}$" required name='name' onChange={this.handleChange} value={this.state.title} type="text" />
                     </label>
                     <label htmlFor="desc">
