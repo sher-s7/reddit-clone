@@ -28,7 +28,7 @@ export default class CommentTemplate extends React.Component {
     fetchNestedComments = () => {
         fire.firestore().collection('comments').where('directParent', '==', this.props.comment.id).get().then(replies => {
             if (!replies.empty) {
-                this.setState({ replies: replies.docs })
+                this.setState({ replies: replies.docs.sort((a,b) => a.data().points < b.data().points) })
             } else {
                 this.setState({ lastReply: true, replies: [] })
             }
