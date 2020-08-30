@@ -20,20 +20,8 @@ export default class CommentTemplate extends React.Component {
 
     componentDidMount() {
         this._isMounted = true;
-        if (!this.props.profile) {
-            this.fetchNestedComments();
-        }
     }
 
-    fetchNestedComments = () => {
-        fire.firestore().collection('comments').where('directParent', '==', this.props.comment.id).get().then(replies => {
-            if (!replies.empty) {
-                this.setState({ replies: replies.docs })
-            } else {
-                this.setState({ lastReply: true, replies: [] })
-            }
-        })
-    }
 
     componentWillUnmount() {
         this._isMounted = false;
@@ -51,11 +39,6 @@ export default class CommentTemplate extends React.Component {
         this.setState({ reply: bool })
     }
 
-    renderReplies = () => {
-        return (this.state.replies ? this.state.replies.map(reply =>
-            <CommentTemplate user={this.props.user} key={reply.id} updateComments={this.fetchNestedComments} highestParent={reply.data().highestParent} comment={reply} postId={this.props.postId} />
-        ) : null)
-    }
 
     generateComment = () => {
         const comment = this.props.comment;
@@ -83,7 +66,10 @@ export default class CommentTemplate extends React.Component {
             )
         } else {
             return (
-                <div key={comment.id} className={`comment${nestDepth > 0 ? ' indent' : ''}`}>
+                <div style={{marginLeft: `${nestDepth*10+1}px`}} key={comment.id} className={`comment${nestDepth > 0 ? ' indent' : ''}`}>
+                    {[...Array(nestDepth).keys()].map(depth => (
+                        <div key={`depth${depth+1}`} className={`divider${depth+1}`}/>
+                    ))}
                     <VoteButton collection='comments' doc={this.props.comment} />
                     <Link to={`/profile/${comment.data().creator}`} className='user'>{comment.data().creator}</Link>
                     <span className='distanceInWords'>{formatDistanceToNowStrict(comment.data().dateCreated.toDate(),
@@ -103,10 +89,8 @@ export default class CommentTemplate extends React.Component {
                     </div>
 
 
-                    {this.state.reply ? <NewComment editComment={this.editComment} user={this.props.user} updateComments={this.fetchNestedComments} postId={this.props.postId} directParent={comment.id} parents={[...parents, comment.id]} highestParent={comment.data().highestParent || comment.id} nestDepth={nestDepth + 1} showReplyBox={this.showReplyBox} /> : null}
-                    <div className={`replies ${this.state.hideReplies ? 'hidden' : ''}`}>
-                        {this.renderReplies()}
-                    </div>
+                    {this.state.reply ? <NewComment editComment={this.editComment} user={this.props.user} updateComments={this.props.updateComments} postId={this.props.postId} directParent={comment.id} parents={[...parents, comment.id]} highestParent={comment.data().highestParent || comment.id} nestDepth={nestDepth + 1} showReplyBox={this.showReplyBox} /> : null}
+
                 </div>
             )
         }

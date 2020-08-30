@@ -819,6 +819,28 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 }
 
 /* -  -  -  -  -  -  -  -  -   Post Page -  -  -  -  -  -  -  -  -  -  -  -  */
+.divider2 {
+  height: 100%;
+  position: absolute;
+  left: -11px;
+  width: 1px;
+  background: var(--border);
+}
+
+.divider3 {
+  height: 100%;
+  position: absolute;
+  left: -21px;
+  width: 1px;
+  background: var(--border);
+}
+.divider4 {
+  height: 100%;
+  position: absolute;
+  left: -31px;
+  width: 1px;
+  background: var(--border);
+}
 .postPage .postContainer.text .postBody {
   mask-image: none;
   overflow: unset;
@@ -970,7 +992,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 }
 
 .indent {
-  margin-left: 20px;
+  /* margin-left: 20px; */
   padding-left: 10px;
   border-left: 1px solid var(--border);
 }
@@ -1026,7 +1048,8 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ All Groups _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   -webkit-tap-highlight-color: transparent !important;
 }
 
-#allGroupsList a:active, #allGroupsList a:hover {
+#allGroupsList a:active,
+#allGroupsList a:hover {
   background-color: var(--border);
 }
 
@@ -1501,7 +1524,10 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Modals _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
     margin: 0 auto;
   }
 
-  #loginModal, #signUpModal, .newPostModal, #newGroupModal {
+  #loginModal,
+  #signUpModal,
+  .newPostModal,
+  #newGroupModal {
     width: 700px;
     height: max-content;
     box-shadow: 0 0 10px #00000042;
