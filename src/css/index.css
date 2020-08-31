@@ -9,15 +9,8 @@
   padding: 0;
   margin: 0;
   box-sizing: inherit;
-
-  --fontColor: #3d1e1c;
-  --bodyColor: white;
-  --buttonColor: #f0f0f0;
-  --bread: #9c805b;
-  --border: #745c3d38;
-  --grey: #bebebe;
-  --inputBG: #e4e1db;
 }
+
 html,
 body {
   width: 100%;
@@ -27,8 +20,37 @@ body {
 html {
   box-sizing: border-box;
   font-family: "Roboto Condensed", sans-serif;
-  color: var(--fontColor);
+}
+
+body {
+  --fontColor: #3d1e1c;
+  --bodyColor: white;
+  --buttonColor: #f0f0f0;
+  --bread: #9c805b;
+  --border: #745c3d38;
+  --grey: #bebebe;
+  --inputBG: #e4e1db;
+
   background-color: var(--buttonColor);
+  color: var(--fontColor);
+}
+
+.dark-mode {
+  --fontColor: #e0dddd;
+  --bodyColor: #222;
+  --buttonColor: #1c1a19;
+  --bread: #bb9767;
+  --border: rgba(226, 182, 125, 0.22);
+  --grey: #b2b2b2;
+  --inputBG: #1e1e1e;
+}
+
+.dark-mode #logo, .dark-mode #endOfPage img, .dark-mode #loader {
+  filter: invert(1) hue-rotate(220deg);
+}
+
+.dark-mode .groupHeader, .dark-mode .feedHeading {
+  background-color: var(--bread);
 }
 
 .loader--hide {
@@ -133,6 +155,13 @@ header {
   align-items: center;
   border-bottom: 1px solid var(--border);
   z-index: 1;
+}
+
+#darkModeToggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  
 }
 
 #logo {

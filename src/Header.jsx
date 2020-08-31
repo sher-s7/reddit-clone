@@ -7,6 +7,8 @@ import {
 import Toast from './Toast';
 import fire from './config/Fire';
 import GroupsNav from './GroupsNav';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMoon } from '@fortawesome/free-solid-svg-icons';
 
 class Header extends React.Component {
 
@@ -91,6 +93,7 @@ class Header extends React.Component {
             </div>
           </div> :
           (<div><button onClick={() => this.props.setModal('login')} id='loginButton'>LOGIN</button> <button onClick={() => this.props.setModal('signup')} id='signupButton'>SIGN UP</button></div>)}
+          <button id='darkModeToggle' onClick={() => document.body.classList.toggle('dark-mode')}><FontAwesomeIcon icon={faMoon}/></button>
       </header>
     );
   }
