@@ -19,7 +19,7 @@ Features implemented:
 * Comments with nested replies
 * Upvoting and downvoting of posts and comments
 * Settings
-   -Change/Remove profile picture
+  - Change/Remove profile picture
   - Change password
   - Delete account
 * Load more posts when end of feed is reached
