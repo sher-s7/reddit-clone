@@ -8,6 +8,7 @@
 Features implemented:
 * Routing with React Router
 * Mobile responsive
+* Dark mode toggle
 * User profiles
   - Displays user info, profile picture, user's posts, and user's comments
 * Creating groups (subreddits)
