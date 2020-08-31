@@ -22,6 +22,7 @@ html,
 body {
   width: 100%;
   overflow-x: hidden;
+  height: 100%;
 }
 
 html {
@@ -47,6 +48,7 @@ a {
 #root {
   padding-top: 60px;
   padding-bottom: 120px;
+  height: auto;
 }
 
 button {
@@ -478,6 +480,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Feed _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 #endOfPage img {
   width: 30px;
+  height: 100%;
   opacity: 0.5;
 }
 
@@ -1285,6 +1288,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Modals _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   font-weight: bold;
   color: var(--bread);
   margin-bottom: 5px;
+  margin-top: 20px;
 }
 
 #postTypeTab ul {
@@ -1333,19 +1337,20 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Modals _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   color: var(--bread);
   background-color: var(--bodyColor);
   transition: 0.2s;
-  height: 50px;
+  /* height: 50px; */
 }
 
 #textModal {
   height: 100%;
 }
 #textModal label[for="body"] {
-  height: 100%;
+  height: 160px;
 }
 .newPostModal textarea {
   padding: 5px;
   border: 2px solid var(--border);
   height: 100%;
+  /* max-height: 260px; */
   resize: none;
   color: var(--bread);
   background-color: var(--bodyColor);
@@ -1365,6 +1370,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Modals _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 .closeModal {
   align-self: flex-end;
   font-size: 25px;
+  position: absolute;
 }
 
 #scrollPostButton {
