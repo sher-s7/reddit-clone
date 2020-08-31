@@ -26,6 +26,15 @@ class PostTemplate extends React.Component {
         fire.firestore().collection('posts').doc(this.props.post.id).update({ edited: true }).then();
     }
 
+    getId(url) {
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+        const match = url.match(regExp);
+
+        return (match && match[2].length === 11)
+            ? match[2]
+            : null;
+    }
+
     generatePost = () => {
         const post = this.props.post;
         const postData = this.props.post.data();
@@ -38,7 +47,7 @@ class PostTemplate extends React.Component {
                 <>
                     {postData.edited ? <span className='edited'>(edited)</span> : null}
                     <p className='postBody'>{postData.body}</p>
-                    {this.state.editPost ? <EditPost updatePosts={this.props.updatePosts} editPost={this.editPost} markAsEdited={this.markAsEdited} docId={post.id} /> : null }
+                    {this.state.editPost ? <EditPost updatePosts={this.props.updatePosts} editPost={this.editPost} markAsEdited={this.markAsEdited} docId={post.id} /> : null}
                     {currentUserPost && !this.props.profile ? <EditPostButton editPost={this.editPost} /> : null}
                 </>
             );
@@ -49,11 +58,20 @@ class PostTemplate extends React.Component {
                 </div>
             );
         } else if (postData.type === 'link') {
-            return (
-                <a className='postLink' target='_blank' href={postData.link} rel="noopener noreferrer">
-                    {postData.link}
-                </a>
-            );
+            if (/^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/.test(postData.link)) {
+                const id = this.getId(postData.link);
+                return (
+                    <div className='postLink youtube'>
+                        <iframe title={id} src={`//www.youtube.com/embed/${id}`} frameBorder="0" allowFullScreen></iframe>
+                    </div>
+                )
+            } else {
+                return (
+                    <a className='postLink' target='_blank' href={postData.link} rel="noopener noreferrer">
+                        {postData.link}
+                    </a>
+                );
+            }
         }
 
     }
