@@ -1,4 +1,6 @@
 # Breddit
+<img src="https://raw.githubusercontent.com/sher-s7/reddit-clone/master/src/assets/bread-logo.png" width="50px" />
+
 ### A Reddit clone made using React and Firebase.
 
 <a href="https://reddit-clone-a7ea1.web.app/" target="_blank" rel="noreferrer noopener"><b>Breddit</b> - View site</a>
