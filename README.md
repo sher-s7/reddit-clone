@@ -1,7 +1,7 @@
 # Breddit
 ### A Reddit clone made using React and Firebase.
 
-[Breddit - View site](https://reddit-clone-a7ea1.web.app/)
+<a href="https://reddit-clone-a7ea1.web.app/" target="_blank"><b>Breddit</b> - View site</a>
 
 Features implemented:
 * Routing with React Router
