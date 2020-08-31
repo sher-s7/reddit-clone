@@ -653,6 +653,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   z-index: 5;
   border-radius: 2px;
   border: 2px solid var(--border);
+  max-width: 760px;
 }
 
 .editPostForm p {
@@ -668,6 +669,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   background-color: var(--buttonColor);
   transition: 0.2s;
   color: var(--bread);
+  resize: none;
 }
 
 .editPostForm textarea:focus {
