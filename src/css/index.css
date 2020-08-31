@@ -49,7 +49,7 @@ body {
   filter: invert(1) hue-rotate(220deg);
 }
 
-.dark-mode .groupHeader, .dark-mode .feedHeading, .allGroups h2 {
+.dark-mode .groupHeader, .dark-mode .feedHeading, .dark-mode .allGroups h2 {
   background-color: var(--bread);
 }
 
