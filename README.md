@@ -1,5 +1,8 @@
-## Breddit
+# Breddit
 ### A Reddit clone made using React and Firebase.
+
+[Breddit - View site](https://reddit-clone-a7ea1.web.app/)
+
 Features implemented:
 * Routing with React Router
 * Mobile responsive
@@ -19,8 +22,9 @@ Features implemented:
   - Delete account
 * Load more posts when end of feed is reached
 
-<img src="https://raw.githubusercontent.com/sher-s7/reddit-clone/master/readme-assets/bredditfeed.png" width="400"/>
+ <img src="https://raw.githubusercontent.com/sher-s7/reddit-clone/master/readme-assets/bredditfeed.png" width="400"/>
 
-
-<img src="https://raw.githubusercontent.com/sher-s7/reddit-clone/master/readme-assets/bredditcomments.png" width="400"/>
+---
+  
+ <img src="https://raw.githubusercontent.com/sher-s7/reddit-clone/master/readme-assets/bredditcomments.png" width="400"/>
 
