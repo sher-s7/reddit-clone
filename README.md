@@ -19,5 +19,8 @@ Features implemented:
   - Delete account
 * Load more posts when end of feed is reached
 
-<img src="https://raw.githubusercontent.com/sher-s7/reddit-clone/master/readme-assets/bredditfeed.png" width="400"/><img src="https://raw.githubusercontent.com/sher-s7/reddit-clone/master/readme-assets/bredditcomments.png" width="400"/>
+<img src="https://raw.githubusercontent.com/sher-s7/reddit-clone/master/readme-assets/bredditfeed.png" width="400"/>
+
+
+<img src="https://raw.githubusercontent.com/sher-s7/reddit-clone/master/readme-assets/bredditcomments.png" width="400"/>
 
