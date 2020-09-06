@@ -768,6 +768,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   overflow: hidden;
   padding: 10px;
   padding-bottom: 0;
+  word-wrap: anywhere;
 }
 
 .postContainer.text .postTitle {
