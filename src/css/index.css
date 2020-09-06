@@ -928,6 +928,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 .postPage .comments {
   padding: 10px;
+  word-wrap: anywhere;
 }
 
 #commentsHeader {
@@ -1574,6 +1575,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Modals _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   .postPage .post {
     margin-top: 5px;
     width: 100%;
+    word-wrap: anywhere;
   }
 
   .postPage .postContainer.image .imageContainer {
