@@ -973,6 +973,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
   padding: 10px;
   grid-template-rows: auto auto auto auto auto;
   margin-bottom: 10px;
+  word-wrap: anywhere;
 }
 
 .comment .user {
