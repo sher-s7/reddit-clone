@@ -607,7 +607,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 .postContainer .groupName {
   grid-column-start: 1;
-  grid-column-end: 5;
+  grid-column-end: 4;
   grid-row-start: 1;
   grid-row-end: 2;
   overflow: hidden;
@@ -819,11 +819,11 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _Posts _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 }
 .edited {
   color: var(--bread);
-  grid-column-start: 5;
+  grid-column-start: 4;
   grid-column-end: 6;
   grid-row-start: 1;
   grid-row-end: 2;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: lighter;
   text-align: right;
   padding-left: 5px;
