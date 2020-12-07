@@ -1,5 +1,5 @@
 import React from 'react';
-import fire from './config/Fire';
+import fire from '../config/Fire';
 import { Link } from 'react-router-dom';
 export default class AllGroups extends React.Component {
     constructor(props) {

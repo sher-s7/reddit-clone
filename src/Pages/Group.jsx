@@ -1,9 +1,9 @@
 import React from 'react';
 import Feed from './Feed';
-import NewPost from './NewPost';
-import fire from './config/Fire';
+import NewPost from '../Components/Posts/NewPost';
+import fire from '../config/Fire';
 import { withRouter } from 'react-router-dom';
-import GroupInfo from './GroupInfo';
+import GroupInfo from '../Components/Groups/GroupInfo';
 
 class Group extends React.Component {
     _isMounted = false;

@@ -1,10 +1,10 @@
 import React from 'react';
-import fire from './config/Fire';
-import NewComment from './NewComment';
-import CommentTemplate from './CommentTemplate';
-import PostTemplate from './PostTemplate';
+import fire from '../config/Fire';
+import NewComment from '../Components/Comments/NewComment';
+import CommentTemplate from '../Components/Comments/CommentTemplate';
+import PostTemplate from '../Components/Posts/PostTemplate';
 import { withRouter } from 'react-router-dom';
-import GroupInfo from './GroupInfo';
+import GroupInfo from '../Components/Groups/GroupInfo';
 
 class Post extends React.Component {
     constructor(props) {

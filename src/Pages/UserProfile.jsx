@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react';
-import fire from './config/Fire';
+import fire from '../config/Fire';
 import { format } from 'date-fns';
 
 import { withRouter } from 'react-router-dom';
-import PostTemplate from './PostTemplate';
-import CommentTemplate from './CommentTemplate';
+import PostTemplate from '../Components/Posts/PostTemplate';
+import CommentTemplate from '../Components/Comments/CommentTemplate';
 
 class UserProfile extends React.Component {
 

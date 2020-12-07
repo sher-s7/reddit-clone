@@ -1,5 +1,5 @@
 import React from 'react';
-import fire from './config/Fire';
+import fire from '../../config/Fire';
 import TextPostModal from './TextPostModal';
 import ImagePostModal from './ImagePostModal';
 import LinkPostModal from './LinkPostModal';

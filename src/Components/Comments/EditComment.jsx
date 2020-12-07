@@ -1,5 +1,5 @@
 import React from 'react';
-import fire from './config/Fire';
+import fire from '../../config/Fire';
 export default class EditComment extends React.Component {
     constructor(props) {
         super(props);

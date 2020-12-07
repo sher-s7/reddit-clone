@@ -1,12 +1,12 @@
 import React from 'react';
-import fire from './config/Fire';
+import fire from '../../config/Fire';
 import { withRouter } from 'react-router-dom';
-class TextPostModal extends React.Component {
+class LinkPostModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             title: '',
-            body: '',
+            link: '',
             disabled: false,
         }
     }
@@ -19,8 +19,8 @@ class TextPostModal extends React.Component {
         } else {
             this.setState({disabled: true});
             fire.firestore().collection('posts').add({
-                type: 'text',
-                body: this.state.body,
+                type: 'link',
+                link: this.state.link,
                 dateCreated: new Date(),
                 points: 0,
                 title: this.state.title,
@@ -31,10 +31,8 @@ class TextPostModal extends React.Component {
                 votes: {}
             }).then((post) => {
                 this.props.setModal();
+                this.setState({disabled: false});
                 this.props.history.push(`/group/${this.props.selectedGroup}/post/${post.id}`);
-            }).catch(error => {
-                console.error(error.message);
-                this.setState({disabled: false})
             })
         }
     }
@@ -45,13 +43,13 @@ class TextPostModal extends React.Component {
 
     render() {
         return (
-            <div id='textModal'>
+            <div id='linkModal'>
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="title">
                         <input maxLength={300} value={this.state.title} onChange={this.handleChange} type="text" name="title" id="titleInput" placeholder='Title' required />
                     </label>
-                    <label htmlFor="body">
-                        <textarea maxLength={10000} value={this.state.body} onChange={this.handleChange} name="body" id="bodyTextArea" placeholder='Text (optional)' />
+                    <label htmlFor="link">
+                        <input maxLength={2000} value={this.state.link} type='text' onChange={this.handleChange} name="link" id="linkInput" placeholder='Url' required />
                     </label>
                     <input disabled={this.state.disabled} type="submit" value="POST" />
                 </form>
@@ -60,4 +58,4 @@ class TextPostModal extends React.Component {
     }
 }
 
-export default withRouter(TextPostModal)
+export default withRouter(LinkPostModal)

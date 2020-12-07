@@ -1,5 +1,5 @@
 import React from 'react';
-import fire from './config/Fire';
+import fire from '../../config/Fire';
 import firebase from 'firebase/app';
 import { withRouter, Link } from 'react-router-dom';
 class GroupInfo extends React.Component {

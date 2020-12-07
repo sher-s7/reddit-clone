@@ -5,8 +5,8 @@ import {
 
 
 import Toast from './Toast';
-import fire from './config/Fire';
-import GroupsNav from './GroupsNav';
+import fire from '../config/Fire';
+import GroupsNav from './Groups/GroupsNav';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon } from '@fortawesome/free-solid-svg-icons';
 
