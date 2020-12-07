@@ -1,5 +1,5 @@
 import React from 'react';
-import fire from './config/Fire';
+import fire from '../config/Fire';
 import firebase from 'firebase/app';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import DeleteCommentButton from './DeleteCommentButton';
 import EditCommentButton from './EditCommentButton';
-import fire from './config/Fire';
+import fire from '../../config/Fire';
 import EditComment from './EditComment';
-import VoteButton from './VoteButton';
+import VoteButton from '../VoteButton';
 import { formatDistanceToNowStrict } from 'date-fns';
 import NewComment from './NewComment';
 export default class CommentTemplate extends React.Component {

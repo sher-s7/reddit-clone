@@ -1,5 +1,5 @@
 import React from 'react';
-import fire from './config/Fire';
+import fire from '../../config/Fire';
 import { withRouter } from 'react-router-dom';
 class DeletePostButton extends React.Component {
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import fire from './config/Fire';
-import PostTemplate from './PostTemplate';
-import Logo from './assets/bread-logo.png';
+import fire from '../config/Fire';
+import PostTemplate from '../Components/Posts/PostTemplate';
+import Logo from '../assets/bread-logo.png';
 
 export default class Feed extends React.Component {
     constructor(props) {

@@ -2,11 +2,11 @@
 import React from 'react';
 import DeletePostButton from './DeletePostButton';
 import { Link, withRouter } from 'react-router-dom';
-import fire from './config/Fire';
+import fire from '../../config/Fire';
 import EditPostButton from './EditPostButton';
-import EditPost from './EditPost';
+import EditPost from '../Modals/EditPost';
 import 'line-awesome/dist/line-awesome/css/line-awesome.min.css'
-import VoteButton from './VoteButton';
+import VoteButton from '../VoteButton';
 import { formatDistanceToNowStrict } from 'date-fns';
 
 class PostTemplate extends React.Component {

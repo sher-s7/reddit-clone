@@ -1,5 +1,5 @@
 import React from 'react';
-import fire from './config/Fire';
+import fire from '../../config/Fire';
 import firebase from 'firebase/app'
 export default class NewComment extends React.Component {
     _isMounted = false;

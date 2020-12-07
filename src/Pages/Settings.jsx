@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react';
-import fire from './config/Fire';
+import fire from '../config/Fire';
 import firebase from 'firebase/app';
 import { withRouter } from 'react-router-dom';
 class Settings extends React.Component {

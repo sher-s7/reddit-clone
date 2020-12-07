@@ -1,7 +1,7 @@
 import React from 'react';
 import Feed from './Feed';
-import NewPost from './NewPost';
-import fire from './config/Fire';
+import NewPost from '../Components/Posts/NewPost';
+import fire from '../config/Fire';
 import { withRouter } from 'react-router-dom';
 
 class SubscribedFeed extends React.Component {

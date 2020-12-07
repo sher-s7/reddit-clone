@@ -6,18 +6,18 @@ import {
   Route,
 } from "react-router-dom";
 
-import Header from './Header';
-import Home from './Home';
-import Group from './Group';
-import Login from './Login';
-import Signup from './Signup';
-import UserProfile from './UserProfile';
-import NewPostModal from './NewPostModal';
-import AllGroups from './AllGroups';
-import Post from './Post';
-import NewGroupModal from './NewGroupModal';
-import Settings from './Settings';
-import SubscribedFeed from './SubscribedFeed';
+import Header from './Components/Header';
+import Home from './Pages/Home';
+import Group from './Pages/Group';
+import Login from './Components/Modals/Login';
+import Signup from './Components/Modals/Signup';
+import UserProfile from './Pages/UserProfile';
+import NewPostModal from './Components/Modals/NewPostModal';
+import AllGroups from './Pages/AllGroups';
+import Post from './Pages/Post';
+import NewGroupModal from './Components/Modals/NewGroupModal';
+import Settings from './Pages/Settings';
+import SubscribedFeed from './Pages/SubscribedFeed';
 
 import { faPlus as NewPostTab } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

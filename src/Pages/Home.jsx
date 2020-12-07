@@ -1,6 +1,6 @@
 import React from 'react';
 import Feed from './Feed';
-import NewPost from './NewPost';
+import NewPost from '../Components/Posts/NewPost';
 
 export default class Home extends React.Component {
     
