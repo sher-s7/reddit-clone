@@ -14,7 +14,21 @@ class PostTemplate extends React.Component {
         super(props);
         this.state = {
             editPost: false,
+            isAdmin: false,
             location: this.props.location,
+        }
+    }
+
+    componentDidMount() {
+        if(this.props.user) {
+            fire.firestore().collection('users').doc(this.props.user.uid).get().then(userRef => userRef.data())
+            .then(data => {
+                if(data) {
+                    if(data.admin) {
+                        this.setState({isAdmin: true})
+                    }
+                }
+            })
         }
     }
 
@@ -90,7 +104,7 @@ class PostTemplate extends React.Component {
                 <h1 className='postTitle'>{this.props.post.data().title}</h1>
                 {this.props.profile ? null : <VoteButton collection='posts' doc={this.props.post} />}
                 {this.generatePost()}
-                {this.props.user && this.props.user.uid === this.props.post.data().uid ? <DeletePostButton profile={this.props.profile} updatePosts={this.props.updatePosts} docId={this.props.post.id} /> : null}
+                {(this.props.user && this.props.user.uid === this.props.post.data().uid) || this.state.isAdmin ? <DeletePostButton profile={this.props.profile} updatePosts={this.props.updatePosts} docId={this.props.post.id} /> : null}
                 <Link className='commentCount' to={`/group/${this.props.post.data().group}/post/${this.props.post.id}`}>{this.props.post.data().commentCount === 1 ? `${this.props.post.data().commentCount} Comment` : `${this.props.post.data().commentCount} Comments`}</Link>
             </div>
 
