@@ -93,7 +93,15 @@ class Header extends React.Component {
             </div>
           </div> :
           (<div><button onClick={() => this.props.setModal('login')} id='loginButton'>LOGIN</button> <button onClick={() => this.props.setModal('signup')} id='signupButton'>SIGN UP</button></div>)}
-          <button id='darkModeToggle' onClick={() => document.body.classList.toggle('dark-mode')}><FontAwesomeIcon icon={faMoon}/></button>
+          <button id='darkModeToggle' onClick={() => {
+              document.body.classList.contains('dark-mode') ? 
+              localStorage.setItem('darkMode', false) : 
+              localStorage.setItem('darkMode', true);
+
+              document.body.classList.toggle('dark-mode');
+            }}>
+              <FontAwesomeIcon icon={faMoon}/>
+          </button>
       </header>
     );
   }

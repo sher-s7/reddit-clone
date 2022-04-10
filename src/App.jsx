@@ -43,6 +43,8 @@ export default class App extends React.Component {
   componentDidMount() {
     this.authListener();
     this.fetchPosts();
+    const darkMode = localStorage.getItem('darkMode');
+    darkMode === 'true' ? document.body.classList.add('dark-mode') : document.body.classList.remove('dark-mode')
   }
 
 
