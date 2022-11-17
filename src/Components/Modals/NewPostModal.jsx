@@ -47,7 +47,7 @@ class NewPostModal extends React.Component {
             this.props.setModal();
         }
     }
-    dislpayModal = () => {
+    displayModal = () => {
         if (this.state.tab === 'text') {
             return <TextPostModal updateView={this.props.updateView} setModal={this.props.setModal} selectedGroup={this.state.selectedGroup} />;
         } else if (this.state.tab === 'image') {
@@ -78,7 +78,7 @@ class NewPostModal extends React.Component {
                         <option key={group} value={group}>{group}</option>
                     )}
                 </select>
-                {this.dislpayModal()}
+                {this.displayModal()}
             </div>
         );
     }

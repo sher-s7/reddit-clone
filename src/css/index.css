@@ -139,6 +139,35 @@ textarea {
   resize: vertical;
 }
 
+#note {
+  width: 300px;
+  position: fixed;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--bread);
+  color: var(--buttonColor);
+  font-size: 16px;
+  padding: 10px 30px 10px 15px;
+  border: 1px solid var(--border);
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+  font-family: "Roboto Slab", serif;
+  z-index: 9999;
+}
+
+#note a {
+  color: var(--buttonColor);
+  text-decoration: underline;
+}
+
+#note button {
+  color: var(--buttonColor);
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 5px 10px 10px;
+}
+
 /*
 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Navigation _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
@@ -1539,6 +1568,14 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ Modals _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 }
 
 @media (min-width: 768px) {
+  #note {
+    bottom: 30px;
+    left: 30px;
+    transform: none;
+    width: 310px;
+    font-size: 18px;
+  }
+
   .feedContainer {
     width: 640px;
     margin: 0 auto;

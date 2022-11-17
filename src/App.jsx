@@ -35,6 +35,7 @@ export default class App extends React.Component {
       disableLoadMore: false,
       scrollPostButton: 'hidden',
       scrollY: 0,
+      showNote: true
     }
     this.props.hideLoader();
     this.authListener = this.authListener.bind(this);
@@ -151,6 +152,12 @@ export default class App extends React.Component {
         <Header updateView={this.updateView} authListener={this.authListener} user={this.state.currentUser} setModal={this.setModal} />
         {this.state.modal}
         <button id='scrollPostButton' className={this.state.scrollPostButton} onClick={() => this.setModal('text')}><FontAwesomeIcon icon={NewPostTab} /></button>
+        <div id="note" className={this.state.showNote ? '' : 'hidden'}>
+          Note: I don't moderate this site very often. 
+          If you see any offensive content you can let me know by contacting me at {" "}
+          <a href="https://www.shers.dev/">www.shers.dev</a>
+          <button onClick={() => this.setState({showNote: false})}>x</button>
+        </div>
         <Switch>
           <Route exact path='/'>
             <Home hideNewPostButton={this.hideNewPostButton} showNewPostButton={this.showNewPostButton} showLoader={this.props.showLoader} hideLoader={this.props.hideLoader} updatePosts={this.fetchPosts} disableLoadMore={this.state.disableLoadMore} loadMore={this.fetchNextPosts} posts={this.state.posts ? this.state.posts : null} setModal={this.setModal} />
