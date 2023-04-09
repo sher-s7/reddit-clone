@@ -151,7 +151,6 @@ textarea {
   padding: 10px 30px 10px 15px;
   border: 1px solid var(--border);
   transition: opacity 0.15s ease, visibility 0.15s ease;
-  font-family: "Roboto Slab", serif;
   z-index: 9999;
 }
 

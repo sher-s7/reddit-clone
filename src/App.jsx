@@ -155,7 +155,7 @@ export default class App extends React.Component {
         <div id="note" className={this.state.showNote ? '' : 'hidden'}>
           Note: I don't moderate this site very often. 
           If you see any offensive content you can let me know by contacting me at {" "}
-          <a href="https://www.shers.dev/">www.shers.dev</a>
+          <a href="https://www.shers.dev/" target='__blank' rel='noopener noreferrer'>www.shers.dev</a>
           <button onClick={() => this.setState({showNote: false})}>x</button>
         </div>
         <Switch>
